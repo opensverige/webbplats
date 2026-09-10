@@ -296,43 +296,37 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
   .bt .n{left:-36px;width:14px}
   .bt::before{left:-16px}
 }
-/* Bubblan: iriserande såphinna. Konisk gradient ger hueskiftet runt
-   omkretsen som filminterferens gör på riktigt, radiell ger glansdanken.
-   Bara transform animeras — gradienter och box-shadow repaintar per bildruta.
-   oklch faller tillbaka till ren --ink i äldre motorer. */
-.loop{position:relative;isolation:isolate;overflow:hidden;
-  background:var(--ink);border-radius:14px;padding:24px 26px;
-  box-shadow:inset 0 0 0 1px oklch(.88 .07 30/.3),
-    inset 0 1px 0 oklch(1 0 0/.16),
-    inset -16px -20px 44px oklch(.8 .12 200/.09),
-    inset 16px 18px 40px oklch(.5 .1 320/.13),
-    0 0 40px -16px oklch(.84 .1 40/.34)}
+/* Bubblan som ett macOS-fönster. Metaforen ÄR en ensam chattruta, så
+   fönsterramen gör den läsbar direkt. Skuggan är lagrad som i macOS:
+   en tät kontaktskugga närmast kanten och en bred ambient som lyfter
+   hela panelen ur flödet. Inget animeras — ytan ska stå still. */
+.loop{position:relative;border-radius:11px;background:var(--ink);overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),
+    0 0 0 1px rgba(0,0,0,.5),
+    0 2px 4px rgba(0,0,0,.15),
+    0 14px 30px -10px rgba(0,0,0,.3),
+    0 44px 88px -28px rgba(0,0,0,.52)}
+/* Glaset i Sonomas kontroller är i grunden en enda ljuskälla ovanifrån. */
+.loop::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 42%)}
 .loop > *{position:relative;z-index:1}
-.loop::before,.loop::after{content:"";position:absolute;pointer-events:none;z-index:0}
-.loop::before{inset:-48%;mix-blend-mode:screen;
-  background:conic-gradient(from 200deg,
-    oklch(.70 .15 25/.17),oklch(.66 .16 330/.19),
-    oklch(.74 .13 95/.11),oklch(.68 .14 205/.16),
-    oklch(.70 .15 25/.17));
-  animation:hinna 38s linear infinite}
-/* Glansdanken ligger i den tomma ytan till höger, inte på etiketten. Första
-   lagret målas överst, så mittskärmen sist skyddar textens kontrast underifrån
-   och låter hinnan lysa starkast vid kanten. */
-.loop::after{inset:0;background:
-    radial-gradient(circle at 73% 15%,oklch(1 0 0/.6) 0 1%,oklch(1 0 0/.13) 3.2%,transparent 6.2%),
-    radial-gradient(ellipse 26% 22% at 75% 18%,oklch(1 0 0/.12) 0 28%,transparent 76%),
-    radial-gradient(ellipse 44% 34% at 95% 94%,oklch(.84 .13 200/.17),transparent 70%),
-    radial-gradient(ellipse 28% 22% at 86% 104%,oklch(.8 .15 330/.15),transparent 72%),
-    radial-gradient(ellipse 64% 64% at 32% 48%,
-      oklch(.155 .012 265/.7) 0 42%,oklch(.155 .012 265/.24) 78%,transparent 100%)}
-@keyframes hinna{to{transform:rotate(1turn)}}
-@media(prefers-reduced-motion:reduce){.loop::before{animation:none}}
-.loopl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#ff7a4d;margin-bottom:14px}
-.loop ol{list-style:none}
+.wbar{position:relative;display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;
+  /* glansstrimman ligger på övre halvan, som på Sonomas kontroller */
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,0) 52%),
+    linear-gradient(180deg,#343437,#272728);
+  border-bottom:1px solid rgba(0,0,0,.62)}
+.tlg{width:12px;height:12px;border-radius:50%;flex:none;
+  box-shadow:inset 0 0 0 .5px rgba(0,0,0,.2),inset 0 1px .5px rgba(255,255,255,.4)}
+.tlg.r{background:#ff5f57}
+.tlg.y{background:#febc2e}
+.tlg.g{background:#28c840}
+/* Centrerad titel som i ett riktigt fönster, men i sajtens mono. */
+.ttl{position:absolute;left:0;right:0;text-align:center;font-family:var(--mono);
+  font-size:11px;letter-spacing:.04em;color:#a9a49e;pointer-events:none}
+.loop ol{list-style:none;padding:22px 26px 26px}
 /* 24px är WCAG:s gräns för stor text. Under den gäller 4.5:1 istället för 3:1. */
 .loop li{font-family:var(--serif);font-size:clamp(24px,5vw,32px);line-height:1.2;color:#fff}
-/* Tonen är mätt mot filmens ljusaste rotationsfas, inte mot ren --ink. */
-.loop li:nth-child(n+4){color:#847e75}
+.loop li:nth-child(n+4){color:#767068}
 /* Kursiven är reserverad för en enda vändning i hela sektionen. */
 .st{font-size:clamp(26px,5.4vw,40px);font-weight:700;letter-spacing:-.036em;line-height:1.08;color:var(--ink)}
 .st em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.018em}
@@ -735,7 +729,10 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
           <div class="bt rv">
             <div class="n" aria-hidden="true">01</div>
             <div class="loop">
-              <div class="loopl">Bubblan</div>
+              <div class="wbar">
+                <span class="tlg r"></span><span class="tlg y"></span><span class="tlg g"></span>
+                <span class="ttl">Bubblan</span>
+              </div>
               <ol>
                 <li>Prompta.</li><li>Få beröm.</li><li>Prompta igen.</li>
                 <li>Shippa aldrig.</li><li>Tro att idén är guld.</li><li>Vakta den som Gollum.</li>
