@@ -887,9 +887,14 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
    statusuppdelning, den skulle aldrig kunna summera till presence_count. */
 (function(){
   var tick=document.querySelector('.tick');
+  var url='https://discord.com/api/guilds/1466847548864987289/widget.json';
   function esc(s){var e=document.createElement('div');e.textContent=s;return e.innerHTML}
-  fetch('https://discord.com/api/guilds/1466847548864987289/widget.json')
-    .then(function(r){if(!r.ok)throw 0;return r.json()})
+  function hamta(){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.json()})}
+  /* Discord svarar 429 när anropen kommer tätt, och en delad utgående IP
+     (kontor, skola, mobilnät) kan råka ut för det på en helt vanlig laddning.
+     Ett omtag efter en paus räcker i praktiken. */
+  hamta()
+    .catch(function(){return new Promise(function(k){setTimeout(k,1400)}).then(hamta)})
     .then(function(d){
       var n=d.presence_count,m=d.members||[];
       if(typeof n!=='number')throw 0;
