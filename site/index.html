@@ -388,10 +388,11 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .stack{margin-top:20px}
 .stack .sl{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
   color:var(--faint);padding:0 var(--gut) 11px}
-.slogos{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+/* Kolumnantalet måste dela logotypantalet jämnt. Annars blir sista raden
+   ofylld och ul:ens hårstrecksbakgrund lyser igenom som grå block. 10 st. */
+.slogos{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
   background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
-@media(min-width:520px){.slogos{grid-template-columns:repeat(4,1fr)}}
-@media(min-width:760px){.slogos{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:520px){.slogos{grid-template-columns:repeat(5,1fr)}}
 .slogos li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
   background:var(--surface);padding:18px 8px;transition:background var(--t)}
 .slogos li:hover{background:#f6f4f0}
@@ -785,8 +786,6 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
           <li><img src="/assets/logos/claude.svg" alt="Claude" width="26" height="26" loading="lazy"><b>Claude</b></li>
           <li><img src="/assets/logos/openai.svg" alt="OpenAI" width="26" height="26" loading="lazy"><b>OpenAI</b></li>
           <li><img src="/assets/logos/cursor.svg" alt="Cursor" width="26" height="26" loading="lazy"><b>Cursor</b></li>
-          <li><img src="/assets/logos/windsurf.svg" alt="Windsurf" width="26" height="26" loading="lazy"><b>Windsurf</b></li>
-          <li><img src="/assets/logos/v0.svg" alt="v0" width="26" height="26" loading="lazy"><b>v0</b></li>
           <li><img src="/assets/logos/perplexity.svg" alt="Perplexity" width="26" height="26" loading="lazy"><b>Perplexity</b></li>
           <li><img src="/assets/logos/crewai.svg" alt="CrewAI" width="26" height="26" loading="lazy"><b>CrewAI</b></li>
           <li><img src="/assets/logos/langgraph.svg" alt="LangGraph" width="26" height="26" loading="lazy"><b>LangGraph</b></li>
