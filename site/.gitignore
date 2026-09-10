@@ -1,1 +1,5 @@
 .vercel
+
+# Logotyperna är tredjepartsmaterial och ingår inte i det publika repot.
+# De ligger kvar lokalt och följer med i deployen — se README.
+assets/logos/

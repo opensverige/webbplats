@@ -1,0 +1,5 @@
+# Finns för att Vercel annars faller tillbaka på .gitignore, som utesluter
+# assets/logos/. Logotyperna ska inte ligga i det publika repot men måste
+# följa med i deployen, annars går logotypremsan sönder på sajten.
+.vercel
+robots.txt.prod

@@ -45,5 +45,11 @@ Bloggposter och sidor ligger som HTML i `site/`. Vill du bidra med ett gästinl�
 
 ## Om logotyperna
 
-Logotyperna i `site/assets/logos/` är respektive företags varumärken och används
-enbart för att identifiera verktygen. De ingår inte i något fritt användande.
+Logotypremsan under Labs-kortet läser tio SVG:er ur `site/assets/logos/`.
+De filerna ingår inte i repot — de är tredjepartsmaterial vi inte har rätt att
+sprida vidare. Klonar du repot saknas de, och strimman visar filnamnen som
+alternativtext i stället för bilder. Sajten fungerar i övrigt som vanligt.
+
+Vill du köra den med logotyper får du lägga egna SVG:er i `site/assets/logos/`
+med namnen som står i `site/index.html`. [Simple Icons](https://simpleicons.org)
+har de flesta märkena under CC0.
