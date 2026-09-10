@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "bygg-spel-med-ai",
+    "titel": "Bygg ett spel med AI på en vecka",
+    "datum": "2026-06-10",
+    "datum_kort": "10 jun",
+    "lastid": 3,
+    "beskrivning": "Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.",
+    "taggar": [
+      "guide",
+      "hackathon",
+      "spelutveckling",
+      "vibecoding"
+    ],
+    "forfattare": "opensverige"
+  },
+  {
+    "slug": "gollum-testet",
+    "titel": "Gollum-testet — vilken typ av builder är du?",
+    "datum": "2026-03-23",
+    "datum_kort": "23 mar",
+    "lastid": 1,
+    "beskrivning": "Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på nio frågor som visar vilken typ av AI-builder du faktiskt är.",
+    "taggar": [
+      "ai",
+      "builders",
+      "verktyg"
+    ],
+    "forfattare": "baltsar"
+  },
+  {
+    "slug": "fortnox-agent-guide",
+    "titel": "Koppla Fortnox till din AI-agent",
+    "datum": "2026-03-18",
+    "datum_kort": "18 mar",
+    "lastid": 1,
+    "beskrivning": "Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.",
+    "taggar": [
+      "guide",
+      "fortnox",
+      "openclaw"
+    ],
+    "forfattare": "anonym"
+  },
+  {
+    "slug": "vad-ar-ai-agenter",
+    "titel": "Vad är AI-agenter?",
+    "datum": "2026-03-10",
+    "datum_kort": "10 mar",
+    "lastid": 1,
+    "beskrivning": "En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.",
+    "taggar": [
+      "intro",
+      "agenter"
+    ],
+    "forfattare": "baltsar"
+  },
+  {
+    "slug": "mcp-vs-rest",
+    "titel": "MCP vs REST — när ska du använda vad?",
+    "datum": "2026-02-28",
+    "datum_kort": "28 feb",
+    "lastid": 1,
+    "beskrivning": "REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.",
+    "taggar": [
+      "mcp",
+      "arkitektur"
+    ],
+    "forfattare": "anonym"
+  }
+]

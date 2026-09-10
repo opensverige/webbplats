@@ -1,27 +1,27 @@
 <!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MCP vs REST — när ska du använda vad? | opensverige</title>
-<meta name="description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
-<link rel="canonical" href="https://opensverige.se/blogg/mcp-vs-rest">
+<title>Vad är AI-agenter? | opensverige</title>
+<meta name="description" content="En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.">
+<link rel="canonical" href="https://opensverige.se/blogg/vad-ar-ai-agenter">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="theme-color" content="#fbfaf7">
-<meta name="author" content="anonym">
+<meta name="author" content="baltsar">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="opensverige">
 <meta property="og:locale" content="sv_SE">
-<meta property="og:title" content="MCP vs REST — när ska du använda vad?">
-<meta property="og:description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
-<meta property="og:url" content="https://opensverige.se/blogg/mcp-vs-rest">
+<meta property="og:title" content="Vad är AI-agenter?">
+<meta property="og:description" content="En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.">
+<meta property="og:url" content="https://opensverige.se/blogg/vad-ar-ai-agenter">
 <meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="article:published_time" content="2026-02-28">
-<meta property="article:author" content="anonym">
-<meta property="article:tag" content="mcp">
-<meta property="article:tag" content="arkitektur">
+<meta property="article:published_time" content="2026-03-10">
+<meta property="article:author" content="baltsar">
+<meta property="article:tag" content="intro">
+<meta property="article:tag" content="agenter">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MCP vs REST — när ska du använda vad?">
-<meta name="twitter:description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
+<meta name="twitter:title" content="Vad är AI-agenter?">
+<meta name="twitter:description" content="En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.">
 <meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
@@ -111,18 +111,18 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
   "@graph": [
     {
       "@type": "BlogPosting",
-      "@id": "https://opensverige.se/blogg/mcp-vs-rest#post",
-      "headline": "MCP vs REST — när ska du använda vad?",
-      "description": "REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.",
-      "url": "https://opensverige.se/blogg/mcp-vs-rest",
-      "datePublished": "2026-02-28",
-      "dateModified": "2026-02-28",
+      "@id": "https://opensverige.se/blogg/vad-ar-ai-agenter#post",
+      "headline": "Vad är AI-agenter?",
+      "description": "En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.",
+      "url": "https://opensverige.se/blogg/vad-ar-ai-agenter",
+      "datePublished": "2026-03-10",
+      "dateModified": "2026-03-10",
       "inLanguage": "sv-SE",
-      "wordCount": 144,
-      "keywords": "mcp, arkitektur",
+      "wordCount": 134,
+      "keywords": "intro, agenter",
       "author": {
         "@type": "Person",
-        "name": "anonym"
+        "name": "baltsar"
       },
       "publisher": {
         "@id": "https://opensverige.se/#organization"
@@ -132,7 +132,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://opensverige.se/blogg/mcp-vs-rest"
+        "@id": "https://opensverige.se/blogg/vad-ar-ai-agenter"
       },
       "image": {
         "@type": "ImageObject",
@@ -143,7 +143,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://opensverige.se/blogg/mcp-vs-rest#breadcrumb",
+      "@id": "https://opensverige.se/blogg/vad-ar-ai-agenter#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -160,7 +160,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "MCP vs REST — när ska du använda vad?"
+          "name": "Vad är AI-agenter?"
         }
       ]
     }
@@ -176,35 +176,29 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 </header>
 
 <article class="prose">
-  <div class="kicker">MCP · Arkitektur</div>
-  <h1>MCP vs REST — när ska du använda vad?</h1>
-  <div class="byline"><span>anonym</span><span class="d">·</span><span>28 feb 2026</span><span class="d">·</span><span>1 min</span></div>
+  <div class="kicker">Intro · Agenter</div>
+  <h1>Vad är AI-agenter?</h1>
+  <div class="byline"><span>baltsar</span><span class="d">·</span><span>10 mar 2026</span><span class="d">·</span><span>1 min</span></div>
 
   <div class="answer">
-    <div class="l">Kort svar</div>
-    <p>REST är för human-to-machine. MCP är för agent-to-tool.</p>
+    <div class="l">Den korta versionen</div>
+    <p>En AI-agent är ett program som agerar självständigt. Inte en chatbot som väntar på din input — en agent som planerar, beslutar och utför.</p>
   </div>
 
-  <h2>REST</h2>
-  <p>REST-API:er är designade för programmerare att använda. Du vet exakt vilka endpoints som finns, vilka parametrar de tar och vad de returnerar.</p>
-  <p>Problemet: din AI-agent vet inte det. Den måste gissa eller ha dokumentationen injektad i sin kontext.</p>
-  <h2>MCP</h2>
-  <p>Model Context Protocol ger agenten ett standardiserat sätt att utforska och använda verktyg — utan att du behöver hårdkoda varje API-anrop.</p>
-  <pre><code>{
-  "tools": [
-    {
-      "name": "list_invoices",
-      "description": "Lista fakturor för ett företag",
-      "inputSchema": { "type": "object", "properties": { "status": { "type": "string" } } }
-    }
-  ]
-}</code></pre>
-  <p>Agenten läser detta, förstår vad verktyget gör och anropar det korrekt — utan att du behöver skriva en rad extra kod.</p>
-  <h2>Tumregel</h2>
-  <ul><li>Bygger du för en människa? Använd REST.</li><li>Bygger du för en agent? Använd MCP.</li><li>Har du REST redan och vill ge agenter tillgång? Bygg ett MCP-lager ovanpå.</li></ul>
+  <h2>Skillnaden mot en chatbot</h2>
+  <p>En chatbot svarar. En agent agerar.</p>
+  <p>Du frågar chatboten: "Vad kostar det att skicka ett paket?" Du ber agenten: "Boka billigaste leveransen för paketet till kund #4421."</p>
+  <p>Agenten väljer fraktbolag, jämför priser, bokar, bekräftar och rapporterar tillbaka.</p>
+  <h2>Vad gör en agent möjlig?</h2>
+  <p>Tre saker:</p>
+  <ol><li><b>Verktyg</b> — agenten kan anropa API:er, läsa databaser, skicka mail</li><li><b>Minne</b> — agenten kommer ihåg vad som hänt tidigare</li><li><b>Planering</b> — agenten kan dela upp ett mål i delmål</li></ol>
+  <h2>Multi-agent-system</h2>
+  <p>En agent är kraftfull. Flera agenter som samarbetar är transformativa.</p>
+  <p>En agent hämtar data från SCB. En annan analyserar. En tredje skriver rapport. En fjärde skickar den.</p>
+  <p>Det är vad vi bygger i opensverige.</p>
 
   <hr>
-  <div class="author"><div class="av">an</div><div><div class="n">anonym</div><div class="r">opensverige · publicerat 28 feb 2026</div></div></div>
+  <div class="author"><div class="av">ba</div><div><div class="n">baltsar</div><div class="r">opensverige · publicerat 10 mar 2026</div></div></div>
 </article>
 
 <div class="mcta" id="mcta">

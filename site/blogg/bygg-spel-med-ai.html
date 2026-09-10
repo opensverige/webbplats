@@ -1,27 +1,29 @@
 <!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MCP vs REST — när ska du använda vad? | opensverige</title>
-<meta name="description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
-<link rel="canonical" href="https://opensverige.se/blogg/mcp-vs-rest">
+<title>Bygg ett spel med AI på en vecka | opensverige</title>
+<meta name="description" content="Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.">
+<link rel="canonical" href="https://opensverige.se/blogg/bygg-spel-med-ai">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="theme-color" content="#fbfaf7">
-<meta name="author" content="anonym">
+<meta name="author" content="opensverige">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="opensverige">
 <meta property="og:locale" content="sv_SE">
-<meta property="og:title" content="MCP vs REST — när ska du använda vad?">
-<meta property="og:description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
-<meta property="og:url" content="https://opensverige.se/blogg/mcp-vs-rest">
+<meta property="og:title" content="Bygg ett spel med AI på en vecka">
+<meta property="og:description" content="Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.">
+<meta property="og:url" content="https://opensverige.se/blogg/bygg-spel-med-ai">
 <meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="article:published_time" content="2026-02-28">
-<meta property="article:author" content="anonym">
-<meta property="article:tag" content="mcp">
-<meta property="article:tag" content="arkitektur">
+<meta property="article:published_time" content="2026-06-10">
+<meta property="article:author" content="opensverige">
+<meta property="article:tag" content="guide">
+<meta property="article:tag" content="hackathon">
+<meta property="article:tag" content="spelutveckling">
+<meta property="article:tag" content="vibecoding">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MCP vs REST — när ska du använda vad?">
-<meta name="twitter:description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
+<meta name="twitter:title" content="Bygg ett spel med AI på en vecka">
+<meta name="twitter:description" content="Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.">
 <meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
@@ -111,18 +113,18 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
   "@graph": [
     {
       "@type": "BlogPosting",
-      "@id": "https://opensverige.se/blogg/mcp-vs-rest#post",
-      "headline": "MCP vs REST — när ska du använda vad?",
-      "description": "REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.",
-      "url": "https://opensverige.se/blogg/mcp-vs-rest",
-      "datePublished": "2026-02-28",
-      "dateModified": "2026-02-28",
+      "@id": "https://opensverige.se/blogg/bygg-spel-med-ai#post",
+      "headline": "Bygg ett spel med AI på en vecka",
+      "description": "Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.",
+      "url": "https://opensverige.se/blogg/bygg-spel-med-ai",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-06-10",
       "inLanguage": "sv-SE",
-      "wordCount": 144,
-      "keywords": "mcp, arkitektur",
+      "wordCount": 567,
+      "keywords": "guide, hackathon, spelutveckling, vibecoding",
       "author": {
         "@type": "Person",
-        "name": "anonym"
+        "name": "opensverige"
       },
       "publisher": {
         "@id": "https://opensverige.se/#organization"
@@ -132,7 +134,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://opensverige.se/blogg/mcp-vs-rest"
+        "@id": "https://opensverige.se/blogg/bygg-spel-med-ai"
       },
       "image": {
         "@type": "ImageObject",
@@ -143,7 +145,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://opensverige.se/blogg/mcp-vs-rest#breadcrumb",
+      "@id": "https://opensverige.se/blogg/bygg-spel-med-ai#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -160,7 +162,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "MCP vs REST — när ska du använda vad?"
+          "name": "Bygg ett spel med AI på en vecka"
         }
       ]
     }
@@ -172,39 +174,44 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 
 <header class="top">
   <a class="back" href="/blogg">← Blogg</a>
-  <span class="rt">1 min</span>
+  <span class="rt">3 min</span>
 </header>
 
 <article class="prose">
-  <div class="kicker">MCP · Arkitektur</div>
-  <h1>MCP vs REST — när ska du använda vad?</h1>
-  <div class="byline"><span>anonym</span><span class="d">·</span><span>28 feb 2026</span><span class="d">·</span><span>1 min</span></div>
+  <div class="kicker">Guide · Hackathon</div>
+  <h1>Bygg ett spel med AI på en vecka</h1>
+  <div class="byline"><span>opensverige</span><span class="d">·</span><span>10 jun 2026</span><span class="d">·</span><span>3 min</span></div>
 
-  <div class="answer">
-    <div class="l">Kort svar</div>
-    <p>REST är för human-to-machine. MCP är för agent-to-tool.</p>
-  </div>
-
-  <h2>REST</h2>
-  <p>REST-API:er är designade för programmerare att använda. Du vet exakt vilka endpoints som finns, vilka parametrar de tar och vad de returnerar.</p>
-  <p>Problemet: din AI-agent vet inte det. Den måste gissa eller ha dokumentationen injektad i sin kontext.</p>
-  <h2>MCP</h2>
-  <p>Model Context Protocol ger agenten ett standardiserat sätt att utforska och använda verktyg — utan att du behöver hårdkoda varje API-anrop.</p>
-  <pre><code>{
-  "tools": [
-    {
-      "name": "list_invoices",
-      "description": "Lista fakturor för ett företag",
-      "inputSchema": { "type": "object", "properties": { "status": { "type": "string" } } }
-    }
-  ]
-}</code></pre>
-  <p>Agenten läser detta, förstår vad verktyget gör och anropar det korrekt — utan att du behöver skriva en rad extra kod.</p>
-  <h2>Tumregel</h2>
-  <ul><li>Bygger du för en människa? Använd REST.</li><li>Bygger du för en agent? Använd MCP.</li><li>Har du REST redan och vill ge agenter tillgång? Bygg ett MCP-lager ovanpå.</li></ul>
+  <p class="lead">Hackathonet pågår: ett litet, spelbart spel på en vecka. Med AI som medbyggare hinner du längre än du tror — om du orkestrerar istället för att skriva varje rad själv. Här är verktygslådan och arbetsflödet vi rekommenderar, anpassat efter <a href="/hackathon#rules">reglerna</a>: bygg under veckan, håll det spelbart, lägg koden öppet. Öppen källkod väger extra.</p>
+  <h2>Vibecoding på 30 sekunder</h2>
+  <p>"Vibecoding" betyder att du blir orkestrator: idé → AI-förslag → implementation → iteration. Du beskriver vad du vill, AI:n skriver koden, du styr och verifierar.</p>
+  <p>Två fällor att undvika:</p>
+  <ul><li><b>Förberedelse-prokrastinering.</b> Att pyssla med verktyg känns produktivt — men inget skeppas. Sätt en timer och börja bygga.</li><li><b>Teknisk skuld i farten.</b> AI genererar kod snabbt och glömmer tester. Håll scopet litet och committa ofta.</li></ul>
+  <h2>Håll AI i koppel: Karpathy-reglerna</h2>
+  <p>AI:n vill gärna överarbeta och "förbättra" kod du aldrig bad om. Lägg <a href="https://github.com/multica-ai/andrej-karpathy-skills" rel="noopener">Karpathy-reglerna</a> i en <code>CLAUDE.md</code> eller <code>AGENTS.md</code> så håller agenten sig till jobbet:</p>
+  <ol><li><b>Tänk före kod.</b> Be agenten redovisa sina antaganden innan den skriver något.</li><li><b>Enkelhet först.</b> Kortaste lösningen som funkar — ingen spekulativ abstraktion.</li><li><b>Kirurgiska ingrepp.</b> Rör bara raderna som behövs. Ingen "drive-by"-refaktorering.</li><li><b>Målstyrd exekvering.</b> Definiera målet som ett test: skriv test, fixa, verifiera.</li></ol>
+  <h2>Välj din stack</h2>
+  <h3>Webb (rekommenderat) — Kaplay</h3>
+  <p>Ett spel som körs i webbläsaren är lättast att lämna in och får flest att testa och rösta. <a href="https://github.com/kaplayjs/kaplay" rel="noopener">Kaplay</a> — efterföljaren till Kaboom.js — har ett pyttekompakt API som AI:n kan utantill, perfekt för 2D-plattformare och pussel.</p>
+  <ul><li>Starta från <a href="https://github.com/remarkablegames/kaplay-template" rel="noopener">remarkablegames/kaplay-template</a>: Vite med hot reload, och <code>npm run bundle</code> zippar spelet redo för itch.io.</li><li><a href="https://github.com/HermeticOrmus/claude-code-game-development" rel="noopener">claude-code-game-development</a> är ett referensbibliotek med mönster för rendering, ljud, NPC:er och procedurgenerering — allt med körbar kod.</li></ul>
+  <h3>Spelmotor — Godot + MCP</h3>
+  <p>Vill du ha en riktig motor kopplar du Claude direkt till Godot via MCP (Model Context Protocol):</p>
+  <ul><li><a href="https://github.com/hi-godot/godot-ai" rel="noopener">hi-godot/godot-ai</a> — 120+ verktyg, live-editor, och kan ta skärmdumpar så att AI:n faktiskt <em>ser</em> vad den bygger.</li><li><a href="https://github.com/n24q02m/better-godot-mcp" rel="noopener">better-godot-mcp</a> — token-snål med 17 "mega-verktyg", stark för terminalagenter som Claude Code.</li></ul>
+  <h2>Grafik utan att rita</h2>
+  <p>Grafik brukar vara flaskhalsen under ett hackathon. Låt AI:n ta den:</p>
+  <ul><li><a href="https://github.com/GAlbanese09/spritebrew" rel="noopener">SpriteBrew</a> — text till pixel-sprites i 21 stilar, och "Animate My Character" genererar gång, attack och hopp automatiskt. Export redo för Godot och Unity.</li><li><a href="https://github.com/Kavex/Spritesheet-Maker" rel="noopener">Spritesheet-Maker</a> — packa lösa bilder till ett ark plus JSON-metadata, så koden kan plocka rätt ruta utan hårdkodade värden.</li><li><a href="https://github.com/HermeticOrmus/LibreUIUX-Claude-Code" rel="noopener">LibreUIUX</a> — får Claude att bygga snyggt UI med exakta Tailwind-värden istället för vaga "gör det finare".</li></ul>
+  <p>Fler verktyg finns i <a href="/hackathon#resources">hackathonets resurser</a>.</p>
+  <h2>Arbetsflödet, fas för fas</h2>
+  <p><b>Timme 0–1 · Sätt ramarna.</b> Klona en mall och kopiera in <code>starter-template/</code> från <a href="https://github.com/plamen5rov/vibe-coding-playbook" rel="noopener">vibe-coding-playbook</a>. Fyll i <code>PROJECT.md</code> (tema, stack, känsla) och <code>TASKS.md</code> med mätbara delmål: "lägg till gravitation", "bygg poängsystem".</p>
+  <p><b>Löpande · Bygg i små steg.</b></p>
+  <ul><li>Be agenten planera och redovisa antaganden innan den kodar.</li><li>En liten funktion i taget, sedan <code>git commit</code> direkt. AI:n bryter ofta fungerande kod vid nästa prompt — täta commits är ditt skyddsnät.</li><li>Rensa kontexten (<code>/clear</code>) mellan funktioner så gammal debug-kod inte spökar.</li></ul>
+  <p><b>Vid buggar · Förklara-före-lösning.</b> Be AI:n förklara <em>varför</em> felet sker ("varför faller spelaren genom plattformen?") innan den fixar. Fastnar den i en loop som rör till koden? Kör <code>git revert</code> till senaste stabila punkt och ta om med nya begränsningar.</p>
+  <h2>Checklista inför inlämning</h2>
+  <ul><li>Byggt <b>under veckan</b> — förbyggda spel räknas inte</li><li><b>Spelbart</b> — minst en loop eller nivå</li><li>Koden <b>öppen på GitHub</b> (väger extra hos juryn)</li><li>Helst spelbart i webbläsaren, så fler hinner rösta</li><li>Inlämnat i kanalen senast <b>söndag 14 juni kl 00:00</b></li></ul>
+  <p>Allt om regler, kriterier och priser finns på <a href="/hackathon">hackathon-sidan</a>. Lycka till — vi ses i Discord.</p>
 
   <hr>
-  <div class="author"><div class="av">an</div><div><div class="n">anonym</div><div class="r">opensverige · publicerat 28 feb 2026</div></div></div>
+  <div class="author"><div class="av">op</div><div><div class="n">opensverige</div><div class="r">opensverige · publicerat 10 jun 2026</div></div></div>
 </article>
 
 <div class="mcta" id="mcta">

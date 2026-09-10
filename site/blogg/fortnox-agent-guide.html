@@ -1,27 +1,28 @@
 <!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MCP vs REST — när ska du använda vad? | opensverige</title>
-<meta name="description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
-<link rel="canonical" href="https://opensverige.se/blogg/mcp-vs-rest">
+<title>Koppla Fortnox till din AI-agent | opensverige</title>
+<meta name="description" content="Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.">
+<link rel="canonical" href="https://opensverige.se/blogg/fortnox-agent-guide">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="anonym">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="opensverige">
 <meta property="og:locale" content="sv_SE">
-<meta property="og:title" content="MCP vs REST — när ska du använda vad?">
-<meta property="og:description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
-<meta property="og:url" content="https://opensverige.se/blogg/mcp-vs-rest">
+<meta property="og:title" content="Koppla Fortnox till din AI-agent">
+<meta property="og:description" content="Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.">
+<meta property="og:url" content="https://opensverige.se/blogg/fortnox-agent-guide">
 <meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="article:published_time" content="2026-02-28">
+<meta property="article:published_time" content="2026-03-18">
 <meta property="article:author" content="anonym">
-<meta property="article:tag" content="mcp">
-<meta property="article:tag" content="arkitektur">
+<meta property="article:tag" content="guide">
+<meta property="article:tag" content="fortnox">
+<meta property="article:tag" content="openclaw">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MCP vs REST — när ska du använda vad?">
-<meta name="twitter:description" content="REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.">
+<meta name="twitter:title" content="Koppla Fortnox till din AI-agent">
+<meta name="twitter:description" content="Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.">
 <meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
@@ -111,15 +112,15 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
   "@graph": [
     {
       "@type": "BlogPosting",
-      "@id": "https://opensverige.se/blogg/mcp-vs-rest#post",
-      "headline": "MCP vs REST — när ska du använda vad?",
-      "description": "REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.",
-      "url": "https://opensverige.se/blogg/mcp-vs-rest",
-      "datePublished": "2026-02-28",
-      "dateModified": "2026-02-28",
+      "@id": "https://opensverige.se/blogg/fortnox-agent-guide#post",
+      "headline": "Koppla Fortnox till din AI-agent",
+      "description": "Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.",
+      "url": "https://opensverige.se/blogg/fortnox-agent-guide",
+      "datePublished": "2026-03-18",
+      "dateModified": "2026-03-18",
       "inLanguage": "sv-SE",
-      "wordCount": 144,
-      "keywords": "mcp, arkitektur",
+      "wordCount": 113,
+      "keywords": "guide, fortnox, openclaw",
       "author": {
         "@type": "Person",
         "name": "anonym"
@@ -132,7 +133,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://opensverige.se/blogg/mcp-vs-rest"
+        "@id": "https://opensverige.se/blogg/fortnox-agent-guide"
       },
       "image": {
         "@type": "ImageObject",
@@ -143,7 +144,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://opensverige.se/blogg/mcp-vs-rest#breadcrumb",
+      "@id": "https://opensverige.se/blogg/fortnox-agent-guide#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -160,7 +161,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "MCP vs REST — när ska du använda vad?"
+          "name": "Koppla Fortnox till din AI-agent"
         }
       ]
     }
@@ -176,35 +177,34 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 </header>
 
 <article class="prose">
-  <div class="kicker">MCP · Arkitektur</div>
-  <h1>MCP vs REST — när ska du använda vad?</h1>
-  <div class="byline"><span>anonym</span><span class="d">·</span><span>28 feb 2026</span><span class="d">·</span><span>1 min</span></div>
+  <div class="kicker">Guide · Fortnox</div>
+  <h1>Koppla Fortnox till din AI-agent</h1>
+  <div class="byline"><span>anonym</span><span class="d">·</span><span>18 mar 2026</span><span class="d">·</span><span>1 min</span></div>
 
-  <div class="answer">
-    <div class="l">Kort svar</div>
-    <p>REST är för human-to-machine. MCP är för agent-to-tool.</p>
-  </div>
-
-  <h2>REST</h2>
-  <p>REST-API:er är designade för programmerare att använda. Du vet exakt vilka endpoints som finns, vilka parametrar de tar och vad de returnerar.</p>
-  <p>Problemet: din AI-agent vet inte det. Den måste gissa eller ha dokumentationen injektad i sin kontext.</p>
-  <h2>MCP</h2>
-  <p>Model Context Protocol ger agenten ett standardiserat sätt att utforska och använda verktyg — utan att du behöver hårdkoda varje API-anrop.</p>
-  <pre><code>{
-  "tools": [
-    {
-      "name": "list_invoices",
-      "description": "Lista fakturor för ett företag",
-      "inputSchema": { "type": "object", "properties": { "status": { "type": "string" } } }
-    }
-  ]
-}</code></pre>
-  <p>Agenten läser detta, förstår vad verktyget gör och anropar det korrekt — utan att du behöver skriva en rad extra kod.</p>
-  <h2>Tumregel</h2>
-  <ul><li>Bygger du för en människa? Använd REST.</li><li>Bygger du för en agent? Använd MCP.</li><li>Har du REST redan och vill ge agenter tillgång? Bygg ett MCP-lager ovanpå.</li></ul>
+  <h2>Vad du behöver</h2>
+  <p class="lead">Du behöver ett Fortnox-konto, en API-nyckel och OpenClaw installerat.</p>
+  <h2>Installera fortnox-skill</h2>
+  <pre><code>$ openclaw install fortnox
+✔ skill installed: fortnox v2.1.0
+$ openclaw skills list
+◆ fortnox     — list invoices, search customers, create records</code></pre>
+  <h2>Konfigurera API-åtkomst</h2>
+  <p>Lägg till din Fortnox-nyckel i <code>.env</code>:</p>
+  <pre><code>FORTNOX_CLIENT_ID=xxx
+FORTNOX_CLIENT_SECRET=yyy
+FORTNOX_ACCESS_TOKEN=zzz</code></pre>
+  <h2>Testa din agent</h2>
+  <p>Starta agenten och fråga via Discord eller Telegram:</p>
+  <pre><code>&gt; Lista mina obetalda fakturor
+→ Hittade 3 obetalda fakturor. Totalt: 45 000 kr.
+  #1042 — AB Byggarna — 18 000 kr — förfaller 2026-04-01
+  #1043 — Konsult AB — 12 000 kr — förfallen
+  #1044 — Tech Nord AB — 15 000 kr — förfaller 2026-04-15</code></pre>
+  <h2>Nästa steg</h2>
+  <p>Kombinera med SCB-skill för automatisk branschanalys.</p>
 
   <hr>
-  <div class="author"><div class="av">an</div><div><div class="n">anonym</div><div class="r">opensverige · publicerat 28 feb 2026</div></div></div>
+  <div class="author"><div class="av">an</div><div><div class="n">anonym</div><div class="r">opensverige · publicerat 18 mar 2026</div></div></div>
 </article>
 
 <div class="mcta" id="mcta">
