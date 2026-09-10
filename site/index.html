@@ -241,7 +241,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
     animation:drift 9s ease-in-out infinite}
   .qc blockquote,.qc figcaption{transition:opacity 320ms var(--snap)}
   .qc.swap blockquote,.qc.swap figcaption{opacity:0}
-  .qc blockquote{font-size:14px;line-height:1.45;color:var(--body);letter-spacing:-.005em}
+  .qc blockquote{font-size:14px;line-height:1.45;color:var(--ink);letter-spacing:-.005em}
   .qc figcaption{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
     color:var(--accent);margin-top:9px}
   .qc1{top:53%;left:8px;max-width:238px;animation-delay:0s}
@@ -272,12 +272,30 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 @media(prefers-reduced-motion:reduce){.qc{animation:none}}
 
 /* ============ VARFÖR ============ */
-.gollum{font-size:14.5px;color:var(--faint);margin-top:14px}
-.gollum a{color:var(--accent);text-decoration:underline;text-underline-offset:.16em;text-decoration-thickness:1px}
-.gollum a:hover{color:var(--ink)}
 #vision h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
 .wlede{font-size:17.5px;font-weight:500;line-height:1.5;color:var(--muted);max-width:46ch;margin-top:16px}
-.arc{margin-top:38px;max-width:660px}
+/* Story: fem numrerade beats längs en ryggrad som fylls när man läser.
+   Siffrorna bär strukturen, så typografin klarar sig på fyra återbrukade
+   roller — .st påstående, .sp stödrad, .st em vändning, .mt meta. */
+.story{position:relative;margin-top:38px;max-width:700px;padding-left:56px}
+.spine{position:absolute;left:34px;top:6px;bottom:6px;width:1px;background:var(--hair)}
+.spine i{display:block;height:100%;background:var(--accent);
+  transform:scaleY(var(--fill,0));transform-origin:top;transition:transform 120ms linear}
+.bt{position:relative;padding-bottom:46px}
+.bt:last-child{padding-bottom:0}
+.bt .n{position:absolute;left:-56px;top:3px;width:24px;text-align:right;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);
+  transition:color 300ms var(--snap)}
+.bt::before{content:"";position:absolute;left:-24px;top:8px;width:5px;height:5px;border-radius:50%;
+  background:var(--hair);transition:background 300ms var(--snap),transform 300ms var(--snap)}
+.bt.nadd .n{color:var(--accent)}
+.bt.nadd::before{background:var(--accent);transform:scale(1.3)}
+@media(max-width:640px){
+  .story{padding-left:36px}
+  .spine{left:22px}
+  .bt .n{left:-36px;width:14px}
+  .bt::before{left:-16px}
+}
 /* Bubblan: iriserande såphinna. Konisk gradient ger hueskiftet runt
    omkretsen som filminterferens gör på riktigt, radiell ger glansdanken.
    Bara transform animeras — gradienter och box-shadow repaintar per bildruta.
@@ -315,21 +333,18 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .loop li{font-family:var(--serif);font-size:clamp(24px,5vw,32px);line-height:1.2;color:#fff}
 /* Tonen är mätt mot filmens ljusaste rotationsfas, inte mot ren --ink. */
 .loop li:nth-child(n+4){color:#847e75}
-.turn{font-size:clamp(22px,4.6vw,32px);font-weight:700;letter-spacing:-.032em;line-height:1.15;color:var(--ink);margin-top:34px}
-.turn span{display:block;font-weight:400;font-size:.6em;color:var(--muted);margin-top:10px;letter-spacing:-.01em}
-.beat{margin-top:44px}
-.beat p{font-size:clamp(27px,6.2vw,46px);font-weight:700;letter-spacing:-.04em;line-height:1.04}
-.beat .b1{color:var(--faint)}
-.beat .b2{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--accent);letter-spacing:-.02em}
-.copilot{font-size:clamp(19px,4vw,26px);font-weight:500;line-height:1.32;color:var(--body);margin-top:34px}
-.copilot span{color:var(--faint)}
-.cl{margin-top:24px;display:flex;flex-wrap:wrap;gap:9px}
+/* Kursiven är reserverad för en enda vändning i hela sektionen. */
+.st{font-size:clamp(26px,5.4vw,40px);font-weight:700;letter-spacing:-.036em;line-height:1.08;color:var(--ink)}
+.st em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.018em}
+.sp{font-size:clamp(16px,2.6vw,19px);font-weight:400;line-height:1.5;color:var(--muted);margin-top:13px;max-width:44ch}
+.mt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted);margin-top:17px}
+/* nowrap håller pilen ihop med texten så den inte blir ensam på en rad */
+.mt a{color:var(--accent);white-space:nowrap;text-decoration:underline;text-underline-offset:.18em;text-decoration-thickness:1px}
+.mt a:hover{color:var(--ink)}
+.cl{margin-top:20px;display:flex;flex-wrap:wrap;gap:9px}
 .ch{font-family:var(--mono);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--hair);
   border-radius:4px;padding:9px 13px;transition:border-color var(--t),color var(--t)}
 .ch:hover{border-color:var(--accent);color:var(--ink)}
-.fear{margin-top:42px;font-family:var(--serif);font-size:clamp(28px,6.4vw,48px);font-style:italic;
-  color:var(--accent);line-height:1.06;max-width:22ch}
-.out{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--faint);margin-top:18px}
 
 /* ============ SUPERGROK ============ */
 .grok{margin-top:38px;display:flex;flex-direction:column;gap:18px;align-items:flex-start;
@@ -714,31 +729,46 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         <p class="wlede rv">Mellanhänderna tar 15 000 kr för att förklara det du kan bygga själv på en kväll. Men priset är inte det värsta problemet.</p>
         <p class="wlede rv" style="margin-top:12px"><b>Det värsta är att sitta ensam.</b> En AI som alltid håller med är ingen kollega — den är en bubbla.</p>
 
-        <div class="arc">
-          <div class="loop rv">
-            <div class="loopl">Bubblan</div>
-            <ol>
-              <li>Prompta.</li><li>Få beröm.</li><li>Prompta igen.</li>
-              <li>Shippa aldrig.</li><li>Tro att idén är guld.</li><li>Vakta den som Gollum.</li>
-            </ol>
+        <div class="story" id="story">
+          <div class="spine" aria-hidden="true"><i></i></div>
+
+          <div class="bt rv">
+            <div class="n" aria-hidden="true">01</div>
+            <div class="loop">
+              <div class="loopl">Bubblan</div>
+              <ol>
+                <li>Prompta.</li><li>Få beröm.</li><li>Prompta igen.</li>
+                <li>Shippa aldrig.</li><li>Tro att idén är guld.</li><li>Vakta den som Gollum.</li>
+              </ol>
+            </div>
           </div>
 
-          <p class="turn rv">Ingen snor din idé.<br><span>De bygger sin egen med tre prompts medan du sover.</span></p>
-          <p class="gollum rv">Vi byggde ett test på det — <a href="/gollum">Gollum-testet</a>.</p>
-
-          <div class="beat rv">
-            <p class="b1">Solo är kul.</p>
-            <p class="b2">Men inte för länge.</p>
+          <div class="bt rv">
+            <div class="n" aria-hidden="true">02</div>
+            <p class="st">Ingen snor din idé.</p>
+            <p class="sp">De bygger sin egen med tre prompts medan du sover.</p>
+            <p class="mt">Vi byggde ett test på det — <a href="/gollum">Gollum-testet →</a></p>
           </div>
 
-          <p class="copilot rv">Du behöver alltid en human copilot.<br><span>Även om det är en idiot.</span></p>
-
-          <div class="cl rv">
-            <span class="ch">⠴-❯_projekt-show</span><span class="ch">➠bygg skiten · voice</span>
+          <div class="bt rv">
+            <div class="n" aria-hidden="true">03</div>
+            <p class="st">Solo är kul.<br><em>Men inte för länge.</em></p>
           </div>
 
-          <p class="fear rv">Halvfärdigt är standard.<br>Trasigt är välkommet.</p>
-          <p class="out rv">Var inte rädd.</p>
+          <div class="bt rv">
+            <div class="n" aria-hidden="true">04</div>
+            <p class="st">Du behöver alltid en human copilot.</p>
+            <p class="sp">Även om det är en idiot.</p>
+            <div class="cl">
+              <span class="ch">⠴-❯_projekt-show</span><span class="ch">➠bygg skiten · voice</span>
+            </div>
+          </div>
+
+          <div class="bt rv">
+            <div class="n" aria-hidden="true">05</div>
+            <p class="st">Halvfärdigt är standard.<br>Trasigt är välkommet.</p>
+            <p class="sp">Var inte rädd.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -888,13 +918,31 @@ const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
 ids.forEach(id=>{const el=document.getElementById(id); el&&sio.observe(el);});
 
 const prog=document.getElementById('prog'), hand=document.getElementById('hand'), mcta=document.getElementById('mcta');
+const story=document.getElementById('story');
+const beats=story?[...story.querySelectorAll('.bt')]:[];
+// Ryggraden fylls mot en lasrad pa 70% av viewporten: 0 vid storyns topp,
+// 1 vid dess botten. Skalar en 1px-linje, sa det ar kompositorbilligt.
+// Siffrorna tands mot samma lasrad — de kan darfor aldrig saga emot linjen.
+// Egen klass, inte .rv/.in: sakerhetsnatet ovan tander alla .rv efter 1200ms.
+// Alla rects lases fore forsta skrivningen sa vi inte tvingar extra layout.
+function fyllRyggrad(){
+  if(!story)return;
+  const r=story.getBoundingClientRect();
+  const las=innerHeight*.7;
+  const toppar=beats.map(b=>b.getBoundingClientRect().top);
+  story.style.setProperty('--fill',Math.max(0,Math.min(1,(las-r.top)/r.height)).toFixed(3));
+  beats.forEach((b,i)=>b.classList.toggle('nadd',toppar[i]<las));
+}
+fyllRyggrad();
 let t=false;
 addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{
   const y=scrollY,max=document.body.scrollHeight-innerHeight;
   if(prog)prog.style.width=Math.min(100,(y/max)*100)+'%';
   if(hand)hand.style.setProperty('--py',Math.min(40,y*.09)+'px');
   mcta.classList.toggle('show', y>420 && y<max-260);
+  fyllRyggrad();
   t=false;});},{passive:true});
+addEventListener('resize',fyllRyggrad,{passive:true});
 
 const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
   const el=e.target,to=+el.dataset.c;let n=0;const st=Math.max(1,Math.round(to/28));
