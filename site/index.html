@@ -199,16 +199,27 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .chrome .lv{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ok);display:flex;align-items:center;gap:5px}
 .chrome .lv::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s var(--snap) infinite}
-.shot{aspect-ratio:1100/690;overflow:hidden;background:#efedea;border-bottom:1px solid var(--hair)}
-.shot img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 500ms var(--snap)}
-.prod:hover .shot img{transform:scale(1.03)}
+/* Rubrikpanel istället för skärmdump: målsajtens h1 på enfärgad yta.
+   Kortet lovar mindre och man klickar sig vidare för att se sajten. */
+.hl{display:flex;align-items:center;min-height:132px;padding:24px 22px;
+  background:#f2f0ec;border-bottom:1px solid var(--hair)}
+.hl .hlt{font-family:var(--serif);font-weight:400;font-size:27px;line-height:1.14;
+  letter-spacing:-.02em;color:var(--ink);max-width:24ch;
+  transition:color var(--t)}
+.prod:hover .hl .hlt{color:var(--accent)}
+@media(min-width:900px){.hl{min-height:148px}.hl .hlt{font-size:30px}}
 .ptx{padding:18px 20px 20px}
 .ptx h3{font-size:20px;font-weight:700;letter-spacing:-.03em}
 .ptx p{font-size:14.5px;line-height:1.5;color:var(--muted);margin-top:8px}
 .pgo{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ink);margin-top:15px}
 .pgo i{font-style:normal;color:var(--accent);transition:transform var(--t)}
-.prod:hover .pgo i{transform:translateX(4px)}
+.prod:hover .pgo i{transform:translate(3px,-3px)}
+/* Extern länk: ↗ i webbläsarramen så det syns före klicket, inte bara i texten */
+.chrome .ext{margin-left:auto;font-style:normal;font-size:14px;line-height:1;color:var(--muted);
+  transition:color var(--t),transform var(--t)}
+.chrome .lv + .ext{margin-left:9px}
+.prod:hover .chrome .ext{color:var(--accent);transform:translate(2px,-2px)}
 .more{padding:26px var(--gut)}
 .more p{font-size:16px;line-height:1.55;color:var(--muted);max-width:56ch}
 .more p b{color:var(--ink);font-weight:600}
@@ -709,22 +720,24 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       <div class="pad" style="padding-bottom:26px"><h2 class="rv">Det här ramlade ut.</h2>
         <p class="lede rv">Ingen beställde dem. Någon började bygga och andra hängde på.</p></div>
       <div class="prods">
-        <a class="prod rv" href="https://agent.opensverige.se">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">agent.opensverige.se</span><span class="lv">live</span></div>
-          <div class="shot"><img src="/assets/prod-agent.webp" alt="Agent Readiness Scanner"></div>
+        <a class="prod rv" href="https://agent.opensverige.se" target="_blank" rel="noopener noreferrer"
+           aria-label="Agent Readiness Scanner på agent.opensverige.se — öppnas i ny flik">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">agent.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
+          <div class="hl"><span class="hlt">Hur agent-redo är din sajt?</span></div>
           <div class="ptx">
             <h3>Agent Readiness Scanner</h3>
             <p>Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.</p>
-            <span class="pgo">Öppna <i>→</i></span>
+            <span class="pgo">Öppna i ny flik <i>↗</i></span>
           </div>
         </a>
-        <a class="prod rv" href="https://infra.opensverige.se">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">infra.opensverige.se</span><span class="lv">live</span></div>
-          <div class="shot"><img src="/assets/prod-infra.webp" alt="AI-Infra"></div>
+        <a class="prod rv" href="https://infra.opensverige.se" target="_blank" rel="noopener noreferrer"
+           aria-label="AI-Infra på infra.opensverige.se — öppnas i ny flik">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">infra.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
+          <div class="hl"><span class="hlt">Hitta rätt svensk AI-infrastruktur.</span></div>
           <div class="ptx">
             <h3>AI-Infra</h3>
             <p>Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt.</p>
-            <span class="pgo">Öppna <i>→</i></span>
+            <span class="pgo">Öppna i ny flik <i>↗</i></span>
           </div>
         </a>
       </div>
