@@ -339,6 +339,25 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .rhythm .w{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
 .rhythm h4{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-top:9px}
 .rhythm p{font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
+/* Verktygsremsa: belägg för Labs-påståendet ovanför. Samma hårlinjegrid
+   som .rhythm så den läser som en fortsättning, inte ett nytt element. */
+.stack{margin-top:20px}
+.stack .sl{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--faint);padding:0 var(--gut) 11px}
+.slogos{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+@media(min-width:520px){.slogos{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:760px){.slogos{grid-template-columns:repeat(6,1fr)}}
+.slogos li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:var(--surface);padding:18px 8px;transition:background var(--t)}
+.slogos li:hover{background:#f6f4f0}
+.slogos img{width:26px;height:26px;opacity:.62;filter:grayscale(1);
+  transition:opacity var(--t),transform var(--t)}
+.slogos li:hover img{opacity:1;transform:scale(1.09)}
+.slogos b{font-family:var(--mono);font-size:9.5px;font-weight:400;letter-spacing:.05em;
+  color:var(--muted);text-align:center;transition:color var(--t)}
+.slogos li:hover b{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.slogos li:hover img{transform:none}}
 .three{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px;align-items:center}
 .three .c{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
   border:1px solid var(--hair);border-radius:100px;padding:7px 14px;background:var(--surface)}
@@ -713,6 +732,24 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         <div><div class="w">Oftast söndagar</div><h4>IRL-träffar</h4><p>Vi försöker ses ofta. Alla har inte tid — men det ger mer än en tråd.</p></div>
         <div><div class="w">Löpande</div><h4>Öppna demos</h4><p>Visa det medan det är trasigt.</p></div>
         <div><div class="w">Labs</div><h4>Vi testar det nya först</h4><p>Grokbot, Higgsfield, Mirofish. Det som släpptes i veckan, kört skarpt.</p></div>
+      </div>
+
+      <div class="stack rv">
+        <div class="sl">Kört skarpt i Discorden</div>
+        <ul class="slogos">
+          <li><img src="/assets/logos/grok.svg" alt="Grok" width="26" height="26" loading="lazy"><b>Grok</b></li>
+          <li><img src="/assets/logos/claude.svg" alt="Claude" width="26" height="26" loading="lazy"><b>Claude</b></li>
+          <li><img src="/assets/logos/openai.svg" alt="OpenAI" width="26" height="26" loading="lazy"><b>OpenAI</b></li>
+          <li><img src="/assets/logos/cursor.svg" alt="Cursor" width="26" height="26" loading="lazy"><b>Cursor</b></li>
+          <li><img src="/assets/logos/windsurf.svg" alt="Windsurf" width="26" height="26" loading="lazy"><b>Windsurf</b></li>
+          <li><img src="/assets/logos/v0.svg" alt="v0" width="26" height="26" loading="lazy"><b>v0</b></li>
+          <li><img src="/assets/logos/perplexity.svg" alt="Perplexity" width="26" height="26" loading="lazy"><b>Perplexity</b></li>
+          <li><img src="/assets/logos/crewai.svg" alt="CrewAI" width="26" height="26" loading="lazy"><b>CrewAI</b></li>
+          <li><img src="/assets/logos/langgraph.svg" alt="LangGraph" width="26" height="26" loading="lazy"><b>LangGraph</b></li>
+          <li><img src="/assets/logos/n8n.svg" alt="n8n" width="26" height="26" loading="lazy"><b>n8n</b></li>
+          <li><img src="/assets/logos/ollama.svg" alt="Ollama" width="26" height="26" loading="lazy"><b>Ollama</b></li>
+          <li><img src="/assets/logos/huggingface.svg" alt="Hugging Face" width="26" height="26" loading="lazy"><b>Hugging Face</b></li>
+        </ul>
       </div>
     </section>
 
