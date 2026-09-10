@@ -110,7 +110,7 @@ EXTRA_CSS = """
 
 
 def las_artikel_css():
-    mall = (ROOT / "public" / "stilprov" / "artikel.html").read_text(encoding="utf-8")
+    mall = (ROOT / "tools" / "mallar" / "artikel.html").read_text(encoding="utf-8")
     return re.search(r"<style>(.*?)</style>", mall, re.S).group(1)
 
 

@@ -16,7 +16,7 @@ MDX_DIR = Path(
     "/Users/baltsar/Documents/Cursor/OPENSVERIGE/Opensverige_2.se/content/blogg"
 )
 OUT_DIR = ROOT / "site" / "blogg"
-TEMPLATE_SRC = ROOT / "public" / "stilprov" / "artikel.html"
+TEMPLATE_SRC = ROOT / "tools" / "mallar" / "artikel.html"
 
 BASE = "https://opensverige.se"
 DISCORD = "https://discord.gg/ZbV4qB34um"
