@@ -276,7 +276,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .wlede{font-size:17.5px;font-weight:500;line-height:1.5;color:var(--muted);max-width:46ch;margin-top:16px}
 /* Story: fem numrerade beats längs en ryggrad som fylls när man läser.
    Siffrorna bär strukturen, så typografin klarar sig på fyra återbrukade
-   roller — .st påstående, .sp stödrad, .st em vändning, .mt meta. */
+   roller — .st påstående, .sp stödrad, .mt meta, .coda slutackord. */
 .story{position:relative;margin-top:38px;max-width:700px;padding-left:56px}
 .spine{position:absolute;left:34px;top:6px;bottom:6px;width:1px;background:var(--hair)}
 .spine i{display:block;height:100%;background:var(--accent);
@@ -327,19 +327,18 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 /* 24px är WCAG:s gräns för stor text. Under den gäller 4.5:1 istället för 3:1. */
 .loop li{font-family:var(--serif);font-size:clamp(24px,5vw,32px);line-height:1.2;color:#fff}
 .loop li:nth-child(n+4){color:#767068}
-/* Kursiven är reserverad för en enda vändning i hela sektionen. */
 .st{font-size:clamp(26px,5.4vw,40px);font-weight:700;letter-spacing:-.036em;line-height:1.08;color:var(--ink)}
-.st em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.018em}
+/* Slutackordet står utanför ryggraden: storyn löser ut på 03, sedan landar
+   kulturen som avstamp. Enda kursiven i hela sektionen — därför bär den. */
+.coda{margin-top:54px;max-width:700px;padding-left:56px;
+  font-family:var(--serif);font-style:italic;font-size:clamp(28px,6vw,44px);
+  line-height:1.08;letter-spacing:-.018em;color:var(--accent)}
+@media(max-width:640px){.coda{padding-left:36px}}
 .sp{font-size:clamp(16px,2.6vw,19px);font-weight:400;line-height:1.5;color:var(--muted);margin-top:13px;max-width:44ch}
 .mt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted);margin-top:17px}
 /* nowrap håller pilen ihop med texten så den inte blir ensam på en rad */
 .mt a{color:var(--accent);white-space:nowrap;text-decoration:underline;text-underline-offset:.18em;text-decoration-thickness:1px}
 .mt a:hover{color:var(--ink)}
-.cl{margin-top:20px;display:flex;flex-wrap:wrap;gap:9px}
-.ch{font-family:var(--mono);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--hair);
-  border-radius:4px;padding:9px 13px;transition:border-color var(--t),color var(--t)}
-.ch:hover{border-color:var(--accent);color:var(--ink)}
-
 /* ============ SUPERGROK ============ */
 .grok{margin-top:38px;display:flex;flex-direction:column;gap:18px;align-items:flex-start;
   background:#111010;border:1px solid #262422;border-radius:5px;padding:22px}
@@ -749,24 +748,12 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 
           <div class="bt rv">
             <div class="n" aria-hidden="true">03</div>
-            <p class="st">Solo är kul.<br><em>Men inte för länge.</em></p>
-          </div>
-
-          <div class="bt rv">
-            <div class="n" aria-hidden="true">04</div>
             <p class="st">Du behöver alltid en human copilot.</p>
             <p class="sp">Även om det är en idiot.</p>
-            <div class="cl">
-              <span class="ch">⠴-❯_projekt-show</span><span class="ch">➠bygg skiten · voice</span>
-            </div>
-          </div>
-
-          <div class="bt rv">
-            <div class="n" aria-hidden="true">05</div>
-            <p class="st">Halvfärdigt är standard.<br>Trasigt är välkommet.</p>
-            <p class="sp">Var inte rädd.</p>
           </div>
         </div>
+
+        <p class="coda rv">Halvfärdigt är standard.<br>Trasigt är välkommet.</p>
       </div>
     </section>
 
