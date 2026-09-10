@@ -1,0 +1,297 @@
+<!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Blogg — guider om AI-agenter, MCP och vibecoding</title>
+<meta name="description" content="Guider och genomgångar om AI-agenter, MCP, OpenClaw och vibecoding. Skrivet av builders i opensverige. Gästinlägg är öppna för alla.">
+<link rel="canonical" href="https://opensverige.se/blogg">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#fbfaf7">
+<meta name="author" content="opensverige">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="opensverige">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:title" content="opensverige blogg">
+<meta property="og:description" content="Guider och genomgångar om AI-agenter, MCP, OpenClaw och vibecoding. Skrivet av builders i opensverige. Gästinlägg är öppna för alla.">
+<meta property="og:url" content="https://opensverige.se/blogg">
+<meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="opensverige blogg">
+<meta name="twitter:description" content="Guider och genomgångar om AI-agenter, MCP, OpenClaw och vibecoding. Skrivet av builders i opensverige. Gästinlägg är öppna för alla.">
+<meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
+<link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--surface:#fff;--ink:#151515;--body:#2b2724;--muted:#5b5651;--faint:#918b83;--hair:#e4e2dc;
+--accent:#b72c07;--discord:#5865F2;
+--sans:'Familjen Grotesk',-apple-system,Helvetica,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--serif:'Instrument Serif',Georgia,serif;
+--snap:cubic-bezier(.4,0,.2,1);--t:150ms var(--snap);--gut:20px}
+@media(min-width:860px){:root{--gut:40px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+img{max-width:100%;display:block}a{color:inherit}
+
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:90;width:0;transition:width 80ms linear}
+.top{position:sticky;top:0;z-index:70;height:52px;display:flex;align-items:center;gap:10px;padding:0 var(--gut);
+  background:rgba(251,250,247,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.back{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color var(--t)}
+.back:hover{color:var(--accent)}
+.top .rt{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+/* läskolumn — mobilfirst */
+.prose{max-width:672px;margin:0 auto;padding:30px var(--gut) 90px}
+@media(min-width:860px){.prose{padding:54px var(--gut) 110px}}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(29px,7.4vw,44px);font-weight:600;letter-spacing:-.04em;line-height:1.08;margin-top:14px}
+.byline{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--faint);margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--hair)}
+.byline .d{color:var(--hair)}
+
+/* AEO-svarsruta */
+.answer{margin:26px 0 0;padding:18px 18px;border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:2px;background:#fdfcfa}
+@media(min-width:640px){.answer{padding:20px 22px}}
+.answer .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.answer p{font-size:16.5px;line-height:1.55;color:var(--ink);margin:0}
+@media(min-width:640px){.answer p{font-size:17.5px}}
+
+.lead{font-size:19px;line-height:1.55;color:var(--ink);margin-top:28px;letter-spacing:-.012em}
+@media(min-width:640px){.lead{font-size:21px}}
+.prose p{font-size:17.5px;line-height:1.68;color:var(--body);margin-top:22px}
+@media(min-width:640px){.prose p{font-size:19px;line-height:1.72;margin-top:26px}}
+.prose h2{font-size:22px;font-weight:600;letter-spacing:-.028em;line-height:1.2;margin-top:42px;scroll-margin-top:64px}
+@media(min-width:640px){.prose h2{font-size:27px;margin-top:54px}}
+.prose a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--hair);text-underline-offset:.18em;text-decoration-thickness:1px;transition:all var(--t)}
+.prose a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.prose ul{list-style:none;margin-top:18px}
+.prose li{font-size:17.5px;line-height:1.65;color:var(--body);padding-left:24px;position:relative;margin-top:11px}
+@media(min-width:640px){.prose li{font-size:19px}}
+.prose li::before{content:"";position:absolute;left:5px;top:.75em;width:5px;height:1px;background:var(--faint)}
+blockquote{margin-top:30px;padding-left:20px;border-left:2px solid var(--ink);font-family:var(--serif);font-size:23px;line-height:1.4}
+@media(min-width:640px){blockquote{font-size:27px}}
+code{font-family:var(--mono);font-size:.85em;background:#f1efeb;padding:2px 5px;border-radius:2px;word-break:break-word}
+pre{margin:26px calc(var(--gut)*-1) 0;background:var(--ink);color:#e8e6e1;padding:18px var(--gut);overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(min-width:720px){pre{margin:28px 0 0;border-radius:3px;padding:20px 22px}}
+pre code{background:none;padding:0;font-size:12.5px;line-height:1.6;color:inherit;word-break:normal}
+figure{margin:30px calc(var(--gut)*-1) 0}
+@media(min-width:720px){figure{margin:34px 0 0}}
+figure img{width:100%;mix-blend-mode:multiply}
+figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:10px;padding:0 var(--gut)}
+@media(min-width:720px){figcaption{padding:0}}
+hr{margin-top:44px;height:1px;background:var(--hair);border:0}
+.author{display:flex;gap:14px;align-items:center;margin-top:28px;padding-top:26px;border-top:1px solid var(--hair)}
+.author .av{width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:600;flex:none}
+.author .n{font-size:15px;font-weight:600}
+.author .r{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:2px}
+
+/* sticky Discord-CTA */
+.mcta{position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(251,250,247,.95);backdrop-filter:blur(14px);border-top:1px solid var(--hair);
+  display:flex;gap:10px;align-items:center;transform:translateY(120%);transition:transform 240ms var(--snap)}
+.mcta.show{transform:none}
+.mcta .n{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.3;flex:1}
+.mcta .n b{color:var(--ink);font-weight:600}
+.dbtn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:3px;background:var(--discord);
+  color:#fff;font-size:14px;font-weight:600;text-decoration:none;flex:none;transition:background var(--t)}
+.dbtn svg{width:17px;height:17px;fill:currentColor}
+.dbtn:hover{background:#4752c4}
+
+/* listningssidor */
+.lista{max-width:760px;margin:0 auto;padding:30px var(--gut) 90px}
+@media(min-width:860px){.lista{padding:54px var(--gut) 110px}}
+.lista h1{font-size:clamp(30px,7.4vw,46px);font-weight:600;letter-spacing:-.04em;line-height:1.06}
+.lista .intro{font-size:18px;line-height:1.55;color:var(--muted);margin-top:16px;max-width:60ch}
+@media(min-width:640px){.lista .intro{font-size:19.5px}}
+.rad{display:block;padding:20px 0;border-bottom:1px solid var(--hair);text-decoration:none;transition:padding-left var(--t)}
+.rad:first-of-type{border-top:1px solid var(--hair)}
+.rad:hover{padding-left:8px}
+.rad .rt{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rad .rn{font-size:19px;font-weight:600;letter-spacing:-.025em;color:var(--ink)}
+@media(min-width:640px){.rad .rn{font-size:21px}}
+.rad:hover .rn{color:var(--accent)}
+.rad .rd{display:block;font-size:16px;line-height:1.55;color:var(--muted);margin-top:7px;max-width:62ch}
+.rad .rm{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:9px}
+.pill{display:inline-flex;align-items:center;height:19px;padding:0 7px;border-radius:2px;background:#f1efeb;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.pill.live{background:rgba(59,165,93,.13);color:#2c7a45}
+.pill.oss{background:rgba(183,44,7,.09);color:var(--accent)}
+.grupp{margin-top:44px}
+.grupp .gl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.slutcta{margin-top:52px;padding-top:30px;border-top:1px solid var(--hair);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.slutcta .st{font-size:16.5px;color:var(--muted);flex:1;min-width:190px}
+.dbtn.dc{background:var(--discord);color:#fff}
+.dbtn.dc:hover{background:#4752c4}
+.dbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--hair)}
+.dbtn.ghost:hover{border-color:var(--ink);background:transparent}
+/* prosasidor */
+.prose h3{font-size:18px;font-weight:600;letter-spacing:-.02em;margin-top:32px}
+@media(min-width:640px){.prose h3{font-size:20px}}
+.prose ol{list-style:none;margin-top:18px;counter-reset:o}
+.prose ol li{counter-increment:o;padding-left:26px}
+.prose ol li::before{content:counter(o) ".";position:absolute;left:0;top:0;width:auto;height:auto;background:none;
+  font-family:var(--mono);font-size:12px;color:var(--faint)}
+.callout{margin:26px 0 0;padding:18px;border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:2px;background:#fdfcfa}
+.callout p{margin:0;font-size:17px;line-height:1.55;color:var(--ink)}
+.punch{font-family:var(--serif);font-size:25px;line-height:1.3;margin-top:30px}
+@media(min-width:640px){.punch{font-size:29px}}
+.stats{display:flex;gap:28px;margin-top:30px;padding:22px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stats div{display:flex;flex-direction:column;gap:3px}
+.stats .v{font-size:26px;font-weight:600;letter-spacing:-.03em}
+.stats .l{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://opensverige.se/blogg#blog",
+      "name": "opensverige blogg",
+      "description": "Guider och genomgångar om AI-agenter, MCP, OpenClaw och vibecoding. Skrivet av builders i opensverige. Gästinlägg är öppna för alla.",
+      "url": "https://opensverige.se/blogg",
+      "inLanguage": "sv-SE",
+      "isPartOf": {
+        "@id": "https://opensverige.se/#website"
+      },
+      "publisher": {
+        "@id": "https://opensverige.se/#organization"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "@id": "https://opensverige.se/blogg/bygg-spel-med-ai#post",
+          "headline": "Bygg ett spel med AI på en vecka",
+          "description": "Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.",
+          "url": "https://opensverige.se/blogg/bygg-spel-med-ai",
+          "datePublished": "2026-06-10",
+          "author": {
+            "@type": "Person",
+            "name": "opensverige"
+          },
+          "keywords": "guide, hackathon, spelutveckling, vibecoding"
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://opensverige.se/blogg/gollum-testet#post",
+          "headline": "Gollum-testet — vilken typ av builder är du?",
+          "description": "Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på nio frågor som visar vilken typ av AI-builder du faktiskt är.",
+          "url": "https://opensverige.se/blogg/gollum-testet",
+          "datePublished": "2026-03-23",
+          "author": {
+            "@type": "Person",
+            "name": "baltsar"
+          },
+          "keywords": "ai, builders, verktyg"
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://opensverige.se/blogg/fortnox-agent-guide#post",
+          "headline": "Koppla Fortnox till din AI-agent",
+          "description": "Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.",
+          "url": "https://opensverige.se/blogg/fortnox-agent-guide",
+          "datePublished": "2026-03-18",
+          "author": {
+            "@type": "Person",
+            "name": "anonym"
+          },
+          "keywords": "guide, fortnox, openclaw"
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://opensverige.se/blogg/vad-ar-ai-agenter#post",
+          "headline": "Vad är AI-agenter?",
+          "description": "En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.",
+          "url": "https://opensverige.se/blogg/vad-ar-ai-agenter",
+          "datePublished": "2026-03-10",
+          "author": {
+            "@type": "Person",
+            "name": "baltsar"
+          },
+          "keywords": "intro, agenter"
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://opensverige.se/blogg/mcp-vs-rest#post",
+          "headline": "MCP vs REST — när ska du använda vad?",
+          "description": "REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.",
+          "url": "https://opensverige.se/blogg/mcp-vs-rest",
+          "datePublished": "2026-02-28",
+          "author": {
+            "@type": "Person",
+            "name": "anonym"
+          },
+          "keywords": "mcp, arkitektur"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://opensverige.se/blogg#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Start",
+          "item": "https://opensverige.se/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blogg",
+          "item": "https://opensverige.se/blogg"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head><body>
+<header class="top">
+  <a class="back" href="/">← opensverige</a>
+  <span class="rt">5 inlägg</span>
+</header>
+
+<main class="lista">
+  <h1>Blogg.</h1>
+  <p class="intro">Guider, genomgångar och åsikter. Vill du skriva? Gästinlägg är öppna för alla — hör av dig i Discorden.</p>
+
+  <div class="grupp">
+        <a class="rad" href="/blogg/bygg-spel-med-ai">
+  <span class="rt"><span class="rn">Bygg ett spel med AI på en vecka</span></span>
+  <span class="rd">Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.</span>
+  <span class="rm">10 jun 2026 · 3 min · guide · hackathon · spelutveckling · vibecoding</span>
+</a>
+    <a class="rad" href="/blogg/gollum-testet">
+  <span class="rt"><span class="rn">Gollum-testet — vilken typ av builder är du?</span></span>
+  <span class="rd">Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på nio frågor som visar vilken typ av AI-builder du faktiskt är.</span>
+  <span class="rm">23 mar 2026 · 1 min · ai · builders · verktyg</span>
+</a>
+    <a class="rad" href="/blogg/fortnox-agent-guide">
+  <span class="rt"><span class="rn">Koppla Fortnox till din AI-agent</span></span>
+  <span class="rd">Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.</span>
+  <span class="rm">18 mar 2026 · 1 min · guide · fortnox · openclaw</span>
+</a>
+    <a class="rad" href="/blogg/vad-ar-ai-agenter">
+  <span class="rt"><span class="rn">Vad är AI-agenter?</span></span>
+  <span class="rd">En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.</span>
+  <span class="rm">10 mar 2026 · 1 min · intro · agenter</span>
+</a>
+    <a class="rad" href="/blogg/mcp-vs-rest">
+  <span class="rt"><span class="rn">MCP vs REST — när ska du använda vad?</span></span>
+  <span class="rd">REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.</span>
+  <span class="rm">28 feb 2026 · 1 min · mcp · arkitektur</span>
+</a>
+  </div>
+
+<div class="slutcta">
+  <p class="st">Vill du skriva ett gästinlägg? Säg till i Discorden.</p>
+  <a class="dbtn dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Gå med i Discord</a>
+</div>
+
+</main>
+</body></html>
