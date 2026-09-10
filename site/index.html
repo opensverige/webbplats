@@ -271,11 +271,43 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 #vision h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
 .wlede{font-size:17.5px;font-weight:500;line-height:1.5;color:var(--muted);max-width:46ch;margin-top:16px}
 .arc{margin-top:38px;max-width:660px}
-.loop{background:var(--ink);border-radius:5px;padding:22px 24px}
+/* Bubblan: iriserande såphinna. Konisk gradient ger hueskiftet runt
+   omkretsen som filminterferens gör på riktigt, radiell ger glansdanken.
+   Bara transform animeras — gradienter och box-shadow repaintar per bildruta.
+   oklch faller tillbaka till ren --ink i äldre motorer. */
+.loop{position:relative;isolation:isolate;overflow:hidden;
+  background:var(--ink);border-radius:14px;padding:24px 26px;
+  box-shadow:inset 0 0 0 1px oklch(.88 .07 30/.3),
+    inset 0 1px 0 oklch(1 0 0/.16),
+    inset -16px -20px 44px oklch(.8 .12 200/.09),
+    inset 16px 18px 40px oklch(.5 .1 320/.13),
+    0 0 40px -16px oklch(.84 .1 40/.34)}
+.loop > *{position:relative;z-index:1}
+.loop::before,.loop::after{content:"";position:absolute;pointer-events:none;z-index:0}
+.loop::before{inset:-48%;mix-blend-mode:screen;
+  background:conic-gradient(from 200deg,
+    oklch(.70 .15 25/.17),oklch(.66 .16 330/.19),
+    oklch(.74 .13 95/.11),oklch(.68 .14 205/.16),
+    oklch(.70 .15 25/.17));
+  animation:hinna 38s linear infinite}
+/* Glansdanken ligger i den tomma ytan till höger, inte på etiketten. Första
+   lagret målas överst, så mittskärmen sist skyddar textens kontrast underifrån
+   och låter hinnan lysa starkast vid kanten. */
+.loop::after{inset:0;background:
+    radial-gradient(circle at 73% 15%,oklch(1 0 0/.6) 0 1%,oklch(1 0 0/.13) 3.2%,transparent 6.2%),
+    radial-gradient(ellipse 26% 22% at 75% 18%,oklch(1 0 0/.12) 0 28%,transparent 76%),
+    radial-gradient(ellipse 44% 34% at 95% 94%,oklch(.84 .13 200/.17),transparent 70%),
+    radial-gradient(ellipse 28% 22% at 86% 104%,oklch(.8 .15 330/.15),transparent 72%),
+    radial-gradient(ellipse 64% 64% at 32% 48%,
+      oklch(.155 .012 265/.7) 0 42%,oklch(.155 .012 265/.24) 78%,transparent 100%)}
+@keyframes hinna{to{transform:rotate(1turn)}}
+@media(prefers-reduced-motion:reduce){.loop::before{animation:none}}
 .loopl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#ff7a4d;margin-bottom:14px}
 .loop ol{list-style:none}
-.loop li{font-family:var(--serif);font-size:clamp(23px,5vw,32px);line-height:1.2;color:#fff}
-.loop li:nth-child(n+4){color:#5b5651}
+/* 24px är WCAG:s gräns för stor text. Under den gäller 4.5:1 istället för 3:1. */
+.loop li{font-family:var(--serif);font-size:clamp(24px,5vw,32px);line-height:1.2;color:#fff}
+/* Tonen är mätt mot filmens ljusaste rotationsfas, inte mot ren --ink. */
+.loop li:nth-child(n+4){color:#847e75}
 .turn{font-size:clamp(22px,4.6vw,32px);font-weight:700;letter-spacing:-.032em;line-height:1.15;color:var(--ink);margin-top:34px}
 .turn span{display:block;font-weight:400;font-size:.6em;color:var(--muted);margin-top:10px;letter-spacing:-.01em}
 .beat{margin-top:44px}
