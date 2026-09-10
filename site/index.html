@@ -1,0 +1,856 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><script>document.documentElement.className='js'</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>opensverige — Sveriges öppna community för AI-agenter och vibecoding</title>
+<meta name="description" content="Sveriges öppna community för AI-agenter och vibecoding. 600+ builders bygger med OpenClaw, Hermes, Grokbot, CrewAI och MCP. Gratis, öppen källkod, ingen styrelse.">
+<link rel="canonical" href="https://opensverige.se/">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="theme-color" content="#fbfaf7">
+<meta name="author" content="opensverige">
+<meta name="keywords" content="AI-agenter, vibecoding, MCP, Model Context Protocol, OpenClaw, Hermes, Grokbot, NemoClaw, CrewAI, LangGraph, AutoGen, Cursor, Claude Code, agentramverk, Sverige">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="opensverige">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:title" content="opensverige — Sveriges öppna community för AI-agenter">
+<meta property="og:description" content="600+ builders bygger AI-agenter, MCP-servrar och vibecoding-projekt. Gratis, öppen källkod, ingen styrelse. Vi ses på Discord och IRL i Stockholm, Göteborg och Malmö.">
+<meta property="og:url" content="https://opensverige.se/">
+<meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="opensverige — Sveriges öppna community för AI-agenter">
+<meta name="twitter:description" content="600+ builders bygger AI-agenter, MCP-servrar och vibecoding-projekt. Gratis, öppen källkod, ingen styrelse.">
+<meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
+<link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--ok:#3ba55d;
+  --bg:#fbfaf7; --surface:#fff; --ink:#151515; --muted:#5b5651; --faint:#918b83; --hair:#e4e2dc;
+  --accent:#b72c07; --discord:#5865F2;
+  --sans:'Familjen Grotesk',-apple-system,Helvetica,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --snap:cubic-bezier(.4,0,.2,1); --t:150ms var(--snap);
+  --gut:20px;
+}
+@media(min-width:860px){:root{--gut:46px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono)}
+
+/* ===== DISCORD-KNAPP ===== */
+.dbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 15px;border-radius:3px;
+  background:var(--ink);color:#fff;font-size:14.5px;font-weight:700;letter-spacing:-.01em;text-decoration:none;
+  transition:background var(--t),transform var(--t);white-space:nowrap}
+.dbtn svg{width:18px;height:18px;fill:currentColor;flex:none}
+.dbtn:hover{background:var(--discord);transform:translateY(-1px)}
+.dbtn.big{height:54px;padding:0 24px;font-size:17px;border-radius:4px}
+.dbtn.big svg{width:22px;height:22px}
+.dbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--hair)}
+.dbtn.ghost:hover{background:transparent;border-color:var(--ink);transform:none}
+
+/* ===== TICKER ===== */
+.livebar{position:sticky;top:0;z-index:75;height:28px;display:flex;align-items:center;background:var(--ink);color:#cfc9c1;overflow:hidden}
+.tlbl{flex:none;display:flex;align-items:center;gap:7px;padding:0 12px;height:100%;background:var(--accent);color:#fff;
+  font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.tdot{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 2s var(--snap) infinite}
+.twrap{overflow:hidden;flex:1;position:relative}
+.twrap::after{content:"";position:absolute;right:0;top:0;bottom:0;width:56px;background:linear-gradient(90deg,transparent,var(--ink));pointer-events:none}
+.livebar,.pillbar{max-width:100%}
+.trun{display:flex;width:max-content;padding-left:26px;font-family:var(--mono);font-size:11px;animation:trun 62s linear infinite}
+@keyframes trun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tm{padding:0 20px;white-space:nowrap}
+.tm b{color:#fff;font-weight:600}
+.tm.isbot{color:#ff7a4d}
+.tm.isbot .sd{background:var(--discord)}
+.sd{display:inline-block;width:6px;height:6px;border-radius:50%;background:#3ba55d;margin-right:7px;vertical-align:middle}
+.sd.idle{background:#faa61a}
+
+
+/* ===== TOPPRAD ===== */
+.topbar{position:sticky;top:28px;z-index:70;background:rgba(251,250,247,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--hair)}
+.barin{max-width:1360px;margin:0 auto;height:58px;display:flex;align-items:center;gap:14px;padding:0 var(--gut)}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
+.brand .mark{height:28px;width:auto;image-rendering:pixelated;transition:transform var(--t)}
+.brand:hover .mark{transform:rotate(-9deg) scale(1.12)}
+.brand .wm{font-size:19px;font-weight:700;letter-spacing:-.04em}
+.topbar .dbtn{height:38px;border-radius:100px;font-weight:700}
+.tl{font-size:14px;color:var(--muted);padding:7px 10px;transition:color var(--t)}
+.tl:hover{color:var(--ink)}
+.member{display:inline-flex;align-items:center;height:38px;padding:0 15px;border-radius:100px;
+  border:1px solid var(--ink);color:var(--ink);font-size:14px;font-weight:700;transition:all var(--t)}
+.member:hover{background:var(--ink);color:#fff;transform:translateY(-1px)}
+@media(max-width:820px){.tl{display:none}.dbtn .dtx{display:none}.topbar .dbtn{padding:0 12px}}
+.topbar .dbtn .c{font-family:var(--mono);font-size:11px;opacity:.7;font-weight:400}
+@media(min-width:1000px){.barin{padding-left:16px}}
+
+/* ============ SKAL ============ */
+.shell{max-width:1360px;margin:0 auto}
+@media(min-width:1000px){
+  .shell{display:grid;grid-template-columns:190px minmax(0,1fr);border-left:1px solid var(--hair);border-right:1px solid var(--hair)}
+}
+.rail{display:none}
+@media(min-width:1000px){
+  .rail{display:flex;position:sticky;top:86px;height:calc(100vh - 86px);border-right:1px solid var(--hair);
+    padding:28px 0 20px;flex-direction:column}
+}
+.rail .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);padding:0 16px 12px}
+.rail a{position:relative;display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;color:var(--faint);transition:color var(--t),background var(--t)}
+.rail a .n{font-family:var(--mono);font-size:10px;color:#c3bdb5;transition:color var(--t)}
+.rail a::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform var(--t)}
+.rail a:hover{color:var(--ink);background:#f5f3ef}
+.rail a.on{color:var(--ink);font-weight:600}
+.rail a.on::before{transform:scaleY(1)}
+.rail a.on .n{color:var(--accent)}
+.rail .foot{margin-top:auto;padding:0 16px;display:flex;flex-direction:column;gap:8px}
+.rail .live{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s var(--snap) infinite;flex:none}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+.bar{height:2px;background:var(--hair);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);width:0;transition:width 90ms linear}
+
+/* mobil sektionschips */
+.chips{display:flex;gap:7px;overflow-x:auto;padding:10px var(--gut);border-bottom:1px solid var(--hair);
+  position:sticky;top:86px;z-index:60;background:rgba(251,250,247,.94);backdrop-filter:blur(12px);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+@media(min-width:1000px){.chips{display:none}}
+.chips a{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 12px;border:1px solid var(--hair);border-radius:100px;color:var(--muted);transition:all var(--t)}
+.chips a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+section{border-bottom:1px solid var(--hair)}
+.pad{padding:44px var(--gut)}
+@media(min-width:860px){.pad{padding:62px var(--gut)}}
+h2{font-size:clamp(31px,7.2vw,50px);font-weight:700;letter-spacing:-.04em;line-height:1.02}
+h3{font-size:20px;font-weight:700;letter-spacing:-.025em}
+.lede{font-size:17.5px;font-weight:500;line-height:1.5;color:var(--muted);max-width:52ch;margin-top:14px}
+@media(min-width:860px){.lede{font-size:19px}}
+html.js .rv{opacity:0;transform:translateY(14px);transition:opacity 380ms var(--snap),transform 380ms var(--snap)}
+html.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html.js .rv{opacity:1!important;transform:none!important;transition:none}.pulse{animation:none}}
+
+/* ============ HERO ============ */
+.hero{padding:38px var(--gut) 0}
+@media(min-width:860px){.hero{padding:0}}
+.heroGrid{display:flex;flex-direction:column;gap:6px}
+@media(min-width:860px){
+  .heroGrid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:30px;align-items:center;padding:54px var(--gut) 40px}}
+@media(min-width:1300px){.heroGrid{grid-template-columns:minmax(0,1fr) 520px;padding:64px var(--gut) 48px}}
+h1{font-size:clamp(38px,7.2vw,84px);font-weight:700;letter-spacing:-.048em;line-height:.94;max-width:12ch}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.01em}
+.sub{font-size:18px;font-weight:500;line-height:1.5;color:var(--muted);max-width:42ch;margin-top:20px}
+.row{display:flex;flex-direction:column;gap:9px;margin-top:24px}
+@media(min-width:520px){.row{flex-direction:row}}
+.handwrap{display:flex;justify-content:center;margin-top:18px;position:relative}
+.handwrap img{width:min(300px,74vw);height:auto;transform:translateY(var(--py,0px));transition:transform 60ms linear;
+  filter:drop-shadow(0 16px 32px rgba(120,40,12,.20))}
+@media(min-width:860px){.handwrap img{width:420px;max-width:none}}
+@media(min-width:1300px){.handwrap img{width:500px}}
+
+/* ============ DISCORD ============ */
+.disc{background:#151515;color:#f2f0ec}
+.disc h2{color:#fff}.disc .lede{color:#a09a92}
+.dhero{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.dhero svg{width:40px;height:40px;fill:var(--discord);flex:none}
+.dhero .c{font-family:var(--mono);font-size:12px;color:#8b857e}
+.dcta{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+@media(min-width:640px){.dcta{flex-direction:row;align-items:center}}
+.dcta .say{font-size:15.5px;line-height:1.5;color:#a09a92;max-width:42ch}
+.dcta .say b{color:#fff;font-weight:600}
+.dbtn.dc{background:var(--discord);color:#fff}
+.dbtn.dc:hover{background:#4752c4}
+
+/* ============ BYGGET ============ */
+.workrow{display:grid;grid-template-columns:1fr;border-top:1px solid var(--hair)}
+@media(min-width:820px){.workrow{grid-template-columns:1fr 1fr}}
+.work{padding:26px var(--gut);border-bottom:1px solid var(--hair);transition:background var(--t)}
+@media(min-width:820px){.work{border-right:1px solid var(--hair)}.work:nth-child(2n){border-right:0}}
+.work:hover{background:#f5f3ef}
+.work .top{display:flex;align-items:center;gap:11px}
+.work .px{width:40px;height:40px;image-rendering:pixelated;transition:transform var(--t)}
+.work:hover .px{transform:translateY(-3px) rotate(-6deg)}
+.work .tier{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.work h3{margin-top:13px}
+.work p{font-size:15.5px;line-height:1.55;color:var(--muted);margin-top:7px;max-width:46ch}
+.work .meta{display:flex;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.work .meta span{padding-right:11px;margin-right:11px;border-right:1px solid var(--hair)}
+.work .meta span:last-child{border:0}
+.eq{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);padding:14px var(--gut);background:#f5f3ef}
+
+
+/* ============ PRODUKTER ============ */
+#bygget h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
+.prods{display:grid;gap:18px;padding:6px var(--gut) 0}
+@media(min-width:900px){.prods{grid-template-columns:1fr 1fr;gap:22px}}
+.prod{display:block;background:var(--surface);border:1px solid var(--hair);border-radius:7px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
+.prod:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(20,8,4,.32);border-color:#cfcac2}
+.chrome{display:flex;align-items:center;gap:6px;padding:0 13px;height:34px;background:#f2f0ec;border-bottom:1px solid var(--hair)}
+.chrome i{width:8px;height:8px;border-radius:50%;background:#d8d4cd;flex:none}
+.chrome .url{margin-left:9px;font-family:var(--mono);font-size:11px;color:var(--muted);
+  background:var(--surface);border:1px solid var(--hair);border-radius:100px;padding:3px 11px}
+.chrome .lv{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ok);display:flex;align-items:center;gap:5px}
+.chrome .lv::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s var(--snap) infinite}
+.shot{aspect-ratio:1100/690;overflow:hidden;background:#efedea;border-bottom:1px solid var(--hair)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 500ms var(--snap)}
+.prod:hover .shot img{transform:scale(1.03)}
+.ptx{padding:18px 20px 20px}
+.ptx h3{font-size:20px;font-weight:700;letter-spacing:-.03em}
+.ptx p{font-size:14.5px;line-height:1.5;color:var(--muted);margin-top:8px}
+.pgo{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);margin-top:15px}
+.pgo i{font-style:normal;color:var(--accent);transition:transform var(--t)}
+.prod:hover .pgo i{transform:translateX(4px)}
+.more{padding:26px var(--gut)}
+.more p{font-size:16px;line-height:1.55;color:var(--muted);max-width:56ch}
+.more p b{color:var(--ink);font-weight:600}
+.mrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+
+/* svävande citat i heron */
+.qc{display:none}
+@media(min-width:1100px){
+  .qc{display:block;position:absolute;z-index:3;max-width:266px;background:rgba(255,255,255,.97);
+    border:1px solid var(--hair);border-radius:5px;padding:13px 15px;
+    box-shadow:0 1px 2px rgba(0,0,0,.03),0 16px 34px -16px rgba(20,8,4,.28);
+    animation:drift 9s ease-in-out infinite}
+  .qc blockquote,.qc figcaption{transition:opacity 320ms var(--snap)}
+  .qc.swap blockquote,.qc.swap figcaption{opacity:0}
+  .qc blockquote{font-size:14px;line-height:1.45;color:var(--body);letter-spacing:-.005em}
+  .qc figcaption{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--accent);margin-top:9px}
+  .qc1{top:53%;left:8px;max-width:238px;animation-delay:0s}
+  .qc2{top:63%;right:-20px;max-width:232px;animation-delay:-3s}
+  .qc3{bottom:-10px;left:70px;max-width:242px;animation-delay:-6s}
+}
+@media(max-width:1399px){.qc2{display:none}}
+@media(min-width:1500px){.qc1{left:-6px}.qc2{right:-30px}.qc3{left:132px}}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* skrivindikator, samma rytm som Discords */
+.typing{display:none}
+@media(min-width:1100px){
+  .typing{display:flex;position:absolute;z-index:4;top:44%;right:-14px;align-items:center;gap:9px;
+    background:rgba(255,255,255,.97);border:1px solid var(--hair);border-radius:100px;padding:7px 14px 7px 11px;
+    box-shadow:0 1px 2px rgba(0,0,0,.03),0 10px 24px -12px rgba(20,8,4,.24)}
+  .typing .dots{display:inline-flex;gap:3px;align-items:flex-end}
+  .typing .dots i{width:5px;height:5px;border-radius:50%;background:var(--faint);
+    animation:tdot 1.4s infinite ease-in-out}
+  .typing .dots i:nth-child(2){animation-delay:.15s}
+  .typing .dots i:nth-child(3){animation-delay:.3s}
+  .typing .who{font-size:12.5px;color:var(--muted)}
+  .typing .who b{color:var(--ink);font-weight:600}
+}
+@media(min-width:1500px){.typing{right:-40px}}
+@keyframes tdot{0%,44%,100%{transform:translateY(0);opacity:.45}22%{transform:translateY(-4px);opacity:1}}
+@media(prefers-reduced-motion:reduce){.typing .dots i{animation:none;opacity:.6}}
+@media(prefers-reduced-motion:reduce){.qc{animation:none}}
+
+/* ============ VARFÖR ============ */
+.gollum{font-size:14.5px;color:var(--faint);margin-top:14px}
+.gollum a{color:var(--accent);text-decoration:underline;text-underline-offset:.16em;text-decoration-thickness:1px}
+.gollum a:hover{color:var(--ink)}
+#vision h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
+.wlede{font-size:17.5px;font-weight:500;line-height:1.5;color:var(--muted);max-width:46ch;margin-top:16px}
+.arc{margin-top:38px;max-width:660px}
+.loop{background:var(--ink);border-radius:5px;padding:22px 24px}
+.loopl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#ff7a4d;margin-bottom:14px}
+.loop ol{list-style:none}
+.loop li{font-family:var(--serif);font-size:clamp(23px,5vw,32px);line-height:1.2;color:#fff}
+.loop li:nth-child(n+4){color:#5b5651}
+.turn{font-size:clamp(22px,4.6vw,32px);font-weight:700;letter-spacing:-.032em;line-height:1.15;color:var(--ink);margin-top:34px}
+.turn span{display:block;font-weight:400;font-size:.6em;color:var(--muted);margin-top:10px;letter-spacing:-.01em}
+.beat{margin-top:44px}
+.beat p{font-size:clamp(27px,6.2vw,46px);font-weight:700;letter-spacing:-.04em;line-height:1.04}
+.beat .b1{color:var(--faint)}
+.beat .b2{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--accent);letter-spacing:-.02em}
+.copilot{font-size:clamp(19px,4vw,26px);font-weight:500;line-height:1.32;color:var(--body);margin-top:34px}
+.copilot span{color:var(--faint)}
+.iso{margin-top:26px;display:flex;flex-wrap:wrap;gap:9px}
+.iso span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--hair);border-radius:100px;padding:7px 13px;background:var(--surface)}
+.iso span.hot{border-color:var(--accent);color:var(--accent)}
+.cl{margin-top:24px;display:flex;flex-wrap:wrap;gap:9px}
+.ch{font-family:var(--mono);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--hair);
+  border-radius:4px;padding:9px 13px;transition:border-color var(--t),color var(--t)}
+.ch:hover{border-color:var(--accent);color:var(--ink)}
+.fear{margin-top:42px;font-family:var(--serif);font-size:clamp(30px,7vw,52px);font-style:italic;color:var(--accent);line-height:1}
+.out{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--faint);margin-top:18px}
+
+/* ============ SUPERGROK ============ */
+.grok{margin-top:38px;display:flex;flex-direction:column;gap:18px;align-items:flex-start;
+  background:#111010;border:1px solid #262422;border-radius:5px;padding:22px}
+@media(min-width:640px){.grok{flex-direction:row;align-items:center;gap:26px;padding:26px}}
+.grok img{width:104px;height:104px;image-rendering:pixelated;flex:none}
+@media(min-width:640px){.grok img{width:132px;height:132px}}
+.grok h3{font-size:clamp(22px,4.4vw,30px);font-weight:700;letter-spacing:-.032em;color:#fff}
+.grok p{font-size:16px;line-height:1.5;color:#a09a92;margin-top:9px;max-width:48ch}
+.grok p b{color:#fff;font-weight:600}
+.tagline{display:inline-flex;align-items:center;font-family:var(--mono);font-size:12.5px;color:#ff7a4d;
+  background:#1c1a18;border:1px solid #2e2b28;border-radius:4px;padding:6px 11px;margin-top:14px}
+.also{font-size:15.5px;line-height:1.55;color:#a09a92;margin-top:16px}
+.also b{color:#fff;font-weight:600}
+
+.bots{display:grid;gap:1px;background:#262422;border:1px solid #262422;border-radius:5px;overflow:hidden;margin-top:16px}
+@media(min-width:640px){.bots{grid-template-columns:1fr 1fr}}
+.bot{background:#111010;padding:16px 18px}
+.bn{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.br{font-family:var(--mono);font-size:9.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;
+  color:#ff7a4d;margin-left:8px}
+.bot p{font-size:14px;line-height:1.5;color:#a09a92;margin-top:6px}
+
+/* ============ ROLLER ============ */
+.roles{display:grid;gap:10px;margin-top:22px}
+@media(min-width:700px){.roles{grid-template-columns:repeat(3,1fr)}}
+.role{background:#111010;border:1px solid #262422;border-radius:5px;padding:15px 17px;display:flex;
+  align-items:center;gap:14px;transition:border-color var(--t),transform var(--t)}
+.role:hover{border-color:#3d3935;transform:translateY(-2px)}
+.role img{height:30px;width:auto;image-rendering:pixelated;flex:none}
+.role .n{font-size:16px;font-weight:700;letter-spacing:-.025em;color:#fff}
+.rolefoot{margin-top:16px;font-size:15.5px;line-height:1.55;color:#a09a92}
+.rolefoot b{color:#fff;font-weight:600}
+
+/* ============ IRL & LABS ============ */
+.gbg{margin-top:24px;padding:22px;border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:3px;background:#fdfcfa}
+.gbg .q{font-family:var(--serif);font-size:clamp(23px,4.6vw,31px);line-height:1.22;color:var(--ink)}
+.gbg .a{font-size:15px;line-height:1.55;color:var(--muted);margin-top:12px;max-width:60ch}
+.rhythm{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:4px;overflow:hidden;margin-top:22px}
+@media(min-width:700px){.rhythm{grid-template-columns:repeat(3,1fr)}}
+.rhythm > div{background:var(--surface);padding:18px;transition:background var(--t)}
+.rhythm > div:hover{background:#f6f4f0}
+.rhythm .w{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
+.rhythm h4{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-top:9px}
+.rhythm p{font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
+.three{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px;align-items:center}
+.three .c{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--hair);border-radius:100px;padding:7px 14px;background:var(--surface)}
+.three .c.new{border-style:dashed;color:var(--faint)}
+.three .n{font-size:14.5px;color:var(--muted)}
+
+/* ============ BLOGG ============ */
+.posts{border-top:1px solid var(--hair)}
+.post{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding:16px var(--gut);
+  border-bottom:1px solid var(--hair);transition:background var(--t),padding-left var(--t)}
+.post:hover{background:#f5f3ef}
+@media(min-width:640px){.post:hover{padding-left:calc(var(--gut) + 8px)}}
+.pt{font-size:17.5px;font-weight:600;letter-spacing:-.02em;flex:1;min-width:min(100%,22ch)}
+.pm{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+  white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+.pm i{font-style:normal;color:var(--accent);transition:transform var(--t)}
+.post:hover .pm i{transform:translateX(4px)}
+
+/* ============ SLUT ============ */
+.memberband{margin-top:34px;border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:3px;
+  background:#fdfcfa;padding:22px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+@media(min-width:760px){.memberband{flex-direction:row;align-items:center;gap:32px;padding:26px 28px}}
+.memberband h3{font-size:21px;font-weight:700;letter-spacing:-.03em}
+.memberband p{font-size:16px;line-height:1.5;color:var(--muted);margin-top:9px;max-width:52ch}
+.memberband p b{color:var(--ink);font-weight:600}
+.slink{display:inline-block;margin-top:13px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);transition:opacity var(--t)}
+.slink:hover{opacity:.7}
+.mbig{flex:none;display:inline-flex;align-items:center;gap:9px;height:52px;padding:0 26px;border-radius:3px;
+  background:var(--ink);color:#fff;font-size:17px;font-weight:700;transition:background var(--t),transform var(--t)}
+.mbig i{font-style:normal;transition:transform var(--t)}
+.mbig:hover{background:var(--accent);transform:translateY(-1px)}
+.mbig:hover i{transform:translateX(4px)}
+
+.end{padding:48px var(--gut) 56px}
+@media(min-width:860px){.end{padding:64px var(--gut)}}
+.end ul{list-style:none;margin-top:22px;max-width:60ch}
+.end li{display:grid;grid-template-columns:18px 1fr;gap:11px;font-size:17px;font-weight:500;line-height:1.45;color:var(--muted);padding:11px 0;border-bottom:1px solid var(--hair)}
+.end li i{font-style:normal;color:var(--accent)}
+
+/* mobil sticky CTA — konvertering */
+.mcta{position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(251,250,247,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hair);
+  display:flex;gap:10px;align-items:center;transform:translateY(120%);transition:transform 240ms var(--snap)}
+.mcta.show{transform:none}
+@media(min-width:1000px){.mcta{display:none}}
+.mcta .n{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.3;flex:1}
+.mcta .n b{color:var(--ink);font-weight:600}
+.mcta .dbtn{flex:none}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "NGO"],
+      "@id": "https://opensverige.se/#organization",
+      "name": "opensverige",
+      "alternateName": "OpenSverige",
+      "url": "https://opensverige.se/",
+      "description": "Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. Ideell förening, öppen källkod, ingen avgift.",
+      "foundingDate": "2025",
+      "foundingLocation": { "@type": "Place", "name": "Stockholm, Sverige" },
+      "areaServed": { "@type": "Country", "name": "Sverige" },
+      "email": "opensverige@gmail.com",
+      "knowsLanguage": ["sv-SE", "en"],
+      "nonprofitStatus": "NonprofitANBI",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://opensverige.se/#logo",
+        "url": "https://opensverige.se/favicon/web-app-manifest-512x512.png",
+        "width": 512,
+        "height": 512,
+        "caption": "opensverige"
+      },
+      "image": { "@id": "https://opensverige.se/#logo" },
+      "sameAs": [
+        "https://discord.gg/ZbV4qB34um",
+        "https://github.com/orgs/opensverige",
+        "https://www.linkedin.com/groups/9544657/"
+      ],
+      "knowsAbout": [
+        "AI-agenter",
+        "Autonoma AI-agenter",
+        "Multi-agent workflows",
+        "Vibecoding",
+        "Model Context Protocol (MCP)",
+        "MCP-servrar",
+        "OpenClaw",
+        "Hermes",
+        "Grokbot",
+        "NemoClaw",
+        "CrewAI",
+        "LangGraph",
+        "AutoGen",
+        "Google ADK",
+        "OpenAI Agents SDK",
+        "Claude Agent SDK",
+        "Pydantic AI",
+        "Cursor",
+        "Windsurf",
+        "Claude Code",
+        "Lovable",
+        "Bolt",
+        "v0",
+        "Higgsfield",
+        "Mirofish",
+        "SuperGrok",
+        "Öppen källkod",
+        "Svenska API-integrationer"
+      ],
+      "location": [
+        { "@type": "Place", "name": "Stockholm" },
+        { "@type": "Place", "name": "Göteborg" },
+        { "@type": "Place", "name": "Malmö" }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://opensverige.se/#website",
+      "url": "https://opensverige.se/",
+      "name": "opensverige",
+      "description": "Sveriges öppna community för AI-agenter och vibecoding.",
+      "inLanguage": "sv-SE",
+      "publisher": { "@id": "https://opensverige.se/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://opensverige.se/#webpage",
+      "url": "https://opensverige.se/",
+      "name": "opensverige — Sveriges öppna community för AI-agenter och vibecoding",
+      "description": "600+ builders bygger AI-agenter, MCP-servrar och vibecoding-projekt. Gratis, öppen källkod, ingen styrelse.",
+      "isPartOf": { "@id": "https://opensverige.se/#website" },
+      "about": { "@id": "https://opensverige.se/#organization" },
+      "inLanguage": "sv-SE",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://opensverige.se/assets/og-image.jpg",
+        "width": 1200,
+        "height": 630
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://opensverige.se/#projekt",
+      "name": "Projekt byggda i opensverige",
+      "description": "Öppna projekt som startat i communityn.",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Agent Readiness Scanner",
+            "url": "https://agent.opensverige.se",
+            "description": "Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller på 30 sekunder.",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "sv-SE",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SEK" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "AI-Infra",
+            "url": "https://infra.opensverige.se",
+            "description": "Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR.",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "sv-SE",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SEK" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "KAMMAREN",
+            "url": "https://kammaren.nu",
+            "description": "Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "sv-SE"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "SoftwareSourceCode",
+            "name": "fortnox-skill",
+            "url": "https://github.com/opensverige/fortnox-skill",
+            "description": "OpenClaw-skill som kopplar en AI-agent direkt till Fortnox för fakturor, kunder och chatt.",
+            "codeRepository": "https://github.com/opensverige/fortnox-skill",
+            "programmingLanguage": "TypeScript"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head><body>
+
+<div class="livebar">
+  <span class="tlbl"><span class="tdot"></span>Live</span>
+  <div class="twrap"><div class="trun">
+    <span class="tm"><b>111</b> online just nu</span>
+    <span class="tm"><i class="sd"></i>&amp;ers</span><span class="tm"><i class="sd"></i>Apollo</span><span class="tm"><i class="sd"></i>Arcane</span><span class="tm"><i class="sd"></i>ArcaneSignal</span><span class="tm"><i class="sd"></i>Bunnz</span><span class="tm"><i class="sd"></i>Chris</span><span class="tm"><i class="sd"></i>CLNR</span><span class="tm"><i class="sd"></i>Craig</span>
+    <span class="tm isbot"><i class="sd"></i>SuperGrok-Handen</span><span class="tm isbot"><i class="sd"></i>Paragraf</span>
+    <span class="tm"><i class="sd idle"></i>46 online · 45 borta · 9 stör ej</span><span class="tm"><b>604</b> builders totalt</span>
+    <span class="tm"><b>111</b> online just nu</span>
+    <span class="tm"><i class="sd"></i>&amp;ers</span><span class="tm"><i class="sd"></i>Apollo</span><span class="tm"><i class="sd"></i>Arcane</span><span class="tm"><i class="sd"></i>ArcaneSignal</span><span class="tm"><i class="sd"></i>Bunnz</span><span class="tm"><i class="sd"></i>Chris</span><span class="tm"><i class="sd"></i>CLNR</span><span class="tm"><i class="sd"></i>Craig</span>
+    <span class="tm isbot"><i class="sd"></i>SuperGrok-Handen</span><span class="tm isbot"><i class="sd"></i>Paragraf</span>
+    <span class="tm"><i class="sd idle"></i>46 online · 45 borta · 9 stör ej</span><span class="tm"><b>604</b> builders totalt</span>
+  </div></div>
+</div>
+
+<header class="topbar">
+  <div class="barin">
+    <a class="brand" href="/"><img class="mark" src="/assets/logo.webp" alt="opensverige" width="28" height="30"><span class="wm">opensverige</span></a>
+    <a class="tl" href="/stadgar">Stadgar</a>
+    <a class="tl" href="/regler">Regler</a>
+    <a class="member" href="/bli-medlem">Bli medlem</a>
+    <a class="dbtn" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg><span class="dtx">Discord</span> <span class="c">112</span></a>
+  </div>
+</header>
+
+<nav class="chips" id="chips">
+  <a href="#hero">Start</a><a href="#discord">Discord</a><a href="#irl">IRL</a><a href="#bygget">Bygget</a>
+  <a href="#vision">Varför</a><a href="/regler">Regler</a><a href="#slut">Kom förbi</a>
+</nav>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="lbl">Innehåll</div>
+    <nav id="rail">
+      <a href="#hero"><span class="n">01</span> Start</a>
+      <a href="#discord"><span class="n">02</span> Discord</a>
+      <a href="#vision"><span class="n">03</span> Varför</a>
+      <a href="#irl"><span class="n">04</span> IRL &amp; Labs</a>
+      <a href="#bygget"><span class="n">05</span> Bygget</a>
+      <a href="#skrivet"><span class="n">06</span> Blogg</a>
+      <a href="#slut"><span class="n">07</span> Kom förbi</a>
+    </nav>
+    <div class="foot">
+      <div class="live"><span class="pulse"></span><b id="onl">112</b>&nbsp;online av <b>604</b></div>
+      <div class="bar"><i id="prog"></i></div>
+    </div>
+  </aside>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="heroGrid">
+        <div>
+          <h1 class="rv">Här hänger de<br>som bygger.<br><em>Ingen annanstans.</em></h1>
+          <p class="sub rv">604 i Discorden. Kallingar, klockan två, en tisdag. Vi pushar varandra vidare — det finns inget liknande i Sverige.</p>
+          <div class="row rv">
+            <a class="dbtn big dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Gå med i Discord</a>
+            <a class="dbtn big ghost" href="/bli-medlem">Bli medlem →</a>
+          </div>
+        </div>
+        <div class="handwrap rv">
+          <img id="hand" src="/assets/hand.webp" alt="Hand som håller en kräfta">
+          <figure class="qc qc1"><blockquote>Förlåt men varför behöver cursor 21 gb appminne för att vara idle</blockquote><figcaption>#bygg-skiten</figcaption></figure>
+          <figure class="qc qc2"><blockquote>Kul! Låt oss testa att skapa en open sverige org</blockquote><figcaption>#bygg-skiten</figcaption></figure>
+          <div class="typing" aria-live="polite"><span class="dots"><i></i><i></i><i></i></span><span class="who"><b id="typeWho">Byggare</b> skriver</span></div>
+          <figure class="qc qc3"><blockquote>Helt sanslöst… Astra har caddat upp varenda jävla legobit som ingår i bägge robotar</blockquote><figcaption>#projekt-show</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="discord" class="disc">
+      <div class="pad">
+        <div class="dhero rv">
+          <svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
+          <div><h2>Det är här det händer.</h2></div>
+        </div>
+        <p class="lede rv">Kaotiskt, öppet och roligt. Någon kör fast, någon annan svarar — dygnet runt.</p>
+        <div class="grok rv">
+          <img src="/assets/grok.webp" alt="Pixelhand som håller Grok-loggan">
+          <div>
+            <h3>SuperGrok åt alla.</h3>
+            <p>Hela Discorden har SuperGrok. Tagga <b>@SuperGrok-Handen</b> i vilken kanal som helst och researcha ihop — live X-sök, alltid med källa.</p>
+            <span class="tagline">@SuperGrok-Handen</span>
+          </div>
+        </div>
+
+        <div class="bots rv">
+          <div class="bot">
+            <div class="bn">#llm-news</div>
+            <p>Daglig djupdykning. Kanalen folk läser först.</p>
+          </div>
+          <div class="bot">
+            <div class="bn">Paragraf <span class="br">internt</span></div>
+            <p>Föreningens rådgivare. Läser stadgarna, hämtar lagrummet, beslutar aldrig.</p>
+          </div>
+        </div>
+
+        <h3 style="font-size:22px;font-weight:700;letter-spacing:-.03em;color:#fff;margin-top:44px">Vi värdesätter aktivitet.</h3>
+        <div class="roles rv">
+          <div class="role"><img src="/assets/r-low.webp" alt="LOW"><div class="n">Nyfiken</div></div>
+          <div class="role"><img src="/assets/r-max.webp" alt="MAX"><div class="n">Byggare</div></div>
+          <div class="role"><img src="/assets/r-ultra.webp" alt="ULTRA"><div class="n">Shippare</div></div>
+        </div>
+        <p class="rolefoot rv">Rollen följer vad du gör. <b>Inte vem du är.</b></p>
+
+        <div class="dcta rv">
+          <p class="say"><b>604 medlemmar.</b> Ingen avgift. Ingen ansökan.</p>
+          <a class="dbtn big dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Gå med nu</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision">
+      <div class="pad">
+        <h2 class="rv">Sverige har konferenser.<br>Vi har en <em>verkstad</em>.</h2>
+        <p class="wlede rv">Mellanhänderna tar 15 000 kr för att förklara det du kan bygga själv på en kväll. Men priset är inte det värsta problemet.</p>
+        <p class="wlede rv" style="margin-top:12px"><b>Det värsta är att sitta ensam.</b> En AI som alltid håller med är ingen kollega — den är en bubbla.</p>
+
+        <div class="arc">
+          <div class="loop rv">
+            <div class="loopl">Bubblan</div>
+            <ol>
+              <li>Prompta.</li><li>Få beröm.</li><li>Prompta igen.</li>
+              <li>Shippa aldrig.</li><li>Tro att idén är guld.</li><li>Vakta den som Gollum.</li>
+            </ol>
+          </div>
+
+          <p class="turn rv">Ingen snor din idé.<br><span>De bygger sin egen med tre prompts medan du sover.</span></p>
+          <p class="gollum rv">Vi byggde ett test på det — <a href="/gollum">Gollum-testet</a>.</p>
+
+          <div class="beat rv">
+            <p class="b1">Solo är kul.</p>
+            <p class="b2">Men inte för länge.</p>
+          </div>
+
+          <p class="copilot rv">Du behöver alltid en human copilot.<br><span>Även om det är en idiot.</span></p>
+
+          <div class="iso rv"><span>Två isotoper</span><span>Antingen kärnsmälta</span><span class="hot">Eller energi</span></div>
+
+          <div class="cl rv">
+            <span class="ch">⠴-❯_projekt-show</span><span class="ch">➠bygg skiten · voice</span>
+          </div>
+
+          <p class="fear rv">Var inte rädd.</p>
+          <p class="out rv">Halvfärdigt är standard. Trasigt är välkommet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="irl">
+      <div class="pad" style="padding-bottom:26px">
+        <h2 class="rv">Och ibland<br>ses vi på riktigt.</h2>
+        <div class="gbg rv">
+          <div class="q">Tre städer. Göteborg startade utan oss.</div>
+          <p class="a">Ingen blev tillfrågad. Ingen behövde godkänna. Så ska det vara.</p>
+        </div>
+
+        <div class="three rv">
+          <span class="c">Stockholm</span><span class="c">Göteborg</span><span class="c">Malmö</span>
+          <span class="c new">Din stad</span>
+          <span class="n">Minst tre personer. Det är hela kravet.</span>
+        </div>
+      </div>
+
+      <div class="rhythm rv">
+        <div><div class="w">Oftast söndagar</div><h4>IRL-träffar</h4><p>Vi försöker ses ofta. Alla har inte tid — men det ger mer än en tråd.</p></div>
+        <div><div class="w">Löpande</div><h4>Öppna demos</h4><p>Visa det medan det är trasigt.</p></div>
+        <div><div class="w">Labs</div><h4>Vi testar det nya först</h4><p>Grokbot, Higgsfield, Mirofish. Det som släpptes i veckan, kört skarpt.</p></div>
+      </div>
+    </section>
+
+    <section id="bygget">
+      <div class="pad" style="padding-bottom:26px"><h2 class="rv">Det här ramlade ut.</h2>
+        <p class="lede rv">Ingen beställde dem. Någon började bygga och andra hängde på.</p></div>
+      <div class="prods">
+        <a class="prod rv" href="https://agent.opensverige.se">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">agent.opensverige.se</span><span class="lv">live</span></div>
+          <div class="shot"><img src="/assets/prod-agent.webp" alt="Agent Readiness Scanner"></div>
+          <div class="ptx">
+            <h3>Agent Readiness Scanner</h3>
+            <p>Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.</p>
+            <span class="pgo">Öppna <i>→</i></span>
+          </div>
+        </a>
+        <a class="prod rv" href="https://infra.opensverige.se">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">infra.opensverige.se</span><span class="lv">live</span></div>
+          <div class="shot"><img src="/assets/prod-infra.webp" alt="AI-Infra"></div>
+          <div class="ptx">
+            <h3>AI-Infra</h3>
+            <p>Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt.</p>
+            <span class="pgo">Öppna <i>→</i></span>
+          </div>
+        </a>
+      </div>
+      <div class="more rv">
+        <p>Fler projekt har postats i Discorden eller grundats ur opensverige. <b>grunden.ai</b>, <b>KAMMAREN</b>, <b>FAVER</b>, <b>fortnox-skill</b>.</p>
+        <div class="mrow">
+          <a class="dbtn ghost" href="/showcase">Se alla projekt →</a>
+          <a class="dbtn dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Posta ditt i Discord</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="skrivet">
+      <div class="pad" style="padding-bottom:22px">
+        <h2 class="rv">Blogg.</h2>
+        <p class="lede rv">Guider, genomgångar och åsikter. Vill du skriva? Gästinlägg är öppna för alla.</p>
+      </div>
+      <div class="posts">
+        <a class="post rv" href="/blogg/mcp-vs-rest">
+          <span class="pt">MCP vs REST — när ska du använda vad?</span>
+          <span class="pm">28 feb · 1 min <i>→</i></span></a>
+        <a class="post rv" href="/blogg/gollum-testet">
+          <span class="pt">Gollum-testet — vilken typ av builder är du?</span>
+          <span class="pm">23 mar · 1 min <i>→</i></span></a>
+        <a class="post rv" href="/blogg/bygg-spel-med-ai">
+          <span class="pt">Bygg ett spel med AI på en vecka</span>
+          <span class="pm">10 jun · 4 min <i>→</i></span></a>
+      </div>
+      <div class="pad" style="padding-top:20px">
+        <div class="mrow rv">
+          <a class="dbtn ghost" href="/blogg">Till bloggen →</a>
+          <a class="dbtn ghost" href="https://discord.gg/ZbV4qB34um" rel="noopener">Skriv ett gästinlägg →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="slut" class="end">
+      <h2 class="rv">Sluta lurka.<br>Börja bygga.</h2>
+      <ul>
+        <li class="rv"><i>→</i>Ingen styrelse, inga avgifter, ingen ansökan</li>
+        <li class="rv"><i>→</i>Nybörjare och seniora i samma tråd</li>
+        <li class="rv"><i>→</i>Koden är öppen. Misstagen är också öppna.</li>
+        <li class="rv"><i>→</i>Du får skratta åt bygget. Inte åt personen.</li>
+      </ul>
+      <div class="memberband rv">
+        <div>
+          <h3>Föreningen är öppen.</h3>
+          <p>En röst på årsmötet, rätt att lämna motioner och söka resurser ur labbet. <b>Avgiften är frivillig</b> — medlemskap får aldrig villkoras av betalning.</p>
+          <a class="slink" href="/stadgar">Läs stadgarna →</a>
+        </div>
+        <a class="mbig" href="/bli-medlem">Bli medlem <i>→</i></a>
+      </div>
+
+      <div class="row rv" style="margin-top:26px">
+        <a class="dbtn big dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Gå med i Discord</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="mcta" id="mcta">
+  <div class="n"><b>604</b> builders · <b id="monl">112</b> online nu</div>
+  <a class="dbtn dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Gå med</a>
+</div>
+
+<script>
+const rio=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){
+  setTimeout(()=>e.target.classList.add('in'),(i%6)*45); rio.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(e=>rio.observe(e));
+// säkerhetsnät: om observern aldrig kör, visa allt ändå
+setTimeout(()=>document.querySelectorAll('.rv:not(.in)').forEach(e=>e.classList.add('in')),1200);
+
+const railLinks=[...document.querySelectorAll('#rail a')], chipLinks=[...document.querySelectorAll('#chips a')];
+const ids=['hero','discord','vision','irl','bygget','skrivet','slut'];
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+  const i=ids.indexOf(e.target.id); if(i<0)return;
+  railLinks.forEach(l=>l.classList.remove('on')); chipLinks.forEach(l=>l.classList.remove('on'));
+  railLinks[i]&&railLinks[i].classList.add('on'); if(chipLinks[i]){chipLinks[i].classList.add('on');
+    chipLinks[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});}
+}}),{rootMargin:'-45% 0px -50% 0px'});
+ids.forEach(id=>{const el=document.getElementById(id); el&&sio.observe(el);});
+
+const prog=document.getElementById('prog'), hand=document.getElementById('hand'), mcta=document.getElementById('mcta');
+let t=false;
+addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{
+  const y=scrollY,max=document.body.scrollHeight-innerHeight;
+  if(prog)prog.style.width=Math.min(100,(y/max)*100)+'%';
+  if(hand)hand.style.setProperty('--py',Math.min(40,y*.09)+'px');
+  mcta.classList.toggle('show', y>420 && y<max-260);
+  t=false;});},{passive:true});
+
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+  const el=e.target,to=+el.dataset.c;let n=0;const st=Math.max(1,Math.round(to/28));
+  const id=setInterval(()=>{n+=st;if(n>=to){n=to;clearInterval(id);}el.textContent=n;},24);
+  cio.unobserve(el);}),{threshold:.5});
+document.querySelectorAll('[data-c]').forEach(e=>cio.observe(e));
+
+
+/* ---- citaten cirkulerar ---- */
+(function(){
+  var POOL=[
+    ["F\u00f6rl\u00e5t men varf\u00f6r beh\u00f6ver cursor 21 gb appminne f\u00f6r att vara idle","#bygg-skiten"],
+    ["Kul! L\u00e5t oss testa att skapa en open sverige org","#bygg-skiten"],
+    ["Helt sansl\u00f6st\u2026 Astra har caddat upp varenda j\u00e4vla legobit som ing\u00e5r i b\u00e4gge robotar","#projekt-show"],
+    ["jag vill verkligen f\u00f6rmedla i gruppen att ni beh\u00f6ver inte dom \u201dstora\u201d drakarna f\u00f6r att g\u00f6ra aff\u00e4rer","Discord"],
+    ["Ta alltid det d\u00e4r m\u00f6tet, den d\u00e4r kaffen snabbt. Man vet aldrig vad det leder till.","Discord"],
+    ["N\u00e5gon som har bra koll p\u00e5 hur det funkar med koncernbidrag?","Discord"]
+  ];
+  var cards=[].slice.call(document.querySelectorAll('.qc'));
+  if(!cards.length) return;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce) return;
+  var next=cards.length, slot=0;
+  setInterval(function(){
+    var c=cards[slot%cards.length]; slot++;
+    if(getComputedStyle(c).display==='none') return;
+    var q=POOL[next%POOL.length]; next++;
+    c.classList.add('swap');
+    setTimeout(function(){
+      c.querySelector('blockquote').textContent=q[0];
+      c.querySelector('figcaption').textContent=q[1];
+      c.classList.remove('swap');
+    },330);
+  },4200);
+  var who=document.getElementById('typeWho'), roller=['Byggare','Shippare','Nyfiken'], ri=0;
+  if(who) setInterval(function(){ ri++; who.textContent=roller[ri%roller.length]; },4200);
+})();
+</script>
+</body></html>

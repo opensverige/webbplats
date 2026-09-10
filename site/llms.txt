@@ -1,0 +1,104 @@
+# opensverige
+
+> opensverige är Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. 600+ builders i Discorden. Gratis. Öppen källkod. Ingen styrelse som beslutar över huvudet på någon.
+
+## Om communityn
+
+- Grundat 2025 av Baltsar (Gustaf Garnow), Stockholm
+- 600+ builders: nybörjare, veteraner, designers, systemutvecklare
+- Städer med IRL-träffar: Stockholm, Göteborg, Malmö — nya städer startar själva, kravet är tre personer
+- Kanaler: Discord (primär), GitHub, LinkedIn
+- Modell: ideell förening, öppen källkod, inga mellanhänder, ingen obligatorisk avgift
+- Medlemskap får aldrig villkoras av betalning — avgiften är frivillig
+
+## Vad vi gör
+
+- Bygger AI-agenter med OpenClaw, Hermes, NemoClaw, CrewAI, LangGraph, AutoGen och Google ADK
+- Kör Grokbot och SuperGrok direkt i Discorden — tagga @SuperGrok-Handen i valfri kanal för research med källa
+- Utvecklar öppna MCP-servrar mot svensk infrastruktur (Fortnox, Bankgirot, Skatteverket, SCB)
+- Arrangerar fysiska IRL-byggsessioner, oftast söndagar
+- Testar nya verktyg skarpt i labbet — Grokbot, Higgsfield, Mirofish
+- Publicerar open source-projekt på GitHub
+
+## Tekniska fokusområden
+
+- Autonoma AI-agenter (multi-agent workflows, tool use, planning)
+- MCP (Model Context Protocol) — integrationer mot svenska affärssystem
+- Vibecoding — från naturligt språk till produktionskod
+- Svenska API:er och regulatoriska integrationer (Fortnox, Bankgirot, BankID)
+- Agent readiness — vad AI-agenter faktiskt ser när de besöker en svensk sajt
+
+## Ramverk och verktyg vi använder
+
+Agentramverk: OpenClaw, Hermes, NemoClaw, CrewAI, LangGraph, AutoGen, Google ADK, OpenAI Agents SDK, Claude Agent SDK, Pydantic AI
+Agenter och botar i drift: Grokbot, SuperGrok-Handen, Paragraf (föreningens rådgivare — läser stadgarna, hämtar lagrummet, beslutar aldrig)
+Vibecoding-IDEs: Cursor, Windsurf, Claude Code
+App-generatorer: Lovable, Bolt, v0
+Media och experiment: Higgsfield, Mirofish
+
+## Roller i Discorden
+
+Rollen följer vad du gör, inte vem du är. Tre nivåer: Nyfiken, Byggare, Shippare.
+
+## Aktiva projekt
+
+- **Agent Readiness Scanner** (live) — Skannar din sajt och visar vad AI-agenter ser och vad som blockerar dem. 13 kontroller, 30 sekunder. https://agent.opensverige.se
+- **AI-Infra** (live) — Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt. https://infra.opensverige.se
+- **KAMMAREN** (live) — Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. https://kammaren.nu
+- **FAVER** (live) — Hitta matrabatter i realtid via GPS. https://faver-one.vercel.app/map
+- **fortnox-skill** (open source) — OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder, chatt. https://github.com/opensverige/fortnox-skill
+- **LunarAIstorm** (live) — Socialt nätverk för AI-agenter, inspirerat av LunarStorm. https://lunaraistorm.se
+- **Gollum-testet** (live) — Quiz: är du builder eller hoardar du idéer? 90 sekunder. https://opensverige.se/gollum
+- **grunden.ai** — grundat ur communityn
+
+Fullständig showcase: https://opensverige.se/showcase
+
+## Blogg
+
+- Bygg ett spel med AI på en vecka (guide, hackathon) — https://opensverige.se/blogg/bygg-spel-med-ai
+- Koppla Fortnox till din AI-agent (guide, fortnox, openclaw) — https://opensverige.se/blogg/fortnox-agent-guide
+- Vad är AI-agenter? (intro) — https://opensverige.se/blogg/vad-ar-ai-agenter
+- MCP vs REST — när ska du använda vad? (arkitektur) — https://opensverige.se/blogg/mcp-vs-rest
+- Gollum-testet — vilken typ av builder är du? — https://opensverige.se/blogg/gollum-testet
+
+Gästinlägg är öppna för alla. Hör av dig i Discorden.
+
+## Sidor
+
+- Startsida: https://opensverige.se/
+- Varför opensverige finns: https://opensverige.se/varfor
+- Showcase: https://opensverige.se/showcase
+- Blogg: https://opensverige.se/blogg
+- Bli medlem: https://opensverige.se/bli-medlem
+- Stadgar: https://opensverige.se/stadgar
+- Regler: https://opensverige.se/regler
+- Gollum-testet: https://opensverige.se/gollum
+- Hackathon: https://opensverige.se/hackathon
+- Labbet: https://opensverige.se/lab
+- Integritetspolicy: https://opensverige.se/integritet
+
+## API och maskinläsbar data
+
+opensverige.se erbjuder öppna maskinläsbara resurser för agenter och crawlers:
+
+- **Community API**: GET https://opensverige.se/api/community — JSON med community-info, stats, ramverk och aktiva projekt
+- **OpenAPI-spec**: https://opensverige.se/openapi.json — OpenAPI 3.0-dokumentation
+- **llms.txt**: https://opensverige.se/llms.txt — denna fil
+- **Sitemap**: https://opensverige.se/sitemap.xml
+
+Inga API-nycklar krävs. Endpoints är öppna och cachade. CORS tillåtet från alla origins.
+
+## Kontakt och community
+
+- Discord (primär kanal): https://discord.gg/ZbV4qB34um
+- GitHub: https://github.com/orgs/opensverige
+- Email: opensverige@gmail.com
+- LinkedIn-grupp: https://www.linkedin.com/groups/9544657/
+
+## AI-innehållspolicy (EU AI Act Art. 50)
+
+Allt textinnehåll på opensverige.se är skrivet av mänskliga bidragsgivare. AI-verktyg används som skrivassistans men allt innehåll granskas och godkänns av en människa innan publicering. Inga sidor är autonomt AI-genererade utan mänsklig granskning.
+
+## Datapolicy för AI-crawlers
+
+Innehållet på opensverige.se är fritt att indexera och referera. Vi välkomnar AI-crawlers. Se robots.txt för specifika direktiv. Vi säljer aldrig användardata och bygger inga profiler.

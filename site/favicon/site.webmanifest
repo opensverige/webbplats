@@ -1,0 +1,25 @@
+{
+  "name": "opensverige — Sveriges öppna community för AI-agenter",
+  "short_name": "opensverige",
+  "description": "Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt.",
+  "lang": "sv-SE",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#b72c07",
+  "background_color": "#fbfaf7",
+  "display": "standalone"
+}

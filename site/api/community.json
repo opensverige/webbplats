@@ -1,0 +1,141 @@
+{
+  "name": "opensverige",
+  "description": "Sveriges öppna community för AI-agenter, MCP-servrar och vibecoding",
+  "url": "https://opensverige.se",
+  "discord": "https://discord.gg/ZbV4qB34um",
+  "github": "https://github.com/opensverige",
+  "linkedin": "https://www.linkedin.com/groups/9544657/",
+  "email": "opensverige@gmail.com",
+  "language": "sv-SE",
+  "license": "open-source",
+  "membership": {
+    "open": true,
+    "application_required": false,
+    "fee_required": false,
+    "note": "Avgiften är frivillig. Medlemskap får aldrig villkoras av betalning."
+  },
+  "stats": {
+    "members": 604,
+    "projects": 8,
+    "cities": ["Stockholm", "Göteborg", "Malmö"],
+    "founded": "2025",
+    "as_of": "2026-09-10"
+  },
+  "frameworks": {
+    "agent_frameworks": [
+      "OpenClaw",
+      "Hermes",
+      "NemoClaw",
+      "CrewAI",
+      "LangGraph",
+      "AutoGen",
+      "Google ADK",
+      "OpenAI Agents SDK",
+      "Claude Agent SDK",
+      "Pydantic AI"
+    ],
+    "bots_in_production": ["Grokbot", "SuperGrok-Handen", "Paragraf"],
+    "vibecoding_ides": ["Cursor", "Windsurf", "Claude Code"],
+    "app_generators": ["Lovable", "Bolt", "v0"],
+    "media_tools": ["Higgsfield", "Mirofish"],
+    "protocols": ["MCP (Model Context Protocol)", "REST"]
+  },
+  "focus_areas": [
+    "Autonoma AI-agenter och multi-agent workflows",
+    "MCP-servrar mot svensk infrastruktur (Fortnox, Bankgirot, Skatteverket, SCB)",
+    "Vibecoding — från naturligt språk till produktionskod",
+    "Agent readiness för svenska sajter"
+  ],
+  "roles": [
+    { "name": "Nyfiken", "basis": "aktivitet" },
+    { "name": "Byggare", "basis": "aktivitet" },
+    { "name": "Shippare", "basis": "aktivitet" }
+  ],
+  "showcase": [
+    {
+      "name": "Agent Readiness Scanner",
+      "status": "live",
+      "url": "https://agent.opensverige.se",
+      "tags": ["agent-readiness", "seo", "geo"]
+    },
+    {
+      "name": "AI-Infra",
+      "status": "live",
+      "url": "https://infra.opensverige.se",
+      "tags": ["datasuveränitet", "gdpr", "jämförelse"]
+    },
+    {
+      "name": "Kammaren",
+      "status": "live",
+      "url": "https://kammaren.nu",
+      "tags": ["skatteoptimering", "3:12", "sovereign-ai"]
+    },
+    {
+      "name": "FAVER",
+      "status": "live",
+      "url": "https://faver-one.vercel.app/map",
+      "tags": ["matpris", "gps", "realtime"]
+    },
+    {
+      "name": "fortnox-skill",
+      "status": "open-source",
+      "url": "https://github.com/opensverige/fortnox-skill",
+      "tags": ["openclaw", "fortnox", "mcp"]
+    },
+    {
+      "name": "LunarAIstorm",
+      "status": "live",
+      "url": "https://lunaraistorm.se",
+      "tags": ["multi-agent", "open-source"]
+    },
+    {
+      "name": "Gollum-testet",
+      "status": "live",
+      "url": "https://opensverige.se/gollum",
+      "tags": ["quiz", "community"]
+    },
+    {
+      "name": "grunden.ai",
+      "status": "live",
+      "url": "https://grunden.ai",
+      "tags": ["grundat-ur-opensverige"]
+    }
+  ],
+  "blog": [
+    {
+      "title": "Bygg ett spel med AI på en vecka",
+      "url": "https://opensverige.se/blogg/bygg-spel-med-ai",
+      "tags": ["guide", "hackathon"]
+    },
+    {
+      "title": "Koppla Fortnox till din AI-agent",
+      "url": "https://opensverige.se/blogg/fortnox-agent-guide",
+      "tags": ["guide", "fortnox", "openclaw"]
+    },
+    {
+      "title": "Vad är AI-agenter?",
+      "url": "https://opensverige.se/blogg/vad-ar-ai-agenter",
+      "tags": ["intro"]
+    },
+    {
+      "title": "MCP vs REST — när ska du använda vad?",
+      "url": "https://opensverige.se/blogg/mcp-vs-rest",
+      "tags": ["arkitektur", "mcp"]
+    },
+    {
+      "title": "Gollum-testet — vilken typ av builder är du?",
+      "url": "https://opensverige.se/blogg/gollum-testet",
+      "tags": ["community"]
+    }
+  ],
+  "machine_readable": {
+    "llms_txt": "https://opensverige.se/llms.txt",
+    "openapi": "https://opensverige.se/openapi.json",
+    "sitemap": "https://opensverige.se/sitemap.xml",
+    "robots": "https://opensverige.se/robots.txt"
+  },
+  "ai_content_policy": {
+    "standard": "EU AI Act Art. 50",
+    "statement": "Allt textinnehåll är skrivet av mänskliga bidragsgivare. AI används som skrivassistans men allt granskas och godkänns av en människa innan publicering."
+  }
+}

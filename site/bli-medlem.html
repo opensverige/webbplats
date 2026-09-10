@@ -1,0 +1,254 @@
+<!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bli medlem — opensverige</title>
+<meta name="description" content="Bli medlem i ideella föreningen opensverige. Gratis, en röst på årsmötet och rätt att söka resurser ur labbet. Tre fält.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--surface:#fff;--ink:#151515;--body:#2b2724;--muted:#5b5651;--faint:#918b83;--hair:#e4e2dc;
+--accent:#b72c07;--ok:#3ba55d;--err:#9E1B14;
+--sans:'Familjen Grotesk',-apple-system,Helvetica,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--serif:'Instrument Serif',Georgia,serif;
+--snap:cubic-bezier(.4,0,.2,1);--t:150ms var(--snap);--gut:20px}
+@media(min-width:900px){:root{--gut:44px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(251,250,247,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--hair)}
+.barin{max-width:1180px;margin:0 auto;height:58px;display:flex;align-items:center;gap:10px;padding:0 var(--gut)}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand img{height:28px;width:auto;image-rendering:pixelated;transition:transform var(--t)}
+.brand:hover img{transform:rotate(-9deg) scale(1.12)}
+.brand span{font-size:19px;font-weight:700;letter-spacing:-.04em}
+.nl{font-size:14px;color:var(--muted);padding:7px 11px;transition:color var(--t)}
+.nl:hover{color:var(--ink)}
+.nl.on{color:var(--ink);font-weight:600}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+.grid{display:grid;grid-template-columns:1fr;gap:40px;padding:48px 0 100px}
+@media(min-width:920px){.grid{grid-template-columns:minmax(0,1fr) 300px;gap:64px}}
+h1{font-size:clamp(32px,6.4vw,52px);font-weight:700;letter-spacing:-.045em;line-height:1.02;max-width:13ch}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
+.lede{font-size:18px;font-weight:500;line-height:1.5;color:var(--muted);max-width:42ch;margin-top:14px}
+.free{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ok);border:1px solid var(--ok);border-radius:100px;padding:6px 13px}
+
+form{max-width:34rem;margin-top:36px}
+.field{margin-bottom:22px}
+.lb{display:block;font-size:14px;font-weight:600;margin-bottom:7px}
+.hint{font-size:12.5px;color:var(--faint);font-weight:400;margin-left:7px;font-family:var(--mono)}
+input[type=text],input[type=email]{width:100%;font:inherit;font-size:16px;padding:11px 13px;background:var(--surface);
+  color:var(--ink);border:1px solid var(--hair);border-radius:3px;transition:border-color var(--t)}
+input[type=text]:hover,input[type=email]:hover{border-color:#cfcac2}
+input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+.seg{display:flex;border:1px solid var(--hair);border-radius:3px;overflow:hidden;width:max-content;background:var(--surface)}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer}
+.seg span{display:block;padding:10px 18px;font-size:14.5px;color:var(--muted);transition:all var(--t)}
+.seg input:checked+span{background:var(--ink);color:#fff}
+.reveal{overflow:hidden;max-height:0;transition:max-height .32s var(--snap)}
+.reveal.on{max-height:460px}
+.reveal-in{padding-top:22px;border-left:2px solid var(--accent);padding-left:20px;margin-top:4px}
+.accept{display:flex;gap:13px;align-items:flex-start;background:var(--surface);border:1px solid var(--hair);
+  border-radius:3px;padding:16px 18px;transition:border-color var(--t)}
+.accept:hover{border-color:#cfcac2}
+.accept input{margin:2px 0 0;width:18px;height:18px;flex:none;accent-color:var(--accent)}
+.accept .t{font-size:14.5px;line-height:1.5;cursor:pointer}
+.accept .t a{color:var(--accent);text-decoration:underline;text-underline-offset:.16em}
+.accept .v{display:block;color:var(--faint);font-family:var(--mono);font-size:11px;margin-top:5px}
+.sum{margin-top:12px}
+.sum summary{cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);padding:4px 0;list-style:none;transition:color var(--t)}
+.sum summary::-webkit-details-marker{display:none}
+.sum summary::before{content:"+ ";color:var(--accent)}
+.sum[open] summary::before{content:"– "}
+.sum summary:hover{color:var(--ink)}
+.sum ul{margin:9px 0 0;padding-left:18px;font-size:15px;line-height:1.55;color:var(--muted)}
+.sum li{margin-bottom:5px}
+.sum .disc{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:10px}
+.err{color:var(--err);font-size:13.5px;margin-top:7px;display:none}
+.err.on{display:block}
+.go{margin-top:26px;font-size:16px;font-weight:700;background:var(--ink);color:#fff;border-radius:3px;
+  padding:14px 28px;transition:background var(--t),transform var(--t)}
+.go:hover{background:var(--accent);transform:translateY(-1px)}
+.gdpr{margin-top:18px;font-size:12.5px;color:var(--faint);line-height:1.6;max-width:46ch}
+
+.side{border-top:1px solid var(--hair);padding-top:24px}
+@media(min-width:920px){.side{position:sticky;top:82px;border-top:0;border-left:1px solid var(--hair);padding:4px 0 4px 26px}}
+.side h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.side dl{font-size:13.5px;color:var(--muted);line-height:1.5}
+.side dt{color:var(--ink);font-weight:600;margin-top:13px}
+.side dt:first-child{margin-top:0}
+.side .no{margin-top:26px;padding-top:20px;border-top:1px solid var(--hair)}
+
+.done{display:none;padding:56px 0 120px;max-width:52ch}
+.done.on{display:block}
+.num{font-size:clamp(64px,13vw,120px);font-weight:700;line-height:.86;letter-spacing:-.05em}
+.num small{display:block;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.done h2{font-size:26px;font-weight:700;letter-spacing:-.03em;margin:30px 0 12px}
+.done p{font-size:16.5px;line-height:1.6;color:var(--muted);margin-bottom:12px}
+.rec{margin-top:32px;border-top:1px solid var(--hair);padding-top:18px}
+.rec h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.rec table{border-collapse:collapse;width:100%;font-size:13.5px}
+.rec td{padding:6px 0;vertical-align:top;color:var(--muted);border-bottom:1px solid #f2f0ec}
+.rec td:first-child{width:44%;color:var(--ink);font-weight:500}
+.rec .off td{color:#b9b4ad;text-decoration:line-through}
+</style></head><body>
+
+<header class="topbar"><div class="barin">
+  <a class="brand" href="v7.html"><img src="logo.png" alt=""><span>opensverige</span></a>
+  <a class="nl" href="stadgar.html">Stadgar</a>
+  <a class="nl" href="regler.html">Regler</a>
+  <a class="nl on" href="bli-medlem.html">Bli medlem</a>
+</div></header>
+
+<div class="wrap">
+  <div class="grid" id="formSide">
+    <div>
+      <h1>Bli medlem i <em>opensverige</em></h1>
+      <p class="lede">En röst på årsmötet och rätt att söka resurser ur labbet. Tre fält.</p>
+      <span class="free">Avgiften är frivillig — § 4</span>
+
+      <form id="f" novalidate>
+        <div class="field"><label class="lb" for="namn">Namn</label>
+          <input type="text" id="namn" autocomplete="name" placeholder="För- och efternamn">
+          <div class="err" id="e-namn">Fyll i ditt namn.</div></div>
+
+        <div class="field"><label class="lb" for="epost">E-post</label>
+          <input type="email" id="epost" autocomplete="email" placeholder="du@exempel.se">
+          <div class="err" id="e-epost">Fyll i en e-postadress vi kan nå dig på.</div></div>
+
+        <div class="field"><label class="lb" for="discord">Discord <span class="hint">valfritt</span></label>
+          <input type="text" id="discord" placeholder="användarnamn"></div>
+
+        <div class="field"><span class="lb">Jag anmäler mig som</span>
+          <div class="seg">
+            <label><input type="radio" name="typ" value="fysisk" checked><span>Privatperson</span></label>
+            <label><input type="radio" name="typ" value="juridisk"><span>Organisation</span></label>
+          </div>
+          <div class="reveal" id="rev"><div class="reveal-in">
+            <div class="field"><label class="lb" for="firma">Firmanamn</label>
+              <input type="text" id="firma" placeholder="Exempel AB">
+              <div class="err" id="e-firma">Fyll i firmanamn.</div></div>
+            <div class="field"><label class="lb" for="orgnr">Org.nr</label>
+              <input type="text" id="orgnr" placeholder="556000-0000"></div>
+            <div class="field" style="margin-bottom:0"><label class="lb" for="ombud">Företrädare <span class="hint">rösträtten</span></label>
+              <input type="text" id="ombud" placeholder="Namn på den som röstar">
+              <div class="err" id="e-ombud">En fysisk person måste rösta för organisationen.</div></div>
+          </div></div>
+        </div>
+
+        <div class="field">
+          <div class="accept"><input type="checkbox" id="ok">
+            <label class="t" for="ok">Jag ansöker om medlemskap i opensverige och har läst och accepterar <a href="stadgar.html">stadgarna</a>.
+              <span class="v">version 2026-09-10</span></label></div>
+          <details class="sum"><summary>Vad du går med på</summary>
+            <ul><li>Avgiften är frivillig — medlemskapet kan aldrig villkoras av att du betalar</li>
+            <li>Du har en röst på årsmötet, och rätt att lämna motioner</li>
+            <li>Du kan gå ur när du vill genom att meddela styrelsen</li></ul>
+            <p class="disc">Sammanfattning, inte bindande. Det är stadgarnas text som gäller.</p></details>
+          <div class="err" id="e-ok">Du måste acceptera stadgarna för att bli medlem.</div>
+        </div>
+
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+          <label for="webbplats">Lämna tom</label>
+          <input type="text" id="webbplats" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="go" type="submit">Bli medlem</button>
+        <p class="gdpr">Vi sparar namn, e-post, anmälningsdatum och ditt ja till stadgarna. Inget annat, och inget delas vidare.
+          Du har rätt att få ut, rätta eller radera dina uppgifter — mejla styrelsen. Klagomål kan lämnas till
+          Integritetsskyddsmyndigheten (IMY).</p>
+      </form>
+    </div>
+
+    <aside class="side">
+      <h3>Vad vi frågar om</h3>
+      <dl><dt>Namn</dt><dd>för röstlängden på årsmötet</dd>
+        <dt>E-post</dt><dd>kallelser måste gå ut fyra veckor i förväg (§ 8)</dd>
+        <dt>Ja till stadgarna</dt><dd>det är det som gör dig till medlem (§ 4)</dd></dl>
+      <div class="no"><h3>Vad vi aldrig frågar om</h3>
+        <dl><dd>Personnummer, adress, telefon — och ingen avgift, för medlemskap får inte villkoras av betalning.</dd></dl></div>
+    </aside>
+  </div>
+
+  <div class="done" id="done">
+    <p class="num"><small>Du är medlem nr</small><span id="mnum">42</span></p>
+    <h2>Välkommen in.</h2>
+    <p>Du står i röstlängden till nästa årsmöte, och kan söka resurser ur labbet från och med nu.</p>
+    <p>En bekräftelse ligger i inkorgen. Säg hej i Discord när du vill.</p>
+    <div class="rec"><h3>Det här sparades</h3><table id="recTable"></table></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var rev=document.getElementById('rev');
+  [].forEach.call(document.querySelectorAll('input[name=typ]'),function(r){
+    r.addEventListener('change',function(){rev.classList.toggle('on',r.value==='juridisk'&&r.checked)});
+  });
+  function bad(id,on){document.getElementById('e-'+id).classList.toggle('on',on);return on;}
+  document.getElementById('f').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var namn=document.getElementById('namn').value.trim(),
+        epost=document.getElementById('epost').value.trim(),
+        disc=document.getElementById('discord').value.trim(),
+        ok=document.getElementById('ok').checked,
+        jur=document.querySelector('input[name=typ]:checked').value==='juridisk',
+        firma=document.getElementById('firma').value.trim(),
+        orgnr=document.getElementById('orgnr').value.trim(),
+        ombud=document.getElementById('ombud').value.trim();
+    var f=false;
+    f=bad('namn',!namn)||f;
+    f=bad('epost',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost))||f;
+    f=bad('ok',!ok)||f;
+    if(jur){f=bad('firma',!firma)||f;f=bad('ombud',!ombud)||f;}else{bad('firma',false);bad('ombud',false);}
+    if(f){document.querySelector('.err.on').closest('.field').scrollIntoView({block:'center'});return;}
+    var btn=document.querySelector('.go'); btn.disabled=true; btn.textContent='Skickar…';
+    fetch('https://kmkttmasoemqcyzkjuyv.supabase.co/functions/v1/medlem',{
+      method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({namn:namn,epost:epost,typ:jur?'juridisk':'fysisk',
+        firmanamn:firma||null,orgnr:orgnr||null,foretradare:ombud||null,
+        discord:disc||null,kalla:'webb',accepterat:true,
+        webbplats:document.getElementById('webbplats').value})
+    }).then(function(r){return r.json().then(function(d){return {s:r.status,d:d};});})
+     .then(function(res){
+       btn.disabled=false; btn.textContent='Bli medlem';
+       if(res.s===409){bad('epost',true);document.getElementById('e-epost').textContent='Du är redan medlem med den adressen.';return;}
+       if(res.s>=400){bad('epost',true);document.getElementById('e-epost').textContent='Något gick fel. Försök igen om en stund.';return;}
+       visaKvitto(res.d.medlemsnummer);
+     }).catch(function(){
+       btn.disabled=false; btn.textContent='Bli medlem';
+       bad('epost',true);document.getElementById('e-epost').textContent='Ingen kontakt med servern. Försök igen.';
+     });
+    return;
+  });
+
+  function visaKvitto(nr){
+    var namn=document.getElementById('namn').value.trim(),
+        epost=document.getElementById('epost').value.trim(),
+        disc=document.getElementById('discord').value.trim(),
+        jur=document.querySelector('input[name=typ]:checked').value==='juridisk',
+        firma=document.getElementById('firma').value.trim(),
+        orgnr=document.getElementById('orgnr').value.trim(),
+        ombud=document.getElementById('ombud').value.trim();
+    var rows=[['Namn',namn],['E-post',epost],['Typ',jur?'Juridisk person':'Fysisk person']];
+    if(jur){rows.push(['Firmanamn',firma]);if(orgnr)rows.push(['Org.nr',orgnr]);rows.push(['Företrädare',ombud]);}
+    if(disc)rows.push(['Discord',disc]);
+    rows.push(['Accepterat stadgarna','Ja, version 2026-09-10']);
+    rows.push(['Tidpunkt',new Date().toISOString().slice(0,16).replace('T',' ')]);
+    var t='';rows.forEach(function(r){t+='<tr><td>'+r[0]+'</td><td>'+r[1].replace(/</g,'&lt;')+'</td></tr>';});
+    ['Personnummer','Adress','Telefon','Medlemsavgift'].forEach(function(x){
+      t+='<tr class="off"><td>'+x+'</td><td>sparas inte</td></tr>';});
+    document.getElementById('recTable').innerHTML=t;
+    document.getElementById('mnum').textContent = nr==null ? '—' : nr;
+    document.getElementById('formSide').style.display='none';
+    document.getElementById('done').classList.add('on');
+    window.scrollTo(0,0);
+  }
+})();
+</script>
+</body></html>

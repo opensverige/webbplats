@@ -1,0 +1,76 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/community", "destination": "/api/community.json" }
+  ],
+  "redirects": [
+    { "source": "/showcase/kammaren", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/fortnox-skill", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/faver", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/lunaraistorm", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/agent-arena", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/agent-readiness-scanner", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/ai-infra", "destination": "/showcase", "permanent": true },
+    { "source": "/showcase/grunden-ai", "destination": "/showcase", "permanent": true },
+    { "source": "/builders", "destination": "/showcase", "permanent": true },
+    { "source": "/builders/:path*", "destination": "/showcase", "permanent": true },
+    { "source": "/blog", "destination": "/blogg", "permanent": true },
+    { "source": "/blog/:path*", "destination": "/blogg/:path*", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/favicon/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/api/community.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/openapi.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    }
+  ]
+}
