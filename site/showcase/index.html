@@ -1,23 +1,23 @@
 <!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Showcase — projekt byggda av opensverige-communityn</title>
-<meta name="description" content="AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. Öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.">
+<meta name="description" content="AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. 14 öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.">
 <link rel="canonical" href="https://opensverige.se/showcase">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="opensverige">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="opensverige">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:title" content="opensverige showcase — projekt byggda av communityn">
-<meta property="og:description" content="AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. Öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.">
+<meta property="og:description" content="AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. 14 öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.">
 <meta property="og:url" content="https://opensverige.se/showcase">
 <meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="opensverige showcase — projekt byggda av communityn">
-<meta name="twitter:description" content="AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. Öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.">
+<meta name="twitter:description" content="AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. 14 öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.">
 <meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
@@ -120,6 +120,39 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
   font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
 .pill.live{background:rgba(59,165,93,.13);color:#2c7a45}
 .pill.oss{background:rgba(183,44,7,.09);color:var(--accent)}
+.pill.wip{background:rgba(180,140,20,.14);color:#7a5c10}
+/* projektkort med djup */
+.proj{padding:22px 0;border-bottom:1px solid var(--hair)}
+.proj:first-of-type{border-top:1px solid var(--hair)}
+.proj .pn{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:19px;font-weight:600;letter-spacing:-.025em}
+@media(min-width:640px){.proj .pn{font-size:21px}}
+.proj .pn a{text-decoration:none;transition:color var(--t)}
+.proj .pn a:hover{color:var(--accent)}
+.proj .pt{font-size:16.5px;line-height:1.55;color:var(--muted);margin-top:7px;max-width:62ch}
+.proj .pd{margin-top:13px;display:grid;gap:3px}
+.proj .pd dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.proj .pd dd{font-size:15.5px;line-height:1.55;color:var(--body);max-width:64ch}
+.proj .pm{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-top:13px}
+/* hackathon-arkiv */
+.arkiv{margin:22px 0 0;padding:15px 17px;border:1px solid var(--hair);border-left:2px solid var(--faint);
+  border-radius:2px;background:#f6f4f0}
+.arkiv p{font-size:15.5px;line-height:1.5;color:var(--muted);margin:0}
+.fakta{display:grid;gap:0;margin-top:30px;border-top:1px solid var(--hair)}
+.fakta div{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:16px}
+.fakta dt,.fakta .fl{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);min-width:88px;padding-top:3px}
+.fakta .fv{color:var(--ink)}
+.krit{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--hair)}
+.krit .kn{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:26px;padding-top:2px}
+.krit .kt{font-size:16.5px;font-weight:600;letter-spacing:-.02em}
+.krit .kb{font-size:15.5px;line-height:1.55;color:var(--muted);margin-top:4px}
+.krit .kv{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap;padding-top:3px}
+.res{margin-top:9px}
+.res .rg{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:22px}
+.res .ri{padding:10px 0;border-bottom:1px solid var(--hair)}
+.res .ri a{font-size:16px;font-weight:600;text-decoration:none}
+.res .ri a:hover{color:var(--accent)}
+.res .ri span{display:block;font-size:15px;line-height:1.5;color:var(--muted);margin-top:3px}
 .grupp{margin-top:44px}
 .grupp .gl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .slutcta{margin-top:52px;padding-top:30px;border-top:1px solid var(--hair);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
@@ -152,7 +185,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
       "@type": "CollectionPage",
       "@id": "https://opensverige.se/showcase#collection",
       "name": "opensverige showcase",
-      "description": "AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. Öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.",
+      "description": "AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. 14 öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.",
       "url": "https://opensverige.se/showcase",
       "inLanguage": "sv-SE",
       "isPartOf": {
@@ -163,7 +196,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
       },
       "mainEntity": {
         "@type": "ItemList",
-        "numberOfItems": 9,
+        "numberOfItems": 14,
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -316,7 +349,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
             "item": {
               "@type": "SoftwareApplication",
               "name": "Gollum-testet",
-              "description": "Är du builder eller hoardar du idéer? Nio frågor, två axlar, fyra arketyper. 90 sekunder.",
+              "description": "Är du builder eller hoardar du idéer? Tio frågor, två axlar, fyra arketyper. 90 sekunder.",
               "url": "https://opensverige.se/gollum",
               "applicationCategory": "WebApplication",
               "operatingSystem": "Web",
@@ -327,6 +360,66 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
                 "price": "0",
                 "priceCurrency": "SEK"
               }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 10,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "AgentRadar",
+              "description": "Automatisk jämförelsetabell för AI agent-ramverk. Noll manuellt underhåll.",
+              "url": "https://github.com/opensverige/agent-radar",
+              "codeRepository": "https://github.com/opensverige/agent-radar",
+              "keywords": "github actions, yaml, ramverk, öppen data"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 11,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "AgentSmith Voice",
+              "description": "Claude som Discord-röst. Pratar. Lyssnar. Svarar.",
+              "url": "https://github.com/opensverige/agentsmith-voice",
+              "codeRepository": "https://github.com/opensverige/agentsmith-voice",
+              "keywords": "discord, claude api, tts, voice"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 12,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Bakdörren",
+              "description": "AI-dörrvakt för communityt. Builders in. Hype ut.",
+              "url": "https://github.com/opensverige/bunker-vakten",
+              "codeRepository": "https://github.com/opensverige/bunker-vakten",
+              "keywords": "claude api, discord, community, gating"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 13,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "NäckenGuard",
+              "description": "PII-maskering för Fortnox-data via MCP.",
+              "url": "https://github.com/opensverige/nackensec",
+              "codeRepository": "https://github.com/opensverige/nackensec",
+              "keywords": "mcp, säkerhet, fortnox, gdpr"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 14,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "SideDoor MCP",
+              "description": "MCP-server för dolda jobbmöjligheter på svenska arbetsmarknaden.",
+              "url": "https://www.npmjs.com/package/@opensverige/sidedoor",
+              "codeRepository": "https://www.npmjs.com/package/@opensverige/sidedoor",
+              "keywords": "mcp, claude desktop, jobb, brave search"
             }
           }
         ]
@@ -356,7 +449,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 </head><body>
 <header class="top">
   <a class="back" href="/">← opensverige</a>
-  <span class="rt">9 projekt</span>
+  <span class="rt">14 projekt</span>
 </header>
 
 <main class="lista">
@@ -364,51 +457,122 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
   <p class="intro">Ingen beställde dem. Någon började bygga i Discorden och andra hängde på. Allt är öppet — testa, forka eller posta ditt eget.</p>
 
   <div class="grupp">
-        <a class="rad" href="https://agent.opensverige.se" rel="noopener">
-  <span class="rt"><span class="rn">Agent Readiness Scanner</span><span class="pill live">live</span></span>
-  <span class="rd">Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.</span>
-  <span class="rm">agent.opensverige.se · scanner · agentredo · sajtanalys · seo</span>
-</a>
-    <a class="rad" href="https://infra.opensverige.se" rel="noopener">
-  <span class="rt"><span class="rn">AI-Infra</span><span class="pill live">live</span></span>
-  <span class="rd">Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Varje uppgift källbelagd och verifierad.</span>
-  <span class="rm">infra.opensverige.se · jämförelse · ai-infra · datasuveränitet · gdpr</span>
-</a>
-    <a class="rad" href="https://grunden.ai" rel="noopener">
-  <span class="rt"><span class="rn">grunden.ai</span><span class="pill live">live</span></span>
-  <span class="rd">Svensk AI-infrastruktur med OpenAI-kompatibelt API och EU-jurisdiktion. Startade i opensverige — nu i drift.</span>
-  <span class="rm">grunden.ai · ai-infra · llm-api · datasuveränitet · eu</span>
-</a>
-    <a class="rad" href="https://battle.opensverige.se" rel="noopener">
-  <span class="rt"><span class="rn">Agent Arena</span><span class="pill live">live</span></span>
-  <span class="rd">AI-agenter tävlar mot varandra i schack, logik och Minesweeper. Realtidsranking — släpp in din agent och klättra.</span>
-  <span class="rm">battle.opensverige.se · arena · multi-agent · leaderboard · pvp</span>
-</a>
-    <a class="rad" href="https://kammaren.nu" rel="noopener">
-  <span class="rt"><span class="rn">KAMMAREN</span><span class="pill live">live</span></span>
-  <span class="rd">Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. Dina siffror på din maskin.</span>
-  <span class="rm">kammaren.nu · skatteoptimering · 3:12 · sovereign-ai</span>
-</a>
-    <a class="rad" href="https://faver-one.vercel.app/map" rel="noopener">
-  <span class="rt"><span class="rn">FAVER</span><span class="pill live">live</span></span>
-  <span class="rd">Hitta de bästa rabatterna i matbutikerna runt dig i realtid. Sätt på GPS eller droppa en pin, skanna och se alla rabatter.</span>
-  <span class="rm">faver-one.vercel.app/map · matpris · gps · realtime · butik</span>
-</a>
-    <a class="rad" href="https://lunaraistorm.se" rel="noopener">
-  <span class="rt"><span class="rn">LunarAIstorm</span><span class="pill live">live</span></span>
-  <span class="rd">Socialt nätverk för AI-agenter, inspirerat av LunarStorm. Agenter möts, klottrar i gästböcker och diskuterar dygnet runt.</span>
-  <span class="rm">lunaraistorm.se · openclaw · multi-agent · open source</span>
-</a>
-    <a class="rad" href="https://github.com/opensverige/fortnox-skill" rel="noopener">
-  <span class="rt"><span class="rn">fortnox-skill</span><span class="pill oss">öppen källkod</span></span>
-  <span class="rd">OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder och bokföring via chatt.</span>
-  <span class="rm">github.com/opensverige/fortnox-skill · openclaw · fortnox · mcp</span>
-</a>
-    <a class="rad" href="/gollum">
-  <span class="rt"><span class="rn">Gollum-testet</span><span class="pill live">live</span></span>
-  <span class="rd">Är du builder eller hoardar du idéer? Nio frågor, två axlar, fyra arketyper. 90 sekunder.</span>
-  <span class="rm">/gollum · quiz · community</span>
-</a>
+    <div class="gl">I drift</div>
+<article class="proj" id="agent-readiness-scanner">
+  <h2 class="pn"><a href="https://agent.opensverige.se" rel="noopener">Agent Readiness Scanner</a> <span class="pill live">live</span></h2>
+  <p class="pt">Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>Analyserar ett bolags digitala infrastruktur och returnerar en rapport om hur redo de är att ta emot AI-agenter. Kollar API-exponering, datakvalitet och processmognad.</dd>
+    <dt>Varför</dt><dd>Svenska bolag vet inte var de står. Konsultrapporter kostar 80k. Det här kostar ingenting och tar tre minuter.</dd>
+    <dt>Hur du bidrar</dt><dd>Fler branschspecifika frågor behövs. Öppna ett issue på GitHub eller föreslå en pull request.</dd>
+  </dl>
+  <p class="pm">agent.opensverige.se · Next.js · Claude API · Vercel · scanner · agentredo · sajtanalys · seo</p>
+</article>
+<article class="proj" id="ai-infra">
+  <h2 class="pn"><a href="https://infra.opensverige.se" rel="noopener">AI-Infra</a> <span class="pill live">live</span></h2>
+  <p class="pt">Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Varje uppgift källbelagd och verifierad.</p>
+  <p class="pm">infra.opensverige.se · jämförelse · ai-infra · datasuveränitet · gdpr</p>
+</article>
+<article class="proj" id="grunden-ai">
+  <h2 class="pn"><a href="https://grunden.ai" rel="noopener">grunden.ai</a> <span class="pill live">live</span></h2>
+  <p class="pt">Svensk AI-infrastruktur med OpenAI-kompatibelt API och EU-jurisdiktion. Startade i opensverige — nu i drift.</p>
+  <p class="pm">grunden.ai · ai-infra · llm-api · datasuveränitet · eu</p>
+</article>
+<article class="proj" id="agent-arena">
+  <h2 class="pn"><a href="https://battle.opensverige.se" rel="noopener">Agent Arena</a> <span class="pill live">live</span></h2>
+  <p class="pt">AI-agenter tävlar mot varandra i schack, logik och Minesweeper. Realtidsranking — släpp in din agent och klättra.</p>
+  <p class="pm">battle.opensverige.se · arena · multi-agent · leaderboard · pvp</p>
+</article>
+<article class="proj" id="kammaren">
+  <h2 class="pn"><a href="https://kammaren.nu" rel="noopener">KAMMAREN</a> <span class="pill live">live</span></h2>
+  <p class="pt">Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. Dina siffror på din maskin.</p>
+  <p class="pm">kammaren.nu · skatteoptimering · 3:12 · sovereign-ai</p>
+</article>
+<article class="proj" id="faver">
+  <h2 class="pn"><a href="https://faver-one.vercel.app/map" rel="noopener">FAVER</a> <span class="pill live">live</span></h2>
+  <p class="pt">Hitta de bästa rabatterna i matbutikerna runt dig i realtid. Sätt på GPS eller droppa en pin, skanna och se alla rabatter.</p>
+  <p class="pm">faver-one.vercel.app/map · matpris · gps · realtime · butik</p>
+</article>
+<article class="proj" id="lunaraistorm">
+  <h2 class="pn"><a href="https://lunaraistorm.se" rel="noopener">LunarAIstorm</a> <span class="pill live">live</span></h2>
+  <p class="pt">Socialt nätverk för AI-agenter, inspirerat av LunarStorm. Agenter möts, klottrar i gästböcker och diskuterar dygnet runt.</p>
+  <p class="pm">lunaraistorm.se · openclaw · multi-agent · open source</p>
+</article>
+<article class="proj" id="fortnox-skill">
+  <h2 class="pn"><a href="https://github.com/opensverige/fortnox-skill" rel="noopener">fortnox-skill</a> <span class="pill oss">öppen källkod</span></h2>
+  <p class="pt">OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder och bokföring via chatt.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>OpenClaw-skill som låter dig lista fakturor, söka kunder och skapa enkla fakturor direkt från WhatsApp, Discord eller Telegram – utan att logga in i Fortnox.</dd>
+    <dt>Varför</dt><dd>Fortnox saknar bra mobil-UX. Det här löser det på ett sätt som passar svenska soloprenörer och småbolag.</dd>
+    <dt>Hur du bidrar</dt><dd>Fler Fortnox-endpoints behövs: betalningar, projekt, lager. Kika på issues.</dd>
+  </dl>
+  <p class="pm">github.com/opensverige/fortnox-skill · Python · OpenClaw · Fortnox API · openclaw · fortnox · mcp</p>
+</article>
+<article class="proj" id="gollum-testet">
+  <h2 class="pn"><a href="/gollum">Gollum-testet</a> <span class="pill live">live</span></h2>
+  <p class="pt">Är du builder eller hoardar du idéer? Tio frågor, två axlar, fyra arketyper. 90 sekunder.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>5 frågor som diagnostiserar om du sitter fast i AI:ns dopaminloop utan att shippa. 4 möjliga resultat. Delbar badge. CTA till Discord.</dd>
+    <dt>Varför</dt><dd>Vi ser det i communityn: builders som loopar i Claude i månader utan att visa något. Det här gör mönstret synligt och pratbart.</dd>
+    <dt>Hur du bidrar</dt><dd>Fler frågor, fler resultattyper, översättning till engelska. Allt välkomnas.</dd>
+  </dl>
+  <p class="pm">/gollum · Next.js · CSS Modules · quiz · community</p>
+</article>
+  </div>
+
+  <div class="grupp">
+    <div class="gl">I labbet</div>
+    <p class="intro" style="margin-top:8px">Halvfärdigt är standard. Det här byggs just nu — hoppa in.</p>
+<article class="proj" id="agent-radar">
+  <h2 class="pn"><a href="https://github.com/opensverige/agent-radar" rel="noopener">AgentRadar</a> <span class="pill wip">byggs nu</span></h2>
+  <p class="pt">Automatisk jämförelsetabell för AI agent-ramverk. Noll manuellt underhåll.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>Du definierar vilka ramverk som ska med (namn + GitHub-repo) – allt annat beräknas automatiskt. GitHub Actions kör enriching varje natt. Mognad, riskscore, best-for genereras utan manuell input.</dd>
+    <dt>Varför</dt><dd>Ramverkslandskapet förändras varje vecka. En statisk lista är inaktuell innan den är publicerad. Det här håller sig aktuell utan att kräva jobbet.</dd>
+    <dt>Hur du bidrar</dt><dd>Lägg till ramverk i frameworks.yaml, skicka en PR. Det är allt.</dd>
+  </dl>
+  <p class="pm">github.com/opensverige/agent-radar · Node.js · GitHub Actions · GitHub API · github actions · yaml · ramverk · öppen data</p>
+</article>
+<article class="proj" id="agentsmith-voice">
+  <h2 class="pn"><a href="https://github.com/opensverige/agentsmith-voice" rel="noopener">AgentSmith Voice</a> <span class="pill wip">byggs nu</span></h2>
+  <p class="pt">Claude som Discord-röst. Pratar. Lyssnar. Svarar.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>Discord-bot som ansluter till röstkanaler och pratar med Claude i realtid. Text-to-speech via Waves. Kan sättas i olika personas beroende på kanal.</dd>
+    <dt>Varför</dt><dd>Builds på röst-AI är underrepresenterade i svenska communities. Det här är ett enkelt proof-of-concept att bygga vidare på.</dd>
+    <dt>Hur du bidrar</dt><dd>Behöver .env-setup och npm run register vid första körning. Se README. Pr:ar för fler personas välkomnas.</dd>
+  </dl>
+  <p class="pm">github.com/opensverige/agentsmith-voice · Node.js · Claude API · Waves TTS · discord.js · discord · claude api · tts · voice</p>
+</article>
+<article class="proj" id="bakdorren">
+  <h2 class="pn"><a href="https://github.com/opensverige/bunker-vakten" rel="noopener">Bakdörren</a> <span class="pill wip">byggs nu</span></h2>
+  <p class="pt">AI-dörrvakt för communityt. Builders in. Hype ut.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>En AI-dörrvakt (Mr.NollInträde) som läser av om du är en faktisk builder eller spelar rollen. Specifika buggar och misslyckanden in. Generiska visioner ut.</dd>
+    <dt>Varför</dt><dd>Community-kvalitet degraderar med storlek om inget filter finns. Det här är ett experiment i hur man kan hålla signal hög utan att bli exkluderande.</dd>
+    <dt>Hur du bidrar</dt><dd>Prompt-engineering för dörrvakten är det som behöver mest jobb. Testa edge cases och öppna issues.</dd>
+  </dl>
+  <p class="pm">github.com/opensverige/bunker-vakten · React · Claude API · Discord API · claude api · discord · community · gating</p>
+</article>
+<article class="proj" id="nacken-guard">
+  <h2 class="pn"><a href="https://github.com/opensverige/nackensec" rel="noopener">NäckenGuard</a> <span class="pill wip">byggs nu</span></h2>
+  <p class="pt">PII-maskering för Fortnox-data via MCP.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>Proxar Fortnox-anrop och maskar PII-fält (personnummer, bankuppgifter, adresser) innan datan når AI-agenten. GDPR-säkert by design.</dd>
+    <dt>Varför</dt><dd>Ingen borde behöva välja mellan AI-automatisering och dataskydd. NäckenGuard tar bort valet.</dd>
+    <dt>Hur du bidrar</dt><dd>Vi behöver fler fältdefinitioner för svenska dataformat och tester mot verkliga Fortnox-svar.</dd>
+  </dl>
+  <p class="pm">github.com/opensverige/nackensec · Python · MCP · Fortnox API · mcp · säkerhet · fortnox · gdpr</p>
+</article>
+<article class="proj" id="sidedoor-mcp">
+  <h2 class="pn"><a href="https://www.npmjs.com/package/@opensverige/sidedoor" rel="noopener">SideDoor MCP</a> <span class="pill wip">byggs nu</span></h2>
+  <p class="pt">MCP-server för dolda jobbmöjligheter på svenska arbetsmarknaden.</p>
+  <dl class="pd">
+    <dt>Vad det gör</dt><dd>Kopplar Claude Desktop till Brave Search för att hitta dolda jobb på den svenska marknaden – positioner som aldrig läggs ut officiellt men syns i company-pages, Wayback och nischade sources.</dd>
+    <dt>Varför</dt><dd>Majoriteten av svenska jobb tillsätts aldrig via annons. Det här ger dig samma försprång som en välplacerad kontakt.</dd>
+    <dt>Hur du bidrar</dt><dd>Fler svenska jobboard-sources behövs. Öppna ett issue med källan så lägger vi till den.</dd>
+  </dl>
+  <p class="pm">www.npmjs.com/package/@opensverige/sidedoor · Node.js · MCP · Brave Search API · mcp · claude desktop · jobb · brave search</p>
+</article>
   </div>
 
 <div class="slutcta">

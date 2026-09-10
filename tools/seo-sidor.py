@@ -56,7 +56,7 @@ def bygg_head(cfg):
     ogt = html.escape(cfg["og_titel"], quote=True)
     return f"""<meta name="description" content="{b}">
 <link rel="canonical" href="{url}">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="opensverige">
 <meta property="og:type" content="website">

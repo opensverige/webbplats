@@ -3,7 +3,7 @@
 <title>Blogg — guider om AI-agenter, MCP och vibecoding</title>
 <meta name="description" content="Guider och genomgångar om AI-agenter, MCP, OpenClaw och vibecoding. Skrivet av builders i opensverige. Gästinlägg är öppna för alla.">
 <link rel="canonical" href="https://opensverige.se/blogg">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="opensverige">
 <meta property="og:type" content="website">
@@ -120,6 +120,39 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
   font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
 .pill.live{background:rgba(59,165,93,.13);color:#2c7a45}
 .pill.oss{background:rgba(183,44,7,.09);color:var(--accent)}
+.pill.wip{background:rgba(180,140,20,.14);color:#7a5c10}
+/* projektkort med djup */
+.proj{padding:22px 0;border-bottom:1px solid var(--hair)}
+.proj:first-of-type{border-top:1px solid var(--hair)}
+.proj .pn{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:19px;font-weight:600;letter-spacing:-.025em}
+@media(min-width:640px){.proj .pn{font-size:21px}}
+.proj .pn a{text-decoration:none;transition:color var(--t)}
+.proj .pn a:hover{color:var(--accent)}
+.proj .pt{font-size:16.5px;line-height:1.55;color:var(--muted);margin-top:7px;max-width:62ch}
+.proj .pd{margin-top:13px;display:grid;gap:3px}
+.proj .pd dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.proj .pd dd{font-size:15.5px;line-height:1.55;color:var(--body);max-width:64ch}
+.proj .pm{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-top:13px}
+/* hackathon-arkiv */
+.arkiv{margin:22px 0 0;padding:15px 17px;border:1px solid var(--hair);border-left:2px solid var(--faint);
+  border-radius:2px;background:#f6f4f0}
+.arkiv p{font-size:15.5px;line-height:1.5;color:var(--muted);margin:0}
+.fakta{display:grid;gap:0;margin-top:30px;border-top:1px solid var(--hair)}
+.fakta div{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:16px}
+.fakta dt,.fakta .fl{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);min-width:88px;padding-top:3px}
+.fakta .fv{color:var(--ink)}
+.krit{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--hair)}
+.krit .kn{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:26px;padding-top:2px}
+.krit .kt{font-size:16.5px;font-weight:600;letter-spacing:-.02em}
+.krit .kb{font-size:15.5px;line-height:1.55;color:var(--muted);margin-top:4px}
+.krit .kv{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap;padding-top:3px}
+.res{margin-top:9px}
+.res .rg{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:22px}
+.res .ri{padding:10px 0;border-bottom:1px solid var(--hair)}
+.res .ri a{font-size:16px;font-weight:600;text-decoration:none}
+.res .ri a:hover{color:var(--accent)}
+.res .ri span{display:block;font-size:15px;line-height:1.5;color:var(--muted);margin-top:3px}
 .grupp{margin-top:44px}
 .grupp .gl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .slutcta{margin-top:52px;padding-top:30px;border-top:1px solid var(--hair);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
@@ -179,7 +212,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
           "@type": "BlogPosting",
           "@id": "https://opensverige.se/blogg/gollum-testet#post",
           "headline": "Gollum-testet — vilken typ av builder är du?",
-          "description": "Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på nio frågor som visar vilken typ av AI-builder du faktiskt är.",
+          "description": "Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på tio frågor som visar vilken typ av AI-builder du faktiskt är.",
           "url": "https://opensverige.se/blogg/gollum-testet",
           "datePublished": "2026-03-23",
           "author": {
@@ -268,7 +301,7 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 </a>
     <a class="rad" href="/blogg/gollum-testet">
   <span class="rt"><span class="rn">Gollum-testet — vilken typ av builder är du?</span></span>
-  <span class="rd">Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på nio frågor som visar vilken typ av AI-builder du faktiskt är.</span>
+  <span class="rd">Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på tio frågor som visar vilken typ av AI-builder du faktiskt är.</span>
   <span class="rm">23 mar 2026 · 1 min · ai · builders · verktyg</span>
 </a>
     <a class="rad" href="/blogg/fortnox-agent-guide">

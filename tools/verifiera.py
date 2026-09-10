@@ -23,13 +23,16 @@ SITEMAP_VIKT = {
     "/": ("1.0", "weekly"),
     "/blogg": ("0.8", "weekly"),
     "/showcase": ("0.8", "weekly"),
+    "/gollum": ("0.8", "monthly"),
     "/varfor": ("0.7", "monthly"),
     "/bli-medlem": ("0.7", "monthly"),
+    "/hackathon": ("0.5", "yearly"),
     "/stadgar": ("0.4", "yearly"),
     "/regler": ("0.4", "yearly"),
     "/integritet": ("0.3", "yearly"),
 }
 BLOGG_VIKT = ("0.6", "monthly")
+GOLLUM_VIKT = ("0.4", "yearly")
 
 fel = []
 varning = []
@@ -56,6 +59,8 @@ def bygg_sitemap(sidor):
         sv = sokvag_for(p)
         if sv.startswith("/blogg/"):
             pri, frek = BLOGG_VIKT
+        elif sv.startswith("/gollum/"):
+            pri, frek = GOLLUM_VIKT
         elif sv in SITEMAP_VIKT:
             pri, frek = SITEMAP_VIKT[sv]
         else:
@@ -104,8 +109,10 @@ def kontrollera_sida(p: Path, giltiga: set):
         if not re.search(monster, h):
             fel.append(f"{namn}: saknar {etikett}")
 
-    # Exakt en h1
-    antal_h1 = len(re.findall(r"<h1[\s>]", h))
+    # Exakt en h1 i markup. Skript räknas inte: quizen renderar en vy i taget
+    # via innerHTML, så dess h1-mallar är aldrig samtidigt i DOM:en.
+    markup = re.sub(r"<script\b.*?</script>", "", h, flags=re.S | re.I)
+    antal_h1 = len(re.findall(r"<h1[\s>]", markup))
     if antal_h1 != 1:
         fel.append(f"{namn}: {antal_h1} st h1 (ska vara 1)")
 

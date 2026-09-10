@@ -50,6 +50,39 @@ EXTRA_CSS = """
   font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
 .pill.live{background:rgba(59,165,93,.13);color:#2c7a45}
 .pill.oss{background:rgba(183,44,7,.09);color:var(--accent)}
+.pill.wip{background:rgba(180,140,20,.14);color:#7a5c10}
+/* projektkort med djup */
+.proj{padding:22px 0;border-bottom:1px solid var(--hair)}
+.proj:first-of-type{border-top:1px solid var(--hair)}
+.proj .pn{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:19px;font-weight:600;letter-spacing:-.025em}
+@media(min-width:640px){.proj .pn{font-size:21px}}
+.proj .pn a{text-decoration:none;transition:color var(--t)}
+.proj .pn a:hover{color:var(--accent)}
+.proj .pt{font-size:16.5px;line-height:1.55;color:var(--muted);margin-top:7px;max-width:62ch}
+.proj .pd{margin-top:13px;display:grid;gap:3px}
+.proj .pd dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.proj .pd dd{font-size:15.5px;line-height:1.55;color:var(--body);max-width:64ch}
+.proj .pm{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-top:13px}
+/* hackathon-arkiv */
+.arkiv{margin:22px 0 0;padding:15px 17px;border:1px solid var(--hair);border-left:2px solid var(--faint);
+  border-radius:2px;background:#f6f4f0}
+.arkiv p{font-size:15.5px;line-height:1.5;color:var(--muted);margin:0}
+.fakta{display:grid;gap:0;margin-top:30px;border-top:1px solid var(--hair)}
+.fakta div{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:16px}
+.fakta dt,.fakta .fl{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);min-width:88px;padding-top:3px}
+.fakta .fv{color:var(--ink)}
+.krit{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--hair)}
+.krit .kn{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:26px;padding-top:2px}
+.krit .kt{font-size:16.5px;font-weight:600;letter-spacing:-.02em}
+.krit .kb{font-size:15.5px;line-height:1.55;color:var(--muted);margin-top:4px}
+.krit .kv{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap;padding-top:3px}
+.res{margin-top:9px}
+.res .rg{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:22px}
+.res .ri{padding:10px 0;border-bottom:1px solid var(--hair)}
+.res .ri a{font-size:16px;font-weight:600;text-decoration:none}
+.res .ri a:hover{color:var(--accent)}
+.res .ri span{display:block;font-size:15px;line-height:1.5;color:var(--muted);margin-top:3px}
 .grupp{margin-top:44px}
 .grupp .gl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .slutcta{margin-top:52px;padding-top:30px;border-top:1px solid var(--hair);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
@@ -92,7 +125,7 @@ def head(cfg, css, jsonld, og_typ="website"):
 <title>{t}</title>
 <meta name="description" content="{b}">
 <link rel="canonical" href="{url}">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="opensverige">
 <meta property="og:type" content="{og_typ}">
@@ -155,6 +188,7 @@ def discord_cta(text):
 PROJEKT = [
     {
         "namn": "Agent Readiness Scanner",
+        "slug": "agent-readiness-scanner",
         "url": "https://agent.opensverige.se",
         "beskrivning": "Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.",
         "taggar": ["scanner", "agentredo", "sajtanalys", "seo"],
@@ -163,6 +197,7 @@ PROJEKT = [
     },
     {
         "namn": "AI-Infra",
+        "slug": "ai-infra",
         "url": "https://infra.opensverige.se",
         "beskrivning": "Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Varje uppgift källbelagd och verifierad.",
         "taggar": ["jämförelse", "ai-infra", "datasuveränitet", "gdpr"],
@@ -171,6 +206,7 @@ PROJEKT = [
     },
     {
         "namn": "grunden.ai",
+        "slug": "grunden-ai",
         "url": "https://grunden.ai",
         "beskrivning": "Svensk AI-infrastruktur med OpenAI-kompatibelt API och EU-jurisdiktion. Startade i opensverige — nu i drift.",
         "taggar": ["ai-infra", "llm-api", "datasuveränitet", "eu"],
@@ -179,6 +215,7 @@ PROJEKT = [
     },
     {
         "namn": "Agent Arena",
+        "slug": "agent-arena",
         "url": "https://battle.opensverige.se",
         "beskrivning": "AI-agenter tävlar mot varandra i schack, logik och Minesweeper. Realtidsranking — släpp in din agent och klättra.",
         "taggar": ["arena", "multi-agent", "leaderboard", "pvp"],
@@ -187,6 +224,7 @@ PROJEKT = [
     },
     {
         "namn": "KAMMAREN",
+        "slug": "kammaren",
         "url": "https://kammaren.nu",
         "beskrivning": "Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. Dina siffror på din maskin.",
         "taggar": ["skatteoptimering", "3:12", "sovereign-ai"],
@@ -195,6 +233,7 @@ PROJEKT = [
     },
     {
         "namn": "FAVER",
+        "slug": "faver",
         "url": "https://faver-one.vercel.app/map",
         "beskrivning": "Hitta de bästa rabatterna i matbutikerna runt dig i realtid. Sätt på GPS eller droppa en pin, skanna och se alla rabatter.",
         "taggar": ["matpris", "gps", "realtime", "butik"],
@@ -203,6 +242,7 @@ PROJEKT = [
     },
     {
         "namn": "LunarAIstorm",
+        "slug": "lunaraistorm",
         "url": "https://lunaraistorm.se",
         "beskrivning": "Socialt nätverk för AI-agenter, inspirerat av LunarStorm. Agenter möts, klottrar i gästböcker och diskuterar dygnet runt.",
         "taggar": ["openclaw", "multi-agent", "open source"],
@@ -211,6 +251,7 @@ PROJEKT = [
     },
     {
         "namn": "fortnox-skill",
+        "slug": "fortnox-skill",
         "url": "https://github.com/opensverige/fortnox-skill",
         "beskrivning": "OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder och bokföring via chatt.",
         "taggar": ["openclaw", "fortnox", "mcp"],
@@ -219,46 +260,96 @@ PROJEKT = [
     },
     {
         "namn": "Gollum-testet",
+        "slug": "gollum-testet",
         "url": "/gollum",
-        "beskrivning": "Är du builder eller hoardar du idéer? Nio frågor, två axlar, fyra arketyper. 90 sekunder.",
+        "beskrivning": "Är du builder eller hoardar du idéer? Tio frågor, två axlar, fyra arketyper. 90 sekunder.",
         "taggar": ["quiz", "community"],
         "status": "live",
         "kategori": "WebApplication",
     },
 ]
 
-STATUS_ETIKETT = {"live": "live", "oss": "öppen källkod"}
+STATUS_ETIKETT = {"live": "live", "oss": "öppen källkod", "wip": "byggs nu"}
+
+
+def las_lab():
+    """Projektdjup från gamla /lab, nycklat på slug."""
+    rader = json.loads((ROOT / "tools" / "lab-data.json").read_text(encoding="utf-8"))
+    return {r["slug"]: r for r in rader}
+
+
+def projektschema(p):
+    if p["kategori"] == "kod":
+        return {
+            "@type": "SoftwareSourceCode",
+            "name": p["namn"],
+            "description": p["beskrivning"],
+            "url": p["url"],
+            "codeRepository": p["url"],
+            "keywords": ", ".join(p["taggar"]),
+        }
+    return {
+        "@type": "SoftwareApplication",
+        "name": p["namn"],
+        "description": p["beskrivning"],
+        "url": p["url"] if p["url"].startswith("http") else BASE + p["url"],
+        "applicationCategory": p["kategori"],
+        "operatingSystem": "Web",
+        "inLanguage": "sv-SE",
+        "keywords": ", ".join(p["taggar"]),
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SEK"},
+    }
 
 
 def bygg_showcase(css):
+    lab = las_lab()
+    idrift = []
+    ilabbet = []
+
+    # Projekt i drift, berikade med djup från labbet där det finns
+    for pr in PROJEKT:
+        d = dict(pr)
+        l = lab.get(pr["slug"])
+        if l:
+            d["avsnitt"] = l["description"]
+            d["stack"] = next(
+                (m["value"] for m in l["meta"] if m["label"] == "Stack" and isinstance(m["value"], str)),
+                None,
+            )
+        idrift.append(d)
+
+    # Projekt som bara fanns i labbet
+    kanda = {pr["slug"] for pr in PROJEKT}
+    for slug, l in lab.items():
+        if slug in kanda:
+            continue
+        primar = next((x for x in l["links"] if x.get("primary")), l["links"][0] if l["links"] else None)
+        ilabbet.append({
+            "namn": l["title"],
+            "slug": slug,
+            "url": primar["href"] if primar else "",
+            "beskrivning": l["tagline"],
+            "taggar": [x.lower() for x in l["tags"]],
+            "status": "wip",
+            "kategori": "kod",
+            "avsnitt": l["description"],
+            "stack": next(
+                (m["value"] for m in l["meta"] if m["label"] == "Stack" and isinstance(m["value"], str)),
+                None,
+            ),
+        })
+    ilabbet.sort(key=lambda x: x["namn"].lower())
+
+    alla = idrift + ilabbet
     cfg = {
         "sokvag": "/showcase",
         "titel": "Showcase — projekt byggda av opensverige-communityn",
         "og_titel": "opensverige showcase — projekt byggda av communityn",
-        "beskrivning": "AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. Öppna projekt från svenska builders i Stockholm, Göteborg och Malmö.",
+        "beskrivning": (
+            "AI-agenter, MCP-servrar och verktyg byggda av opensverige-communityn. "
+            f"{len(alla)} öppna projekt från svenska builders i Stockholm, Göteborg och Malmö."
+        ),
     }
-
-    def schema(p):
-        if p["kategori"] == "kod":
-            return {
-                "@type": "SoftwareSourceCode",
-                "name": p["namn"],
-                "description": p["beskrivning"],
-                "url": p["url"],
-                "codeRepository": p["url"],
-                "keywords": ", ".join(p["taggar"]),
-            }
-        return {
-            "@type": "SoftwareApplication",
-            "name": p["namn"],
-            "description": p["beskrivning"],
-            "url": p["url"] if p["url"].startswith("http") else BASE + p["url"],
-            "applicationCategory": p["kategori"],
-            "operatingSystem": "Web",
-            "inLanguage": "sv-SE",
-            "keywords": ", ".join(p["taggar"]),
-            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SEK"},
-        }
 
     jsonld = {
         "@context": "https://schema.org",
@@ -274,10 +365,10 @@ def bygg_showcase(css):
                 "about": {"@id": f"{BASE}/#organization"},
                 "mainEntity": {
                     "@type": "ItemList",
-                    "numberOfItems": len(PROJEKT),
+                    "numberOfItems": len(alla),
                     "itemListElement": [
-                        {"@type": "ListItem", "position": i + 1, "item": schema(p)}
-                        for i, p in enumerate(PROJEKT)
+                        {"@type": "ListItem", "position": i + 1, "item": projektschema(p)}
+                        for i, p in enumerate(alla)
                     ],
                 },
             },
@@ -285,30 +376,51 @@ def bygg_showcase(css):
         ],
     }
 
-    rader = []
-    for p in PROJEKT:
+    def kort(p):
         extern = p["url"].startswith("http")
         rel = ' rel="noopener"' if extern else ""
-        pill = f'<span class="pill {p["status"]}">{STATUS_ETIKETT[p["status"]]}</span>'
         vard = p["url"].replace("https://", "").rstrip("/") if extern else p["url"]
-        rader.append(
-            f'<a class="rad" href="{p["url"]}"{rel}>\n'
-            f'  <span class="rt"><span class="rn">{html.escape(p["namn"])}</span>{pill}</span>\n'
-            f'  <span class="rd">{html.escape(p["beskrivning"])}</span>\n'
-            f'  <span class="rm">{html.escape(vard)} · {" · ".join(html.escape(t) for t in p["taggar"])}</span>\n'
-            f"</a>"
+        pill = f'<span class="pill {p["status"]}">{STATUS_ETIKETT[p["status"]]}</span>'
+        rubrik = (
+            f'<a href="{p["url"]}"{rel}>{html.escape(p["namn"])}</a>'
+            if p["url"]
+            else html.escape(p["namn"])
         )
+        h = [
+            f'<article class="proj" id="{p["slug"]}">',
+            f'  <h2 class="pn">{rubrik} {pill}</h2>',
+            f'  <p class="pt">{html.escape(p["beskrivning"])}</p>',
+        ]
+        if p.get("avsnitt"):
+            h.append("  <dl class=\"pd\">")
+            for a in p["avsnitt"]:
+                h.append(f'    <dt>{html.escape(a["label"])}</dt><dd>{html.escape(a["body"])}</dd>')
+            h.append("  </dl>")
+        meta = [x for x in [vard, p.get("stack")] if x]
+        h.append(
+            f'  <p class="pm">{" · ".join(html.escape(m) for m in meta)}'
+            f'{" · " if meta else ""}{" · ".join(html.escape(t) for t in p["taggar"])}</p>'
+        )
+        h.append("</article>")
+        return "\n".join(h)
 
     return (
         head(cfg, css, jsonld)
-        + toppbar(hoger=f"{len(PROJEKT)} projekt")
+        + toppbar(hoger=f"{len(alla)} projekt")
         + f"""
 <main class="lista">
   <h1>Det här ramlade ut.</h1>
   <p class="intro">Ingen beställde dem. Någon började bygga i Discorden och andra hängde på. Allt är öppet — testa, forka eller posta ditt eget.</p>
 
   <div class="grupp">
-    {chr(10).join('    ' + r for r in rader)}
+    <div class="gl">I drift</div>
+{chr(10).join(kort(p) for p in idrift)}
+  </div>
+
+  <div class="grupp">
+    <div class="gl">I labbet</div>
+    <p class="intro" style="margin-top:8px">Halvfärdigt är standard. Det här byggs just nu — hoppa in.</p>
+{chr(10).join(kort(p) for p in ilabbet)}
   </div>
 {discord_cta("Byggt något? Posta det i Discorden — vi lägger upp det här.")}
 </main>
@@ -605,6 +717,167 @@ def bygg_integritet(css):
     )
 
 
+# ---------------------------------------------------------------- hackathon
+
+def bygg_hackathon(css):
+    """Arkivsida. Eventet gick ut 2026-06-14 — ingen nedräkning kvar,
+    men regler och resurser bevaras eftersom bloggposten länkar dit."""
+    data = json.loads((ROOT / "tools" / "hackathon-data.json").read_text(encoding="utf-8"))
+    sv = data["CONTENT"]["sv"]
+    delad = data["SHARED"]
+
+    cfg = {
+        "sokvag": "/hackathon",
+        "titel": "Spelhackathon — regler, kriterier och resurser | opensverige",
+        "og_titel": "opensverige spelhackathon",
+        "beskrivning": "Skapa ett litet spel på en vecka. Regler, bedömningskriterier, priser och hela verktygslådan från opensverige spelhackathon. Arkiverat.",
+    }
+
+    jsonld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Event",
+                "@id": f"{BASE}/hackathon#event",
+                "name": "opensverige spelhackathon",
+                "description": sv["tagline"],
+                "url": f"{BASE}/hackathon",
+                "startDate": "2026-06-07",
+                "endDate": delad["deadlineISO"],
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+                "inLanguage": "sv-SE",
+                "isAccessibleForFree": True,
+                "location": {
+                    "@type": "VirtualLocation",
+                    "url": delad["discordUrl"],
+                    "name": "opensverige Discord",
+                },
+                "organizer": {"@id": f"{BASE}/#organization"},
+            },
+            {
+                "@type": "WebPage",
+                "@id": f"{BASE}/hackathon#webpage",
+                "url": f"{BASE}/hackathon",
+                "name": cfg["titel"],
+                "description": cfg["beskrivning"],
+                "inLanguage": "sv-SE",
+                "isPartOf": {"@id": f"{BASE}/#website"},
+            },
+            brodsmula("Hackathon", "/hackathon"),
+        ],
+    }
+
+    # Källdatan är skriven i presens för ett pågående event. Arkivsidan omformulerar.
+    ARKIVTEMPUS = {
+        "Pågår nu · 1 vecka": "1 vecka · avslutat juni 2026",
+        f'Senast söndag 14 juni kl 00:00 i {delad["channelName"]}':
+            f'Stängde söndag 14 juni kl 00:00 i {delad["channelName"]}',
+    }
+    fakta = "\n".join(
+        f'  <div><span class="fl">{html.escape(f["label"])}</span>'
+        f'<span class="fv">{html.escape(ARKIVTEMPUS.get(f["value"], f["value"]))}</span></div>'
+        for f in sv["facts"]
+    )
+    krav = "\n".join(
+        f'  <div class="krit"><span class="kn">{i+1}</span><div>'
+        f'<div class="kt">{html.escape(k["title"])}</div>'
+        f'<div class="kb">{html.escape(k["body"])}</div></div></div>'
+        for i, k in enumerate(sv["requirements"])
+    )
+    inlamning = "\n".join(
+        f'    <li>{html.escape(s["text"])}'
+        f'{" <b>(väger extra)</b>" if s.get("bonus") else ""}</li>'
+        for s in sv["submit"]
+    )
+    kriterier = "\n".join(
+        f'  <div class="krit"><span class="kn">{html.escape(k["no"])}</span><div>'
+        f'<div class="kt">{html.escape(k["name"])}</div>'
+        f'<div class="kb">{html.escape(k["body"])}</div></div>'
+        f'<span class="kv">{k["weight"]}{"%" if not k.get("extra") else "% extra"}</span></div>'
+        for k in sv["criteria"]
+    )
+    priser = "\n".join(
+        f'    <li><b>{html.escape(p["name"])}</b>'
+        f'{" — " + html.escape(p["detail"]) if p.get("detail") else ""}</li>'
+        for p in sv["prizes"]
+    )
+    tips = "\n".join(f"    <li>{html.escape(x)}</li>" for x in sv["tips"])
+    regler = "\n".join(f"    <li>{html.escape(x)}</li>" for x in sv["rules"])
+
+    resurser = []
+    for g in sv["resources"]:
+        resurser.append(f'  <div class="rg">{html.escape(g["group"])}</div>')
+        for i in g["items"]:
+            resurser.append(
+                f'  <div class="ri"><a href="{i["url"]}" rel="noopener">{html.escape(i["name"])}</a>'
+                f'<span>{html.escape(i["note"])}</span></div>'
+            )
+
+    return (
+        head(cfg, css, jsonld, og_typ="article")
+        + toppbar(hoger="Arkiverat")
+        + f"""
+<article class="prose">
+  <div class="kicker">Hackathon</div>
+  <h1>{html.escape(sv["tagline"])}</h1>
+  <div class="byline"><span>opensverige</span><span class="d">·</span><span>{html.escape(sv["deadlineLabel"])}</span></div>
+
+  <div class="arkiv">
+    <p>Det här hackathonet är avslutat. Inlämningen stängde {html.escape(sv["deadlineLabel"]).lower()}.
+    Regler, kriterier och resurser står kvar — de fungerar för vilket spelbygge som helst.
+    Nästa omgång annonseras i <a href="{delad["discordUrl"]}" rel="noopener">Discorden</a>.</p>
+  </div>
+
+  <div class="fakta">
+{fakta}
+  </div>
+
+  <h2 id="delta">Så deltog man</h2>
+  <p>{html.escape(sv["participationLead"])}</p>
+{krav}
+
+  <h2 id="inlamning">Så lämnade man in</h2>
+  <p>{html.escape(sv["submitPrefix"])} <code>{html.escape(delad["channelName"])}</code> {html.escape(sv["submitBy"])} {html.escape(sv["deadlineLabel"].lower())}:</p>
+  <ul>
+{inlamning}
+  </ul>
+
+  <h2 id="kriterier">Kriterier</h2>
+  <p>{html.escape(sv["criteriaLead"])}</p>
+{kriterier}
+
+  <h2 id="priser">Priser</h2>
+  <ul>
+{priser}
+  </ul>
+
+  <h2 id="tips">Tips</h2>
+  <ul>
+{tips}
+  </ul>
+
+  <h2 id="resources">Resurser</h2>
+  <p>{html.escape(sv["resourcesLead"])}</p>
+  <div class="res">
+{chr(10).join(resurser)}
+  </div>
+  <p>{html.escape(sv["resourcesTip"])}</p>
+
+  <h2 id="rules">Regler</h2>
+  <ul>
+{regler}
+  </ul>
+
+  <hr>
+  <p>Vill du bygga ett spel med AI? Läs guiden: <a href="/blogg/bygg-spel-med-ai">Bygg ett spel med AI på en vecka</a>.</p>
+{discord_cta("Nästa hackathon annonseras i Discorden.")}
+</article>
+</body></html>
+"""
+    )
+
+
 def main():
     css = las_artikel_css()
     (SITE / "showcase").mkdir(parents=True, exist_ok=True)
@@ -615,6 +888,7 @@ def main():
         SITE / "blogg" / "index.html": bygg_blogg(css),
         SITE / "varfor.html": bygg_varfor(css),
         SITE / "integritet.html": bygg_integritet(css),
+        SITE / "hackathon.html": bygg_hackathon(css),
     }
     for p, innehall in sidor.items():
         p.write_text(innehall, encoding="utf-8")

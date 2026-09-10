@@ -73,9 +73,17 @@ Gästinlägg är öppna för alla. Hör av dig i Discorden.
 - Stadgar: https://opensverige.se/stadgar
 - Regler: https://opensverige.se/regler
 - Gollum-testet: https://opensverige.se/gollum
-- Hackathon: https://opensverige.se/hackathon
-- Labbet: https://opensverige.se/lab
+- Spelhackathon (arkiverat, regler och resurser bevarade): https://opensverige.se/hackathon
 - Integritetspolicy: https://opensverige.se/integritet
+
+## Gollum-testets fyra arketyper
+
+Tio frågor placerar en builder på två axlar: shippar mot hoardar, och beroende av AI mot självgående.
+
+- Gollum — shippar snabbt men klarar sig inte utan AI: https://opensverige.se/gollum/gollum
+- Drömbyggaren — hoardar idéer, bygger själv: https://opensverige.se/gollum/dreambuilder
+- Speedrunnaren — hoardar idéer, lutar sig mot AI: https://opensverige.se/gollum/speedrunner
+- Shippern — shippar och kan hantverket: https://opensverige.se/gollum/shipper
 
 ## API och maskinläsbar data
 

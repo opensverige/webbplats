@@ -40,7 +40,7 @@ BESKRIVNINGAR = {
     "mcp-vs-rest": "REST är för human-to-machine. MCP är för agent-to-tool. När du ska använda vilket — och hur du lägger ett MCP-lager ovanpå ett befintligt REST-API.",
     "vad-ar-ai-agenter": "En AI-agent planerar, beslutar och utför — en chatbot svarar bara. Så skiljer de sig, vad agenter kräver och varför multi-agent-system ändrar allt.",
     "fortnox-agent-guide": "Steg för steg: koppla Fortnox till en AI-agent med OpenClaw och fortnox-skill. Installation, API-nycklar och första frågan om obetalda fakturor.",
-    "gollum-testet": "Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på nio frågor som visar vilken typ av AI-builder du faktiskt är.",
+    "gollum-testet": "Shippar du eller hoardar du idéer? Två axlar, fyra arketyper och ett test på tio frågor som visar vilken typ av AI-builder du faktiskt är.",
     "bygg-spel-med-ai": "Bygg ett spelbart spel på en vecka med AI som medbyggare. Verktygslåda, arbetsflöde och checklista för hackathonet — Kaplay, Godot via MCP och vibecoding.",
 }
 
@@ -249,7 +249,7 @@ def bygg_sida(slug, meta, svar, kropp, ord_antal, css):
 <title>{html.escape(titel)} | opensverige</title>
 <meta name="description" content="{html.escape(beskrivning, quote=True)}">
 <link rel="canonical" href="{url}">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="{html.escape(forfattare)}">
 <meta property="og:type" content="article">
