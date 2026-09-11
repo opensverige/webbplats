@@ -37,6 +37,66 @@ function cors(origin: string | null) {
   };
 }
 const clean = (v: unknown, max = 200): string =>typeof v === "string" ? v.trim().slice(0, max) : "";
+// Skickas efter att medlemskapet registrerats, aldrig som villkor for det.
+// Stadgarna § 4 sager att medlem ar den som anmaler sig, sa ett mejl som inte
+// gar fram far inte pa nagot satt paverka medlemskapet.
+async function skickaValkomst(epost: string, namn: string, nummer: number | null): Promise<void> {
+  const nyckel = Deno.env.get("RESEND_API_KEY");
+  if (!nyckel) return;
+  const fornamn = namn.split(" ")[0];
+  const rad = nummer ? `Medlemsnummer: ${nummer}\n` : "";
+  const text = `Hej ${fornamn},
+
+Du är nu medlem i opensverige, ideell förening.
+
+${rad}Stadgar: version ${STADGAR_VERSION}
+
+Kallelse till årsmötet skickas till den här adressen. Vill du byta adress
+eller gå ur räcker det att du mejlar opensverige@gmail.com.
+
+Medlemsavgiften är frivillig. Medlemskapet gäller oavsett.
+
+Communityt finns i Discorden:
+https://discord.gg/ZbV4qB34um
+
+opensverige · ideell förening · org.nr 802557-3422
+https://opensverige.se`;
+
+  const html = `<div style="font:16px/1.6 -apple-system,Segoe UI,sans-serif;color:#151515;max-width:34em">
+<p>Hej ${fornamn},</p>
+<p>Du är nu medlem i <b>opensverige</b>, ideell förening.</p>
+<p style="font:13px/1.7 ui-monospace,SFMono-Regular,monospace;color:#5b5651">
+${nummer ? `Medlemsnummer: ${nummer}<br>` : ""}Stadgar: version ${STADGAR_VERSION}</p>
+<p>Kallelse till årsmötet skickas till den här adressen. Vill du byta adress
+eller gå ur räcker det att du mejlar
+<a href="mailto:opensverige@gmail.com" style="color:#b72c07">opensverige@gmail.com</a>.</p>
+<p>Medlemsavgiften är frivillig. Medlemskapet gäller oavsett.</p>
+<p><a href="https://discord.gg/ZbV4qB34um" style="color:#b72c07">Communityt finns i Discorden →</a></p>
+<hr style="border:0;border-top:1px solid #e4e2dc;margin:28px 0 14px">
+<p style="font:12px/1.6 ui-monospace,SFMono-Regular,monospace;color:#5b5651">
+opensverige · ideell förening · org.nr 802557-3422<br>
+<a href="https://opensverige.se" style="color:#5b5651">opensverige.se</a></p>
+</div>`;
+
+  const svar = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${nyckel}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: "opensverige <noreply@send.opensverige.se>",
+      to: [
+        epost
+      ],
+      subject: "Välkommen till opensverige",
+      text,
+      html
+    })
+  });
+  if (!svar.ok) throw new Error(`Resend svarade ${svar.status}: ${await svar.text()}`);
+}
+
 Deno.serve(async (req)=>{
   const origin = req.headers.get("origin");
   const headers = cors(origin);
@@ -163,6 +223,13 @@ Deno.serve(async (req)=>{
     count: "exact",
     head: true
   }).is("uttradd_at", null);
+  // Mejlet far inte kunna falla anmalan. Gar det fel loggar vi och svarar 201
+  // anda — personen ar medlem, det ar bara kvittot som uteblev.
+  try {
+    await skickaValkomst(epost, namn, count ?? null);
+  } catch (e) {
+    console.error("valkomstmejl misslyckades", e instanceof Error ? e.message : e);
+  }
   return new Response(JSON.stringify({
     ok: true,
     medlemsnummer: count ?? null,
