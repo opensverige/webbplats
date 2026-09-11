@@ -26,6 +26,7 @@ BYGGSTEG = [
     "tools/seo-sidor.py",
     "tools/bygg-sidor.py",
     "tools/bygg-gollum.py",
+    "tools/footer.py",
     "tools/verifiera.py",
 ]
 

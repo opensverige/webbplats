@@ -176,6 +176,33 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 .stats div{display:flex;flex-direction:column;gap:3px}
 .stats .v{font-size:26px;font-weight:600;letter-spacing:-.03em}
 .stats .l{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+/* footer:start */
+.sfoot{border-top:1px solid var(--hair);margin-top:96px;padding:56px 0 44px}
+.sfin{max-width:1360px;margin:0 auto;padding:0 20px}
+.scols{display:grid;gap:36px 28px;grid-template-columns:1fr}
+.swm{font-family:var(--serif,'Instrument Serif',Georgia,serif);font-size:40px;line-height:.95;
+  letter-spacing:-.015em;color:var(--ink)}
+.sdesc{color:var(--muted);font-size:14px;line-height:1.55;margin:12px 0 0;max-width:32ch}
+/* Etiketten bär hierarkin i mörkt, länkarna ligger tillbaka i grått.
+   --faint ger bara 3,2:1 mot bakgrunden och klarar inte AA för brödtext. */
+.scl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:13px}
+.scol a{display:block;width:max-content;font-size:14.5px;color:var(--muted);padding:5px 0;
+  transition:color 150ms cubic-bezier(.4,0,.2,1)}
+.scol a:hover{color:var(--accent)}
+.scol a i{font-style:normal;font-size:10px;margin-left:5px;vertical-align:1px;opacity:.45}
+.sbot{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:baseline;
+  margin-top:48px;padding-top:22px;border-top:1px solid var(--hair)}
+.sorg{margin:0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.01em}
+.sorg b{color:var(--ink);font-weight:500}
+.ssrc{font-family:var(--mono);font-size:12px;color:var(--muted);transition:color 150ms cubic-bezier(.4,0,.2,1)}
+.ssrc:hover{color:var(--accent)}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media(min-width:640px){.scols{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.scols{grid-template-columns:1.5fr repeat(4,1fr);gap:28px}}
+@media(min-width:1080px){.sfin{padding:0 46px}}
+/* footer:slut */
 </style>
 <script type="application/ld+json">
 {
@@ -327,4 +354,52 @@ hr{margin-top:44px;height:1px;background:var(--hair);border:0}
 </div>
 
 </main>
+<!-- footer:start -->
+<footer class="sfoot">
+  <div class="sfin">
+    <div class="scols">
+      <div>
+        <div class="swm">opensverige</div>
+        <p class="sdesc">Sveriges öppna community för builders som bygger AI-agenter,
+          MCP-servrar och vibecoding-projekt.</p>
+      </div>
+
+      <nav class="scol" aria-labelledby="f-sajt">
+        <div class="scl" id="f-sajt">Sajten</div>
+        <a href="/bli-medlem">Bli medlem</a>
+        <a href="/showcase">Showcase</a>
+        <a href="/blogg">Blogg</a>
+        <a href="/varfor">Varför opensverige</a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-foreningen">
+        <div class="scl" id="f-foreningen">Föreningen</div>
+        <a href="/stadgar">Stadgar</a>
+        <a href="/regler">Regler</a>
+        <a href="/integritet">Integritet</a>
+        <a href="mailto:opensverige@gmail.com">Kontakt</a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-community">
+        <div class="scl" id="f-community">Community</div>
+        <a href="https://discord.gg/ZbV4qB34um" target="_blank" rel="noopener">Discord<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+        <a href="https://github.com/orgs/opensverige" target="_blank" rel="noopener">GitHub<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+        <a href="https://www.linkedin.com/groups/9544657/" target="_blank" rel="noopener">LinkedIn<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-maskiner">
+        <div class="scl" id="f-maskiner">För maskiner</div>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/api/community.json">API</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+
+    <div class="sbot">
+      <p class="sorg">Ideell förening · Org.nr <b>802557-3422</b> · Bildad 23 april 2026</p>
+      <a class="ssrc" href="https://github.com/opensverige/webbplats" target="_blank" rel="noopener">Sajtens källkod<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+    </div>
+  </div>
+</footer>
+<!-- footer:slut -->
 </body></html>

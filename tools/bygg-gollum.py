@@ -193,7 +193,7 @@ def head(sokvag, titel, beskrivning, og_bild, extra_ld=None):
 def fot(hoger='<a href="/">opensverige →</a>'):
     return f"""
 <div class="wrap">
-  <footer class="qfoot"><span>gollum-testet v1.0</span>{hoger}</footer>
+  <div class="qfoot"><span>gollum-testet v1.0</span>{hoger}</div>
 </div>
 </body></html>
 """
