@@ -23,6 +23,7 @@ TOKEN = Path.home() / ".sb-token"
 ARKIV = Path(__file__).resolve().parent.parent
 
 FALT = [
+    "nummer",
     "namn",
     "epost",
     "typ",
@@ -69,17 +70,19 @@ def main() -> None:
     if ARKIV in mal.parents or mal.parent == ARKIV:
         sys.exit(f"Vägrar skriva i arkivet. Välj en sökväg utanför {ARKIV}")
 
+    # Sorterat på medlemsnummer, inte på radens plats i filen. Numret är det
+    # medlemmen själv känner till — det står i välkomstmejlet.
     rader = fraga(
         f"select {', '.join(FALT)} from medlemmar "
-        "where uttradd_at is null order by anmald_at",
+        "where uttradd_at is null order by nummer",
         token,
     )
 
     with mal.open("w", encoding="utf-8", newline="") as f:
-        skriv = csv.DictWriter(f, fieldnames=["nr", *FALT])
+        skriv = csv.DictWriter(f, fieldnames=FALT)
         skriv.writeheader()
-        for i, r in enumerate(rader, 1):
-            skriv.writerow({"nr": i, **{k: r.get(k) or "" for k in FALT}})
+        for r in rader:
+            skriv.writerow({k: r.get(k) or "" for k in FALT})
     mal.chmod(0o600)
 
     juridiska = sum(1 for r in rader if r.get("typ") == "juridisk")

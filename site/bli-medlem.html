@@ -128,6 +128,20 @@ input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
   text-transform:uppercase;color:var(--faint);margin-bottom:14px}
 .done h2{font-size:26px;font-weight:700;letter-spacing:-.03em;margin:30px 0 12px}
 .done p{font-size:16.5px;line-height:1.6;color:var(--muted);margin-bottom:12px}
+.dela{margin-top:36px;border-top:1px solid var(--hair);padding-top:18px}
+.dela h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:12px}
+.dela canvas{width:100%;height:auto;display:block;border:1px solid var(--hair);border-radius:10px}
+.delknappar{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.delknappar button,.delknappar a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;
+  border:1px solid var(--hair);border-radius:9px;background:#fff;font:inherit;font-size:14px;
+  color:var(--ink);text-decoration:none;cursor:pointer;
+  transition:border-color var(--t),color var(--t),transform var(--t)}
+.delknappar button:hover,.delknappar a:hover{border-color:var(--accent);color:var(--accent);
+  transform:translateY(-1px)}
+.delknappar button:focus-visible,.delknappar a:focus-visible{outline:2px solid var(--accent);
+  outline-offset:2px}
+.delhint{font-size:13px;color:var(--muted);margin-top:10px}
 .rec{margin-top:32px;border-top:1px solid var(--hair);padding-top:18px}
 .rec h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
 .rec table{border-collapse:collapse;width:100%;font-size:13.5px}
@@ -295,6 +309,18 @@ input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
     <h2>Välkommen in.</h2>
     <p>Du står i röstlängden till nästa årsmöte, och kan söka resurser ur labbet från och med nu.</p>
     <p>En bekräftelse ligger i inkorgen. Säg hej i Discord när du vill.</p>
+
+    <div class="dela">
+      <h3>Skryt om det</h3>
+      <canvas id="kort" width="1200" height="630" aria-label="Bild med ditt medlemsnummer"></canvas>
+      <div class="delknappar">
+        <button type="button" id="ladda">Ladda ner bild <span aria-hidden="true">→</span></button>
+        <a id="xlank" href="#" target="_blank" rel="noopener">Dela på X
+          <span aria-hidden="true">↗</span><span class="vh">, öppnas i ny flik</span></a>
+      </div>
+      <p class="delhint">Ladda ner bilden först. X kan inte hämta den åt dig.</p>
+    </div>
+
     <div class="rec"><h3>Det här sparades</h3><table id="recTable"></table></div>
   </div>
 </div>
@@ -413,12 +439,73 @@ input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
     ['Personnummer','Adress','Telefon','Medlemsavgift'].forEach(function(x){
       t+='<tr class="off"><td>'+x+'</td><td>sparas inte</td></tr>';});
     document.getElementById('recTable').innerHTML=t;
-    document.getElementById('mnum').textContent = nr==null ? '—' : nr;
-    document.getElementById('formSide').style.display='none';
-    document.getElementById('done').classList.add('on');
-    window.scrollTo(0,0);
+      document.getElementById('mnum').textContent = nr==null ? '—' : nr;
+      ordnaDelning(nr);
+      document.getElementById('formSide').style.display='none';
+      document.getElementById('done').classList.add('on');
+      window.scrollTo(0,0);
+    }
+
+  /* Bilden ritas i webbläsaren. Ingen server behöver veta att någon vill
+     skryta, och kortet finns bara hos den som laddar ner det. */
+  function ritaKort(nr){
+    var c=document.getElementById('kort'), g=c.getContext('2d');
+    var BG='#fbfaf7', INK='#151515', DIM='#767169', ROD='#b72c07',
+        SERIF='"Instrument Serif",Georgia,serif',
+        MONO='ui-monospace,SFMono-Regular,Menlo,monospace';
+    g.fillStyle=BG; g.fillRect(0,0,1200,630);
+    g.strokeStyle='#e4e2dc'; g.lineWidth=2; g.strokeRect(1,1,1198,628);
+
+    /* Centrerat, så kortet ser lika avvägt ut för nr 7 som för nr 1204. */
+    g.textBaseline='alphabetic'; g.textAlign='center';
+    var mitt=600;
+
+    g.fillStyle=INK; g.font='400 54px '+SERIF;
+    g.fillText('opensverige',mitt,132);
+
+    if(g.letterSpacing!==undefined) g.letterSpacing='0.2em';
+    g.fillStyle=ROD; g.font='400 19px '+MONO;
+    g.fillText('MEDLEM NR',mitt,258);
+    if(g.letterSpacing!==undefined) g.letterSpacing='0px';
+
+    g.fillStyle=INK; g.font='400 250px '+SERIF;
+    g.fillText(String(nr),mitt,470);
+
+    g.strokeStyle=ROD; g.lineWidth=3;
+    g.beginPath(); g.moveTo(mitt-34,520); g.lineTo(mitt+34,520); g.stroke();
+
+    if(g.letterSpacing!==undefined) g.letterSpacing='0.13em';
+    g.fillStyle=DIM; g.font='400 17px '+MONO;
+    g.fillText('IDEELL FÖRENING · ORG.NR 802557-3422 · OPENSVERIGE.SE',mitt,570);
+    if(g.letterSpacing!==undefined) g.letterSpacing='0px';
   }
-})();
+
+  function ordnaDelning(nr){
+    var block=document.querySelector('.dela');
+    /* Utan nummer finns inget att visa. Hellre inget kort än ett tomt. */
+    if(nr==null){ block.style.display='none'; return; }
+
+    /* Serifen måste vara inläst innan vi ritar, annars fastnar siffran i
+       reservtypsnittet och kortet ser ut som något annat. */
+    var rita=function(){ ritaKort(nr); };
+    if(document.fonts&&document.fonts.load){
+      document.fonts.load('400 236px "Instrument Serif"').then(rita).catch(rita);
+    } else { rita(); }
+
+    document.getElementById('ladda').addEventListener('click',function(){
+      document.getElementById('kort').toBlob(function(b){
+        var u=URL.createObjectURL(b), a=document.createElement('a');
+        a.href=u; a.download='opensverige-medlem-'+nr+'.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(u);
+      },'image/png');
+    });
+
+    document.getElementById('xlank').href='https://x.com/intent/post?text='
+      + encodeURIComponent('Jag blev medlem nr '+nr+' i opensverige.')
+      + '&url=' + encodeURIComponent('https://opensverige.se/bli-medlem');
+  }
+  })();
 </script>
 <!-- footer:start -->
 <footer class="sfoot">

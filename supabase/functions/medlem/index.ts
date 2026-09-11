@@ -81,13 +81,14 @@ opensverige · ideell förening · org.nr 802557-3422<br>
 
 // Skickas nar nagon anmaler en adress som redan finns i registret. Beskedet
 // far bara ga hit, aldrig tillbaka i svaret pa formularet.
-async function skickaRedanMedlem(epost: string): Promise<void> {
+async function skickaRedanMedlem(epost: string, nummer: number | null): Promise<void> {
+  const rad = nummer ? `Ditt medlemsnummer är ${nummer}.\n\n` : "";
   const text = `Hej,
 
 Någon fyllde nyss i anmälningsformuläret på opensverige.se med den här
 adressen. Du är redan medlem, så ingenting har ändrats.
 
-Du behöver inte göra något.
+${rad}Du behöver inte göra något.
 
 Var det inte du som anmälde dig, hör av dig till opensverige@gmail.com.
 
@@ -98,6 +99,8 @@ https://opensverige.se`;
 <p>Hej,</p>
 <p>Någon fyllde nyss i anmälningsformuläret på opensverige.se med den här
 adressen. <b>Du är redan medlem</b>, så ingenting har ändrats.</p>
+${nummer ? `<p style="font:13px/1.7 ui-monospace,SFMono-Regular,monospace;color:#5b5651">
+Ditt medlemsnummer: ${nummer}</p>` : ""}
 <p>Du behöver inte göra något.</p>
 <p>Var det inte du som anmälde dig, hör av dig till
 <a href="mailto:opensverige@gmail.com" style="color:#b72c07">opensverige@gmail.com</a>.</p>
@@ -227,7 +230,7 @@ Deno.serve(async (req)=>{
     status: 422,
     headers
   });
-  const { error } = await db.from("medlemmar").insert({
+  const { data: rad, error } = await db.from("medlemmar").insert({
     namn,
     epost,
     typ,
@@ -237,7 +240,8 @@ Deno.serve(async (req)=>{
     discord,
     kalla,
     stadgar_version: STADGAR_VERSION
-  });
+  }).select("nummer").single();
+  let nummer: number | null = rad?.nummer ?? null;
   // En dubblett far inte synas utat. Svarade vi 409 kunde vem som helst prova
   // en adress och fa veta om personen ar med i foreningen. Svaret blir darfor
   // detsamma som vid en ny anmalan, och beskedet gar till inkorgen i stallet
@@ -246,6 +250,13 @@ Deno.serve(async (req)=>{
   if (error) {
     if (error.code === "23505") {
       redan = true;
+      // Adressen finns redan. Hamta personens riktiga nummer sa hen far samma
+      // siffra som forsta gangen — den ar permanent och ska aldrig andras.
+      // Unika indexet ligger pa lower(epost), darfor ilike. Jokertecken i
+      // adressen escapas, annars kunde ett understreck matcha fel rad.
+      const monster = epost.replace(/[\\%_]/g, (c)=>`\\${c}`);
+      const { data: befintlig } = await db.from("medlemmar").select("nummer").ilike("epost", monster).is("uttradd_at", null).maybeSingle();
+      nummer = befintlig?.nummer ?? null;
     } else {
     console.error("insert misslyckades", error.code, error.message);
     return new Response(JSON.stringify({
@@ -256,21 +267,17 @@ Deno.serve(async (req)=>{
     });
     }
   }
-  const { count } = await db.from("medlemmar").select("id", {
-    count: "exact",
-    head: true
-  }).is("uttradd_at", null);
   // Mejlet far inte kunna falla anmalan. Gar det fel loggar vi och svarar 201
   // anda — personen ar medlem, det ar bara kvittot som uteblev.
   try {
-    if (redan) await skickaRedanMedlem(epost);
-    else await skickaValkomst(epost, namn, count ?? null);
+    if (redan) await skickaRedanMedlem(epost, nummer);
+    else await skickaValkomst(epost, namn, nummer);
   } catch (e) {
     console.error("utskick misslyckades", e instanceof Error ? e.message : e);
   }
   return new Response(JSON.stringify({
     ok: true,
-    medlemsnummer: count ?? null,
+    medlemsnummer: nummer,
     stadgar_version: STADGAR_VERSION
   }), {
     status: 201,

@@ -64,6 +64,24 @@ aldrig in i repot.
 Administrationsnyckeln som domänen sattes upp med är en annan, och kan
 återkallas utan att utskicken slutar fungera.
 
+## Medlemsnumret
+
+Kolumnen `nummer` sätts av Postgres själv och ändras aldrig. Den som är nr 12
+förblir nr 12, även om medlemmar före hen går ur. Numret står i välkomstmejlet,
+i kvittot på sajten och på den delbara bilden, så det måste hålla över tid.
+
+Tidigare räknades numret fram som antalet aktiva medlemmar vid anmälan. Det gav
+kollisioner: gick någon ur sjönk antalet, och nästa medlem fick en siffra som
+redan tillhörde en annan. Siffran sparades inte heller någonstans.
+
+Sekvensen ger glapp. En misslyckad insättning — oftast en adress som redan finns
+— förbrukar ett nummer utan att skapa en rad. Medlem nummer tio kan alltså ha
+nummer 12. Det är avsiktligt: hellre hål i serien än två personer med samma
+nummer.
+
+Numret räknas om från 1 med `alter table medlemmar alter column nummer restart
+with 1`. Det får bara göras när registret är tomt.
+
 ## Röstlängden
 
 Registret finns bara hos Supabase, och på gratisnivån går säkerhetskopiorna

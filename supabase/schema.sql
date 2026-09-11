@@ -7,6 +7,11 @@
 
 create table public.medlemmar (
   id                    uuid primary key default gen_random_uuid(),
+  -- Permanent medlemsnummer. Att i stället räkna rader gav kollisioner:
+  -- går någon ur sjunker antalet, och nästa medlem får en siffra som
+  -- redan är tagen. Sekvensen ger glapp när en insättning misslyckas, och
+  -- det är priset för att två personer aldrig kan dela nummer.
+  nummer                bigint generated always as identity,
   namn                  text not null,
   epost                 text not null,
   typ                   text not null default 'fysisk',
@@ -26,6 +31,7 @@ create table public.medlemmar (
   constraint medlemmar_epost_check check (position('@' in epost) > 1),
   constraint medlemmar_typ_check   check (typ = any (array['fysisk', 'juridisk'])),
   constraint medlemmar_kalla_check check (kalla = any (array['webb', 'discord'])),
+  constraint medlemmar_nummer_unik unique (nummer),
   -- Juridisk person röstar genom en fysisk företrädare, § 8.
   constraint juridisk_kraver_foretradare
     check (typ <> 'juridisk' or (firmanamn is not null and foretradare is not null))
