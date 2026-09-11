@@ -19,7 +19,7 @@ SIDOR = {
     "bli-medlem.html": {
         "sokvag": "/bli-medlem",
         "titel": "Bli medlem i opensverige — gratis, en röst på årsmötet",
-        "beskrivning": "Bli medlem i ideella föreningen opensverige. Avgiften är frivillig, du får en röst på årsmötet och rätt att söka resurser ur labbet. Tre fält.",
+        "beskrivning": "Bli medlem i ideella föreningen opensverige. Avgiften är frivillig, du får en röst på årsmötet och rätt att söka resurser ur labbet. Fyra fält.",
         "og_titel": "Bli medlem i opensverige",
         "brodsmula": "Bli medlem",
     },
