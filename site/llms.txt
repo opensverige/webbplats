@@ -1,6 +1,6 @@
 # opensverige
 
-> opensverige är Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. 600+ builders i Discorden. Gratis. Öppen källkod. Ingen styrelse som beslutar över huvudet på någon.
+> opensverige är Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. 600+ builders i Discorden. Gratis. Öppen källkod. Ingen gallring — du anmäler dig och är medlem.
 
 ## Om communityn
 
