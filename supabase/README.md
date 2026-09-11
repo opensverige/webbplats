@@ -55,8 +55,14 @@ DMARC står på `p=reject` direkt. Underdomänen är ny och skickar bara vår eg
 post, som är både DKIM-signerad och SPF-godkänd, så det finns ingen äldre
 avsändare som kan råka blockeras.
 
-Nyckeln ligger som hemligheten `RESEND_API_KEY` hos Supabase. Den ska aldrig
-in i repot.
+Funktionen använder en egen nyckel med enbart `sending_access`, låst till
+`send.opensverige.se`. Den kan varken läsa utskickshistorik eller röra
+domäner. Läcker den kan någon skicka post i vårt namn, men inte komma åt
+något. Den ligger som hemligheten `RESEND_API_KEY` hos Supabase och ska
+aldrig in i repot.
+
+Administrationsnyckeln som domänen sattes upp med är en annan, och kan
+återkallas utan att utskicken slutar fungera.
 
 ## Läsa och ändra
 
