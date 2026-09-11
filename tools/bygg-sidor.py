@@ -100,8 +100,10 @@ EXTRA_CSS = """
   font-family:var(--mono);font-size:12px;color:var(--faint)}
 .callout{margin:26px 0 0;padding:18px;border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:2px;background:#fdfcfa}
 .callout p{margin:0;font-size:17px;line-height:1.55;color:var(--ink)}
-.punch{font-family:var(--serif);font-size:25px;line-height:1.3;margin-top:30px}
-@media(min-width:640px){.punch{font-size:29px}}
+/* .prose p väger (0,1,1) och .punch bara (0,1,0), så storleken slog aldrig
+   igenom — raderna har renderats som brödtext med serif. Samma vikt här. */
+.prose .punch{font-family:var(--serif);font-size:25px;line-height:1.3;margin-top:30px}
+@media(min-width:640px){.prose .punch{font-size:29px}}
 .stats{display:flex;gap:28px;margin-top:30px;padding:22px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .stats div{display:flex;flex-direction:column;gap:3px}
 .stats .v{font-size:26px;font-weight:600;letter-spacing:-.03em}
@@ -650,9 +652,7 @@ def bygg_varfor(css):
 
   <p>Jag vet inte vart det här landar. Ingen vet. Men <b>600+ personer bygger varje dag</b> och det stoppas inte av ett möte.</p>
 
-  <p>Halvfärdigt är standard. Trasigt är välkommet.</p>
-
-  <p class="punch">What's the fucking output?</p>
+  <p class="punch">Halvfärdigt är standard. Trasigt är välkommet.</p>
 {discord_cta("Sluta lurka. Börja bygga.")}
 </article>
 </body></html>
