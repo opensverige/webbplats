@@ -656,7 +656,7 @@ def bygg_integritet(css):
 
     return (
         head(cfg, css, jsonld)
-        + toppbar(hoger="Uppdaterad 2026-09-10")
+        + toppbar(hoger="Uppdaterad 2026-09-11")
         + """
 <article class="prose">
   <div class="kicker">Policy</div>
@@ -668,6 +668,14 @@ def bygg_integritet(css):
   </div>
 
   <h2>Vad opensverige.se samlar in</h2>
+
+  <h3>Medlemsregistret</h3>
+  <p>Anmäler du dig som medlem sparar vi <b>namn och e-postadress</b>, och ditt <b>Discord-användarnamn</b> om du fyller i det. Anmäler du en juridisk person sparar vi även <b>firmanamn, organisationsnummer och namnet på den som företräder er</b>. Vi noterar vilken version av stadgarna du accepterade och när.</p>
+  <p><b>Vi frågar aldrig efter personnummer.</b> Föreningen tar inte emot betalningar via sajten och lagrar inga betaluppgifter — medlemsavgiften är frivillig enligt § 4.</p>
+  <p><b>Varför.</b> Registret är föreningens röstlängd enligt § 8. Vi behöver det för att kunna kalla till årsmöte, veta vem som får rösta och kunna nå dig som medlem. Den lagliga grunden är <b>avtal</b> (GDPR artikel 6.1b) — medlemskapet är en överenskommelse mellan dig och föreningen.</p>
+  <p><b>Vem ser det.</b> Styrelsen. Registret ligger hos Supabase i Stockholm och är inte läsbart utifrån. Vi delar det inte med någon, och det publiceras aldrig.</p>
+  <p><b>Hur länge.</b> Så länge du är medlem. Går du ur raderas inte raden automatiskt — den märks med utträdesdatum så att tidigare röstlängder går att styrka i efterhand. Vill du bli helt borttagen ur registret räcker det att du säger till.</p>
+  <p><b>Skräpskydd.</b> När formuläret skickas sparar vi en envägshash av din IP-adress i högst ett dygn, för att hindra massanmälningar. Själva adressen sparas aldrig, och hashen går inte att räkna baklänges till den. Grunden är <b>berättigat intresse</b> (artikel 6.1f) av att skydda röstlängden.</p>
 
   <h3>Webbplatsen</h3>
   <p><b>Vercel Analytics</b> — anonymiserad besöksstatistik. Inga cookies. Ingen personidentifiering. Vi ser sidvisningar och ungefärligt land, inte vem du är.</p>
@@ -700,7 +708,8 @@ def bygg_integritet(css):
   <p>opensverige.se använder <b>inga cookies</b> utöver de som krävs för grundläggande funktionalitet. Inga tredjepartscookies. Ingen cookie-banner behövs.</p>
 
   <h2>Laglig grund</h2>
-  <p>Vi behandlar personuppgifter baserat på <b>berättigat intresse</b> (GDPR artikel 6.1f) för att driva communityn och förbättra upplevelsen. För email-kommunikation baseras behandlingen på <b>samtycke</b> — du kontaktade oss.</p>
+  <p><b>Medlemsregistret</b> behandlas med stöd av <b>avtal</b> (GDPR artikel 6.1b). Medlemskapet är en överenskommelse mellan dig och föreningen, och registret är röstlängden enligt § 8.</p>
+  <p>Övrig behandling vilar på <b>berättigat intresse</b> (artikel 6.1f) för att driva communityn och skydda den mot missbruk. För email-kommunikation baseras behandlingen på <b>samtycke</b> — du kontaktade oss.</p>
   <p>Vi fattar inga automatiserade beslut som har rättslig eller liknande effekt på dig (GDPR artikel 22). Ingen profilering används för att fatta sådana beslut.</p>
 
   <h2>Dina rättigheter enligt GDPR</h2>

@@ -7,6 +7,8 @@
   "linkedin": "https://www.linkedin.com/groups/9544657/",
   "email": "opensverige@gmail.com",
   "language": "sv-SE",
+  "legal_form": "ideell förening",
+  "org_number": "802557-3422",
   "license": "open-source",
   "membership": {
     "open": true,
@@ -15,11 +17,12 @@
     "note": "Avgiften är frivillig. Medlemskap får aldrig villkoras av betalning."
   },
   "stats": {
-    "members": 604,
-    "projects": 8,
+    "discord_members": 604,
+    "registered_members": 0,
+    "projects": 9,
     "cities": ["Stockholm", "Göteborg", "Malmö"],
-    "founded": "2025",
-    "as_of": "2026-09-10"
+    "founded": "2026-04-23",
+    "as_of": "2026-09-11"
   },
   "frameworks": {
     "agent_frameworks": [

@@ -130,7 +130,11 @@ def main() -> None:
     sitemap = (SITE / "sitemap.xml").read_text(encoding="utf-8")
     kanon = len(re.findall(r"<loc>", sitemap))
     api = json.loads((SITE / "api" / "community.json").read_text(encoding="utf-8"))
-    print(f"\n{len(html_filer())} sidor · {kanon} i sitemap · {api['stats']['members']} medlemmar")
+    print(
+        f"\n{len(html_filer())} sidor · {kanon} i sitemap · "
+        f"{api['stats']['discord_members']} builders i Discorden · "
+        f"{api['stats']['registered_members']} i medlemsregistret"
+    )
 
     if not pusha:
         print(f"\nInget deployat. Kör med --push när du är nöjd:"
