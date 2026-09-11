@@ -70,6 +70,9 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
 .seg input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer}
 .seg span{display:block;padding:10px 18px;font-size:14.5px;color:var(--muted);transition:all var(--t)}
 .seg input:checked+span{background:var(--ink);color:#fff}
+/* Radioknapparna ligger genomskinliga ovanpå segmenten, så fokusringen måste
+   ritas på spanen. Utan detta ser den som tabbar inte var hon står. */
+.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:-2px}
 .reveal{overflow:hidden;max-height:0;transition:max-height .32s var(--snap)}
 .reveal.on{max-height:460px}
 .reveal-in{padding-top:22px;border-left:2px solid var(--accent);padding-left:20px;margin-top:4px}
@@ -92,6 +95,17 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
 .sum .disc{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:10px}
 .err{color:var(--err);font-size:13.5px;margin-top:7px;display:none}
 .err.on{display:block}
+/* Felet bärs av fältet självt, inte bara av texten under. Räcker inte med
+   färg heller — texten under säger vad som är fel, så vi lutar oss inte
+   mot att någon uppfattar rött. */
+input[aria-invalid="true"]{border-color:var(--err)}
+/* Ringen läggs utanför ramen, annars går den ihop med den röda ramen och man
+   ser inte vilket av felfälten man står i. */
+input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
+.accept:has(input[aria-invalid="true"]){border-color:var(--err)}
+/* Hjälptext ligger framme hela tiden i stället för i en hover-tooltip.
+   En tooltip nås inte med tangentbord och finns inte på touch. */
+.hjalp{font-size:12.5px;color:var(--faint);margin-top:6px;line-height:1.45;max-width:44ch}
 .go{margin-top:26px;font-size:16px;font-weight:700;background:var(--ink);color:#fff;border-radius:3px;
   padding:14px 28px;transition:background var(--t),transform var(--t)}
 .go:hover{background:var(--accent);transform:translateY(-1px)}
@@ -175,35 +189,46 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
 
       <form id="f" novalidate>
         <div class="field"><label class="lb" for="namn">Namn</label>
-          <input type="text" id="namn" autocomplete="name" placeholder="För- och efternamn">
-          <div class="err" id="e-namn">Fyll i ditt namn.</div></div>
+          <input type="text" id="namn" autocomplete="name" placeholder="För- och efternamn"
+            aria-required="true" aria-describedby="e-namn" enterkeyhint="next">
+          <div class="err" id="e-namn" role="alert">Fyll i ditt namn.</div></div>
 
         <div class="field"><label class="lb" for="epost">E-post</label>
-          <input type="email" id="epost" autocomplete="email" placeholder="du@exempel.se">
-          <div class="err" id="e-epost">Fyll i en e-postadress vi kan nå dig på.</div></div>
+          <input type="email" id="epost" autocomplete="email" placeholder="du@exempel.se"
+            aria-required="true" aria-describedby="e-epost" enterkeyhint="next"
+            spellcheck="false" autocapitalize="none">
+          <div class="err" id="e-epost" role="alert">Fyll i en e-postadress vi kan nå dig på.</div></div>
 
         <div class="field"><label class="lb" for="discord">Discord <span class="hint">valfritt</span></label>
-          <input type="text" id="discord" placeholder="användarnamn"></div>
+          <input type="text" id="discord" placeholder="användarnamn" autocomplete="off"
+            autocapitalize="none" spellcheck="false" maxlength="32"
+            aria-describedby="h-discord" enterkeyhint="next">
+          <p class="hjalp" id="h-discord">Ditt användarnamn i Discord, inte visningsnamnet i servern.</p></div>
 
         <div class="field"><span class="lb">Jag anmäler mig som</span>
           <div class="seg">
             <label><input type="radio" name="typ" value="fysisk" checked><span>Privatperson</span></label>
             <label><input type="radio" name="typ" value="juridisk"><span>Organisation</span></label>
           </div>
-          <div class="reveal" id="rev"><div class="reveal-in">
+          <div class="reveal" id="rev" inert><div class="reveal-in">
             <div class="field"><label class="lb" for="firma">Firmanamn</label>
-              <input type="text" id="firma" placeholder="Exempel AB">
-              <div class="err" id="e-firma">Fyll i firmanamn.</div></div>
+              <input type="text" id="firma" placeholder="Exempel AB" autocomplete="organization"
+                aria-required="true" aria-describedby="e-firma" enterkeyhint="next">
+              <div class="err" id="e-firma" role="alert">Fyll i firmanamn.</div></div>
             <div class="field"><label class="lb" for="orgnr">Org.nr</label>
-              <input type="text" id="orgnr" placeholder="556000-0000"></div>
+              <input type="text" id="orgnr" placeholder="556000-0000" autocomplete="off"
+                spellcheck="false" inputmode="numeric" maxlength="11"
+                aria-describedby="h-orgnr" enterkeyhint="next">
+              <p class="hjalp" id="h-orgnr">Tio siffror. Bindestrecket sätts automatiskt.</p></div>
             <div class="field" style="margin-bottom:0"><label class="lb" for="ombud">Företrädare <span class="hint">rösträtten</span></label>
-              <input type="text" id="ombud" placeholder="Namn på den som röstar">
-              <div class="err" id="e-ombud">En fysisk person måste rösta för organisationen.</div></div>
+              <input type="text" id="ombud" placeholder="Namn på den som röstar" autocomplete="name"
+                aria-required="true" aria-describedby="e-ombud" enterkeyhint="done">
+              <div class="err" id="e-ombud" role="alert">En fysisk person måste rösta för organisationen.</div></div>
           </div></div>
         </div>
 
         <div class="field">
-          <div class="accept"><input type="checkbox" id="ok">
+          <div class="accept"><input type="checkbox" id="ok" aria-required="true" aria-describedby="e-ok">
             <label class="t" for="ok">Jag ansöker om medlemskap i opensverige och har läst och accepterar <a href="/stadgar">stadgarna</a>.
               <span class="v">version 2026-09-10</span></label></div>
           <details class="sum"><summary>Vad du går med på</summary>
@@ -211,7 +236,7 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
             <li>Du har en röst på årsmötet, och rätt att lämna motioner</li>
             <li>Du kan gå ur när du vill genom att meddela styrelsen</li></ul>
             <p class="disc">Sammanfattning, inte bindande. Det är stadgarnas text som gäller.</p></details>
-          <div class="err" id="e-ok">Du måste acceptera stadgarna för att bli medlem.</div>
+          <div class="err" id="e-ok" role="alert">Du måste acceptera stadgarna för att bli medlem.</div>
         </div>
 
         <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
@@ -249,10 +274,56 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
 <script>
 (function(){
   var rev=document.getElementById('rev');
+  /* Blocket kollapsas med max-height, vilket bara klipper det visuellt — fälten
+     gick att tabba till och lästes upp av skärmläsare fast de inte syntes.
+     inert tar dem ur både tabbkedjan och tillgänglighetsträdet. */
   [].forEach.call(document.querySelectorAll('input[name=typ]'),function(r){
-    r.addEventListener('change',function(){rev.classList.toggle('on',r.value==='juridisk'&&r.checked)});
+    r.addEventListener('change',function(){
+      var pa=r.value==='juridisk'&&r.checked;
+      rev.classList.toggle('on',pa);
+      if(pa){rev.removeAttribute('inert');document.getElementById('firma').focus();}
+      else{rev.setAttribute('inert','');['firma','ombud'].forEach(function(i){bad(i,false)});}
+    });
   });
-  function bad(id,on){document.getElementById('e-'+id).classList.toggle('on',on);return on;}
+
+  function bad(id,on){
+    var f=document.getElementById(id);
+    document.getElementById('e-'+id).classList.toggle('on',on);
+    if(f)f.setAttribute('aria-invalid',on?'true':'false');
+    return on;
+  }
+
+  /* En regel per fält, så submit och blur aldrig kan säga olika saker. */
+  var regler={
+    namn:function(v){return !!v},
+    epost:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+    firma:function(v){return !!v},
+    ombud:function(v){return !!v}
+  };
+  /* Kontrollera när man lämnar fältet, förlåt så fort det blir rätt igen.
+     Att felmarkera medan någon skriver sitt namn är bara otrevligt. */
+  Object.keys(regler).forEach(function(id){
+    var f=document.getElementById(id);
+    f.addEventListener('blur',function(){
+      if(f.value.trim()==='' && !f.dataset.rord)return;
+      bad(id,!regler[id](f.value.trim()));
+    });
+    f.addEventListener('input',function(){
+      f.dataset.rord='1';
+      if(f.getAttribute('aria-invalid')==='true'&&regler[id](f.value.trim()))bad(id,false);
+    });
+  });
+  document.getElementById('ok').addEventListener('change',function(){
+    if(this.checked)bad('ok',false);
+  });
+
+  /* Org.nr skrivs 556000-0000. Vi sätter bindestrecket så man slipper leta
+     efter det på ett numeriskt tangentbord. */
+  var org=document.getElementById('orgnr');
+  org.addEventListener('input',function(){
+    var s=org.value.replace(/\D/g,'').slice(0,10);
+    org.value=s.length>6?s.slice(0,6)+'-'+s.slice(6):s;
+  });
   document.getElementById('f').addEventListener('submit',function(ev){
     ev.preventDefault();
     var namn=document.getElementById('namn').value.trim(),
@@ -268,7 +339,13 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
     f=bad('epost',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost))||f;
     f=bad('ok',!ok)||f;
     if(jur){f=bad('firma',!firma)||f;f=bad('ombud',!ombud)||f;}else{bad('firma',false);bad('ombud',false);}
-    if(f){document.querySelector('.err.on').closest('.field').scrollIntoView({block:'center'});return;}
+    /* Flytta fokus till första felet, inte bara rulla dit. Annars står den som
+       använder tangentbord kvar på knappen och måste tabba baklänges. */
+    if(f){
+      var forst=document.querySelector('[aria-invalid="true"]');
+      if(forst){forst.focus({preventScroll:true});forst.scrollIntoView({block:'center'});}
+      return;
+    }
     var btn=document.querySelector('.go'); btn.disabled=true; btn.textContent='Skickar…';
     fetch('https://kmkttmasoemqcyzkjuyv.supabase.co/functions/v1/medlem',{
       method:'POST',headers:{'content-type':'application/json'},
