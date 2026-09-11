@@ -32,6 +32,32 @@ att föreningen är öppen. Skyddet ligger därför i lagren under:
 Det som saknas är hastighetsbegränsning. Samma avsändare kan i dag skapa
 obegränsat många medlemmar med olika adresser.
 
+## E-post
+
+Utgående post går via Resend från underdomänen `send.opensverige.se`, region
+`eu-west-1`, så att uppgifterna stannar inom EU liksom registret.
+
+Underdomänen är vald med flit. Apex `opensverige.se` är fri att användas för
+inkommande post längre fram utan att SPF-posterna krockar.
+
+| Post | Namn | Syfte |
+| --- | --- | --- |
+| TXT | `resend._domainkey.send` | DKIM-signering |
+| TXT | `send.send` | SPF |
+| MX | `send.send` | studsar tillbaka till Amazon SES |
+| CNAME | `rsend.send` | spårning |
+| TXT | `_dmarc.send` | `p=reject`, skyddar namnet mot förfalskning |
+
+DNS ligger hos Vercel trots att domänen är registrerad någon annanstans, så
+posterna sätts med `vercel dns add opensverige.se <namn> <typ> <värde>`.
+
+DMARC står på `p=reject` direkt. Underdomänen är ny och skickar bara vår egen
+post, som är både DKIM-signerad och SPF-godkänd, så det finns ingen äldre
+avsändare som kan råka blockeras.
+
+Nyckeln ligger som hemligheten `RESEND_API_KEY` hos Supabase. Den ska aldrig
+in i repot.
+
 ## Läsa och ändra
 
 Det finns ingen Supabase CLI installerad. Allt går via Management API med en
