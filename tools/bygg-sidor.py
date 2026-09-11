@@ -515,9 +515,51 @@ def bygg_varfor(css):
         "beskrivning": "Grundaren Baltsar om varför opensverige finns. 600+ svenska builders som slutade vänta. Verkstad, inte konferens. Halvfärdigt är standard.",
     }
 
+    # Frågorna står på ett ställe och används både till texten och till
+    # FAQPage-datan. Skulle de definieras var för sig hinner de glida isär,
+    # och strukturerad data som säger något annat än sidan är värre än ingen.
+    fragor = [
+        ("Nyfiken?", "Välkommen."),
+        ("Vill du tjäna pengar?", "Lös ett problem och ta betalt. Ingen stoppar dig."),
+        ("Vill du lurka?", "Också okej. Men vågen rör sig med eller utan dig."),
+        (
+            "Sponsras ni av något företag?",
+            "Nej. Ingen leverantör har köpt sig plats här. Ingen betalar för att "
+            "nämnas. Föreningen är ideell och medlemmarna bestämmer på årsmötet.",
+        ),
+        (
+            "Driver ni en politisk agenda?",
+            "Nej. Vi tar inte partipolitisk ställning och företräder ingen rörelse. "
+            "Det enda vi driver är att fler ska kunna bygga själva.",
+        ),
+        (
+            "Hur vet jag att ni är ärliga om verktygen?",
+            "Vi rekommenderar det som fungerar. Vi säger till när något inte gör det. "
+            "Ingen affär och ingen sponsor påverkar vad som står här. Byter vi åsikt "
+            "är det för att verktyget ändrades.",
+        ),
+    ]
+    faq_html = "\n\n".join(
+        f"  <h3>{html.escape(f)}</h3>\n  <p>{html.escape(s)}</p>" for f, s in fragor
+    )
+
     jsonld = {
         "@context": "https://schema.org",
         "@graph": [
+            {
+                "@type": "FAQPage",
+                "@id": f"{BASE}/varfor#faq",
+                "isPartOf": {"@id": f"{BASE}/varfor#webpage"},
+                "inLanguage": "sv-SE",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": f,
+                        "acceptedAnswer": {"@type": "Answer", "text": s},
+                    }
+                    for f, s in fragor
+                ],
+            },
             {
                 "@type": "AboutPage",
                 "@id": f"{BASE}/varfor#webpage",
@@ -596,14 +638,7 @@ def bygg_varfor(css):
 
   <h2>Vanliga frågor</h2>
 
-  <h3>Nyfiken?</h3>
-  <p>Välkommen.</p>
-
-  <h3>Vill du tjäna pengar?</h3>
-  <p>Lös ett problem och ta betalt. Ingen stoppar dig.</p>
-
-  <h3>Vill du lurka?</h3>
-  <p>Också okej. Men vågen rör sig med eller utan dig.</p>
+{faq_html}
 
   <div class="stats">
     <div><span class="v">600+</span><span class="l">builders</span></div>
