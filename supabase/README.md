@@ -64,6 +64,33 @@ aldrig in i repot.
 Administrationsnyckeln som domänen sattes upp med är en annan, och kan
 återkallas utan att utskicken slutar fungera.
 
+## Röstlängden
+
+Registret finns bara hos Supabase, och på gratisnivån går säkerhetskopiorna
+inte att ladda ner. Det finns dagliga kopior, men ingen kopia utanför
+plattformen — försvinner projektet försvinner röstlängden.
+
+```sh
+python3 tools/rostlangd.py
+```
+
+Skriptet skriver en CSV utanför arkivet, läsbar bara för dig, och vägrar spara
+i repot. Kör det inför årsmötet.
+
+Ska en adress rättas är dashboarden bättre än en token. Tabellvyn på
+supabase.com låter dig ändra raden direkt, skyddad av lösenord och tvåfaktor,
+medan en personlig token ger full åtkomst till hela kontot.
+
+## Att projektet inte pausas
+
+Supabase pausar gratisprojekt som visar låg aktivitet under sju dagar.
+Databasen får bara trafik när någon anmäler sig, så en tyst vecka räcker för
+att nästa anmälan ska misslyckas. `.github/workflows/halla-vaken.yml` pingar
+därför funktionen varje dygn.
+
+GitHub stänger av schemalagda flöden i arkiv som varit orörda i sextio dagar.
+Går det längre än så mellan commits måste flödet startas om för hand.
+
 ## Läsa och ändra
 
 Det finns ingen Supabase CLI installerad. Allt går via Management API med en

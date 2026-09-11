@@ -41,8 +41,6 @@ const clean = (v: unknown, max = 200): string =>typeof v === "string" ? v.trim()
 // Stadgarna § 4 sager att medlem ar den som anmaler sig, sa ett mejl som inte
 // gar fram far inte pa nagot satt paverka medlemskapet.
 async function skickaValkomst(epost: string, namn: string, nummer: number | null): Promise<void> {
-  const nyckel = Deno.env.get("RESEND_API_KEY");
-  if (!nyckel) return;
   const fornamn = namn.split(" ")[0];
   const rad = nummer ? `Medlemsnummer: ${nummer}\n` : "";
   const text = `Hej ${fornamn},
@@ -78,6 +76,43 @@ opensverige · ideell förening · org.nr 802557-3422<br>
 <a href="https://opensverige.se" style="color:#5b5651">opensverige.se</a></p>
 </div>`;
 
+  await skicka(epost, "Välkommen till opensverige", text, html);
+}
+
+// Skickas nar nagon anmaler en adress som redan finns i registret. Beskedet
+// far bara ga hit, aldrig tillbaka i svaret pa formularet.
+async function skickaRedanMedlem(epost: string): Promise<void> {
+  const text = `Hej,
+
+Någon fyllde nyss i anmälningsformuläret på opensverige.se med den här
+adressen. Du är redan medlem, så ingenting har ändrats.
+
+Du behöver inte göra något.
+
+Var det inte du som anmälde dig, hör av dig till opensverige@gmail.com.
+
+opensverige · ideell förening · org.nr 802557-3422
+https://opensverige.se`;
+
+  const html = `<div style="font:16px/1.6 -apple-system,Segoe UI,sans-serif;color:#151515;max-width:34em">
+<p>Hej,</p>
+<p>Någon fyllde nyss i anmälningsformuläret på opensverige.se med den här
+adressen. <b>Du är redan medlem</b>, så ingenting har ändrats.</p>
+<p>Du behöver inte göra något.</p>
+<p>Var det inte du som anmälde dig, hör av dig till
+<a href="mailto:opensverige@gmail.com" style="color:#b72c07">opensverige@gmail.com</a>.</p>
+<hr style="border:0;border-top:1px solid #e4e2dc;margin:28px 0 14px">
+<p style="font:12px/1.6 ui-monospace,SFMono-Regular,monospace;color:#5b5651">
+opensverige · ideell förening · org.nr 802557-3422<br>
+<a href="https://opensverige.se" style="color:#5b5651">opensverige.se</a></p>
+</div>`;
+
+  await skicka(epost, "Du är redan medlem i opensverige", text, html);
+}
+
+async function skicka(till: string, amne: string, text: string, html: string): Promise<void> {
+  const nyckel = Deno.env.get("RESEND_API_KEY");
+  if (!nyckel) return;
   const svar = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -87,9 +122,9 @@ opensverige · ideell förening · org.nr 802557-3422<br>
     body: JSON.stringify({
       from: "opensverige <noreply@send.opensverige.se>",
       to: [
-        epost
+        till
       ],
-      subject: "Välkommen till opensverige",
+      subject: amne,
       text,
       html
     })
@@ -203,14 +238,15 @@ Deno.serve(async (req)=>{
     kalla,
     stadgar_version: STADGAR_VERSION
   });
+  // En dubblett far inte synas utat. Svarade vi 409 kunde vem som helst prova
+  // en adress och fa veta om personen ar med i foreningen. Svaret blir darfor
+  // detsamma som vid en ny anmalan, och beskedet gar till inkorgen i stallet
+  // — dar bara den som ager adressen ser det.
+  let redan = false;
   if (error) {
-    if (error.code === "23505") return new Response(JSON.stringify({
-      fel: "Du ar redan medlem.",
-      redan: true
-    }), {
-      status: 409,
-      headers
-    });
+    if (error.code === "23505") {
+      redan = true;
+    } else {
     console.error("insert misslyckades", error.code, error.message);
     return new Response(JSON.stringify({
       fel: "Kunde inte spara anmalan."
@@ -218,6 +254,7 @@ Deno.serve(async (req)=>{
       status: 500,
       headers
     });
+    }
   }
   const { count } = await db.from("medlemmar").select("id", {
     count: "exact",
@@ -226,9 +263,10 @@ Deno.serve(async (req)=>{
   // Mejlet far inte kunna falla anmalan. Gar det fel loggar vi och svarar 201
   // anda — personen ar medlem, det ar bara kvittot som uteblev.
   try {
-    await skickaValkomst(epost, namn, count ?? null);
+    if (redan) await skickaRedanMedlem(epost);
+    else await skickaValkomst(epost, namn, count ?? null);
   } catch (e) {
-    console.error("valkomstmejl misslyckades", e instanceof Error ? e.message : e);
+    console.error("utskick misslyckades", e instanceof Error ? e.message : e);
   }
   return new Response(JSON.stringify({
     ok: true,

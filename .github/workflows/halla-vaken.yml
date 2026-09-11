@@ -1,0 +1,40 @@
+# Supabase pausar gratisprojekt som visar låg aktivitet under sju dagar.
+# Databasen får bara trafik när någon anmäler sig, så en tyst vecka räcker
+# för att nästa anmälan ska misslyckas. Det här hindrar det.
+#
+# Anropet skickar en avsiktligt ofullständig anmälan. Den träffar databasen
+# via hastighetsbegränsningen och avvisas sedan med 422, utan att någon rad
+# hamnar i medlemsregistret. Försöksraden städas bort inom ett dygn.
+#
+# Varning: GitHub stänger av schemalagda flöden i arkiv som varit orörda i
+# sextio dagar. Går det längre än så mellan commits behöver flödet startas
+# om för hand under fliken Actions.
+
+name: Håll databasen vaken
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pinga:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Väck medlemsfunktionen
+        run: |
+          kod=$(curl -sS -o /dev/null -w '%{http_code}' \
+            --max-time 30 --retry 3 --retry-delay 20 \
+            -X POST \
+            -H 'Origin: https://opensverige.se' \
+            -H 'Content-Type: application/json' \
+            -d '{"namn":"","epost":"","accepterat":false}' \
+            https://kmkttmasoemqcyzkjuyv.supabase.co/functions/v1/medlem)
+          echo "Svar: $kod"
+          if [ "$kod" != "422" ]; then
+            echo "Väntade 422 från valideringen. Databasen kan vara pausad."
+            exit 1
+          fi

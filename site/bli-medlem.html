@@ -383,8 +383,10 @@ input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
     }).then(function(r){return r.json().then(function(d){return {s:r.status,d:d};});})
      .then(function(res){
        btn.disabled=false; btn.textContent='Bli medlem';
-       if(res.s===409){bad('epost',true);document.getElementById('e-epost').textContent='Du är redan medlem med den adressen.';return;}
-       if(res.s>=400){bad('epost',true);document.getElementById('e-epost').textContent='Något gick fel. Försök igen om en stund.';return;}
+      /* Servern svarar likadant oavsett om adressen redan finns, så att ingen
+         utifrån kan testa sig fram till vilka som är medlemmar. Är man redan
+         med får man beskedet i mejlet i stället. */
+      if(res.s>=400){bad('epost',true);document.getElementById('e-epost').textContent='Något gick fel. Försök igen om en stund.';return;}
        visaKvitto(res.d.medlemsnummer);
      }).catch(function(){
        btn.disabled=false; btn.textContent='Bli medlem';
