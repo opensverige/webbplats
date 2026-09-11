@@ -142,6 +142,13 @@ def kontrollera_sida(p: Path, giltiga: set):
             if not (SITE / href.lstrip("/")).exists():
                 fel.append(f"{namn}: bruten resurslänk {href}")
             continue
+        # Filer i roten (llms.txt, sitemap.xml, robots.txt) är inga sidor och
+        # finns därför inte bland sökvägarna. Kontrollera dem mot disken i
+        # stället, annars flaggas fungerande länkar som brutna.
+        if "." in href.rsplit("/", 1)[-1]:
+            if not (SITE / href.lstrip("/")).exists():
+                fel.append(f"{namn}: bruten resurslänk {href}")
+            continue
         if href.rstrip("/") == "":
             continue
         if href.rstrip("/") not in giltiga:
