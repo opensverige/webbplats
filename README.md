@@ -94,9 +94,8 @@ skicka en PR direkt. Du behöver inte fråga först.
 Vill du skriva ett gästinlägg till bloggen, eller föreslå något större, är det
 enklast att höra av sig i [Discorden](https://discord.gg/ZbV4qB34um).
 
-Vi följer organisationens
-[uppförandekod](https://github.com/opensverige/.github/blob/main/CODE_OF_CONDUCT.md)
-och [riktlinjer för bidrag](https://github.com/opensverige/.github/blob/main/CONTRIBUTING.md).
+Håll dig till saken och skriv kod som är läsbar för nästa person. Resten står i
+[riktlinjerna för bidrag](https://github.com/opensverige/.github/blob/main/CONTRIBUTING.md).
 
 ## Licens
 
