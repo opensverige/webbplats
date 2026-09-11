@@ -13,7 +13,21 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
   "http://localhost:3000"
 ];
 const STADGAR_VERSION = "2026-09-10";
-function cors(origin) {
+// Taken ar med flit hoga. Pa en meetup kan ett helt rum anmala sig fran samma
+// wifi, och stadgarna § 4 later oss inte lagga till villkor for medlemskap.
+// Detta ska gora ett skript fran en maskin ohallbart, inte stoppa en publik.
+const TAK_10MIN = 20;
+const TAK_DYGN = 100;
+
+// Vi sparar aldrig besokarens IP, bara en saltad hash av den. Salten ligger i
+// ANMALAN_SALT, sa raderna gar inte att koppla till en adress utan den.
+async function ipHash(ip: string): Promise<string> {
+  const salt = Deno.env.get("ANMALAN_SALT") ?? "";
+  const bytes = new TextEncoder().encode(`${salt}:${ip}`);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest)).map((b)=>b.toString(16).padStart(2, "0")).join("");
+}
+function cors(origin: string | null) {
   const ok = origin && ALLOWED_ORIGINS.includes(origin);
   return {
     "Access-Control-Allow-Origin": ok ? origin : ALLOWED_ORIGINS[0],
@@ -22,7 +36,7 @@ function cors(origin) {
     "Content-Type": "application/json"
   };
 }
-const clean = (v, max = 200)=>typeof v === "string" ? v.trim().slice(0, max) : "";
+const clean = (v: unknown, max = 200): string =>typeof v === "string" ? v.trim().slice(0, max) : "";
 Deno.serve(async (req)=>{
   const origin = req.headers.get("origin");
   const headers = cors(origin);
@@ -60,6 +74,43 @@ Deno.serve(async (req)=>{
     status: 200,
     headers
   });
+  const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
+    auth: {
+      persistSession: false
+    }
+  });
+  // Rakna forst, spara sedan. Aven ogiltiga forsok raknas, annars kan man
+  // spamma skrap gratis. Kanner vi inte igen avsandaren slapper vi igenom:
+  // en trasig rakning far inte hindra nagon fran att bli medlem.
+  const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
+  if (ip) {
+    const hash = await ipHash(ip);
+    const dygnSedan = new Date(Date.now() - 86400000).toISOString();
+    const { data: forsok, error: rlFel } = await db.from("anmalan_forsok").select("at").eq("ip_hash", hash).gte("at", dygnSedan);
+    if (rlFel) {
+      console.error("kunde inte rakna forsok", rlFel.code, rlFel.message);
+    } else {
+      const tioMinSedan = Date.now() - 600000;
+      const senaste = forsok.filter((f)=>new Date(f.at).getTime() > tioMinSedan);
+      if (forsok.length >= TAK_DYGN || senaste.length >= TAK_10MIN) {
+        return new Response(JSON.stringify({
+          fel: "For manga anmalningar fran samma natverk. Forsok igen om en stund."
+        }), {
+          status: 429,
+          headers: {
+            ...headers,
+            "Retry-After": "600"
+          }
+        });
+      }
+      await db.from("anmalan_forsok").insert({
+        ip_hash: hash
+      });
+      // Ingen cron finns. Vi stadar da och da i stallet, sa tabellen inte
+      // vaxer i all evighet med rader ingen langre raknar pa.
+      if (Math.random() < 0.05) await db.from("anmalan_forsok").delete().lt("at", dygnSedan);
+    }
+  }
   const namn = clean(body.namn, 120);
   const epost = clean(body.epost, 160).toLowerCase();
   const typ = clean(body.typ) === "juridisk" ? "juridisk" : "fysisk";
@@ -80,11 +131,6 @@ Deno.serve(async (req)=>{
   }), {
     status: 422,
     headers
-  });
-  const db = createClient(Deno.env.get("SUPABASE_URL"), Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"), {
-    auth: {
-      persistSession: false
-    }
   });
   const { error } = await db.from("medlemmar").insert({
     namn,

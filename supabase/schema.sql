@@ -42,3 +42,16 @@ create index medlemmar_anmald_at on public.medlemmar (anmald_at desc);
 -- RLS på utan en enda policy = ingen når tabellen utom service_role, som
 -- bara edge-funktionen har. Registret är därmed inte läsbart utifrån.
 alter table public.medlemmar enable row level security;
+
+-- Hastighetsbegränsning för anmälningsformuläret. Ingen IP-adress lagras,
+-- bara sha256(ANMALAN_SALT + ip). Rader äldre än ett dygn städas bort av
+-- funktionen, eftersom projektet inte har någon cron.
+create table public.anmalan_forsok (
+  ip_hash text not null,
+  at      timestamptz not null default now()
+);
+
+create index anmalan_forsok_ip_at on public.anmalan_forsok (ip_hash, at desc);
+create index anmalan_forsok_at    on public.anmalan_forsok (at);
+
+alter table public.anmalan_forsok enable row level security;
