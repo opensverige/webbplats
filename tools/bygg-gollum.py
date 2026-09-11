@@ -44,7 +44,7 @@ RESULTAT_META = {
 }
 
 CSS = """
-:root{--bg:#fbfaf7;--surface:#fff;--ink:#151515;--body:#2b2724;--muted:#5b5651;--faint:#918b83;--hair:#e4e2dc;
+:root{--bg:#fbfaf7;--surface:#fff;--ink:#151515;--body:#2b2724;--muted:#5b5651;--faint:#767169;--hair:#e4e2dc;
 --accent:#b72c07;--discord:#5865F2;
 --sans:'Familjen Grotesk',-apple-system,Helvetica,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--serif:'Instrument Serif',Georgia,serif;
 --snap:cubic-bezier(.16,1,.3,1);--t:150ms var(--snap)}

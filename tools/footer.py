@@ -31,8 +31,7 @@ CSS = f"""{CSS_START}
 .swm{{font-family:var(--serif,'Instrument Serif',Georgia,serif);font-size:40px;line-height:.95;
   letter-spacing:-.015em;color:var(--ink)}}
 .sdesc{{color:var(--muted);font-size:14px;line-height:1.55;margin:12px 0 0;max-width:32ch}}
-/* Etiketten bär hierarkin i mörkt, länkarna ligger tillbaka i grått.
-   --faint ger bara 3,2:1 mot bakgrunden och klarar inte AA för brödtext. */
+/* Etiketten bär hierarkin i mörkt, länkarna ligger tillbaka i grått. */
 .scl{{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink);margin-bottom:13px}}
 .scol a{{display:block;width:max-content;font-size:14.5px;color:var(--muted);padding:5px 0;
