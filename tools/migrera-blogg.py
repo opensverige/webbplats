@@ -261,6 +261,8 @@ def bygg_sida(slug, meta, svar, kropp, ord_antal, css):
 <meta property="og:image" content="{BASE}/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="article:published_time" content="{iso}">
 <meta property="article:author" content="{html.escape(forfattare)}">
 {tagg_meta}

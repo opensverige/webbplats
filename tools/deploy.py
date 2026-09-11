@@ -26,6 +26,7 @@ BYGGSTEG = [
     "tools/seo-sidor.py",
     "tools/bygg-sidor.py",
     "tools/bygg-gollum.py",
+    "tools/bygg-404.py",
     "tools/footer.py",
     "tools/verifiera.py",
 ]
@@ -87,6 +88,10 @@ def kontrollera_prod() -> None:
     """Sista spärren: inget indexerbart bygge får innehålla draftspår."""
     fel = []
     for f in html_filer():
+        # 404-sidan ska vara noindex även i produktion. Den är inte en sida
+        # någon ska hitta i en sökmotor.
+        if f.name == "404.html":
+            continue
         t = f.read_text(encoding="utf-8")
         if ROBOTS_NOINDEX in t:
             fel.append(f"{f.relative_to(SITE)}: innehåller noindex")
@@ -125,7 +130,8 @@ def main() -> None:
         print(f"  ✓ noindex på {satt_robots(ROBOTS_NOINDEX)} sidor, robots.txt blockerar allt")
     else:
         kontrollera_prod()
-        print(f"  ✓ {len(html_filer())} sidor indexerbara, robots.txt öppen")
+        indexerbara = [f for f in html_filer() if f.name != "404.html"]
+        print(f"  ✓ {len(indexerbara)} sidor indexerbara, robots.txt öppen")
 
     sitemap = (SITE / "sitemap.xml").read_text(encoding="utf-8")
     kanon = len(re.findall(r"<loc>", sitemap))

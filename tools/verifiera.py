@@ -63,6 +63,8 @@ def bygg_sitemap(sidor):
             pri, frek = GOLLUM_VIKT
         elif sv in SITEMAP_VIKT:
             pri, frek = SITEMAP_VIKT[sv]
+        elif sv == "/404":
+            continue
         else:
             varning.append(f"sitemap: {sv} saknar prioritet, hoppas över")
             continue
@@ -95,11 +97,15 @@ def kontrollera_sida(p: Path, giltiga: set):
     namn = p.relative_to(SITE).as_posix()
     sv = sokvag_for(p)
 
+    # 404-sidan ska vara noindex och saknar egen adress att peka canonical mot.
+    # Övriga krav gäller den precis som alla andra sidor.
+    ar_404 = namn == "404.html"
+
     # Obligatoriska taggar
     for monster, etikett in [
         (r"<title>[^<]+</title>", "title"),
         (r'<meta name="description" content="[^"]{40,}"', "description (min 40 tecken)"),
-        (r'<link rel="canonical"', "canonical"),
+        *([] if ar_404 else [(r'<link rel="canonical"', "canonical")]),
         (r'<meta name="robots"', "robots"),
         (r'<meta property="og:title"', "og:title"),
         (r'<meta property="og:image"', "og:image"),
@@ -133,7 +139,7 @@ def kontrollera_sida(p: Path, giltiga: set):
             fel.append(f"{namn}: ogiltig JSON-LD ({e})")
 
     # noindex får inte läcka till produktion
-    if re.search(r'content="[^"]*noindex', h):
+    if not ar_404 and re.search(r'content="[^"]*noindex', h):
         fel.append(f"{namn}: innehåller noindex")
 
     # Interna länkar

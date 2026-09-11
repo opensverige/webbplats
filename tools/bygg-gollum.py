@@ -176,6 +176,8 @@ def head(sokvag, titel, beskrivning, og_bild, extra_ld=None):
 <meta property="og:image" content="{BASE}{og_bild}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gollum-testet — hur hårt vaktar du din idé?">
+<meta property="og:image:type" content="image/jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{t}">
 <meta name="twitter:description" content="{b}">
