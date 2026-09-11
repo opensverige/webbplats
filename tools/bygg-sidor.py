@@ -404,6 +404,16 @@ def bygg_showcase(css):
         h.append("</article>")
         return "\n".join(h)
 
+    # Rubriken renderas bara när det finns något halvfärdigt att visa. En tom
+    # grupp lovar pågående byggen som inte finns.
+    labbgrupp = f"""
+  <div class="grupp">
+    <div class="gl">I labbet</div>
+    <p class="intro" style="margin-top:8px">Halvfärdigt är standard. Det här byggs just nu — hoppa in.</p>
+{chr(10).join(kort(p) for p in ilabbet)}
+  </div>
+""" if ilabbet else ""
+
     return (
         head(cfg, css, jsonld)
         + toppbar(hoger=f"{len(alla)} projekt")
@@ -416,13 +426,8 @@ def bygg_showcase(css):
     <div class="gl">I drift</div>
 {chr(10).join(kort(p) for p in idrift)}
   </div>
-
-  <div class="grupp">
-    <div class="gl">I labbet</div>
-    <p class="intro" style="margin-top:8px">Halvfärdigt är standard. Det här byggs just nu — hoppa in.</p>
-{chr(10).join(kort(p) for p in ilabbet)}
-  </div>
-{discord_cta("Byggt något? Posta det i Discorden — vi lägger upp det här.")}
+{labbgrupp}
+{discord_cta("Det som byggs just nu ligger i Discorden. Posta ditt bygge där — vi lägger upp det här.")}
 </main>
 </body></html>
 """
