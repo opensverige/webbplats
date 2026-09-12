@@ -64,6 +64,27 @@ aldrig in i repot.
 Administrationsnyckeln som domänen sattes upp med är en annan, och kan
 återkallas utan att utskicken slutar fungera.
 
+## Stadgeversionen
+
+`stadgar_version` är **1.0**. Stadgarna antogs 2026-04-23, BankID-signerades i
+maj 2026 och har aldrig ändrats. Någon stadgeändring enligt § 11 har inte skett.
+
+Fram till 2026-09-12 sparades värdet `2026-09-10`. Det datumet var när HTML:en
+skrevs rent, inte ett föreningsbeslut. Att spara det som den version medlemmen
+accepterat pekade på ett dokument som inte finns i beslutsloggen, vilket hade
+gjort det oklart vad som gällde vid en tvist eller uteslutning.
+
+**Rättelse 2026-09-12:** de 13 medlemmar som anmält sig fram till dess fick
+`stadgar_version` ändrad från `2026-09-10` till `1.0`. Texten de accepterade var
+hela tiden version 1.0 — det var etiketten som var fel, inte dokumentet. Efter
+rättelsen pekar varje medlemsrad på den stadgeversion som faktiskt är beslutad
+och signerad.
+
+Ändras stadgarna någon gång måste tre saker uppdateras samtidigt:
+`STADGAR_VERSION` i edge-funktionen, kryssrutans etikett i `site/bli-medlem.html`
+och sidhuvudet i `site/stadgar.html`. Gamla medlemsrader ska då **inte** skrivas
+om — de ska fortsätta peka på den version de faktiskt accepterade.
+
 ## Medlemsnumret
 
 Kolumnen `nummer` sätts av Postgres själv och ändras aldrig. Den som är nr 12

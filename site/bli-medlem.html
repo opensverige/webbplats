@@ -272,7 +272,7 @@ input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
         <div class="field">
           <div class="accept"><input type="checkbox" id="ok" aria-required="true" aria-describedby="e-ok">
             <label class="t" for="ok">Jag anmäler mig till opensverige och accepterar <a href="/stadgar">stadgarna</a>.
-              <span class="v">version 2026-09-10</span></label></div>
+              <span class="v">version 1.0</span></label></div>
           <details class="sum"><summary>Vad du går med på</summary>
             <ul><li>Avgiften är frivillig — medlemskapet kan aldrig villkoras av att du betalar</li>
             <li>Du har en röst på årsmötet, och rätt att lämna motioner</li>
@@ -433,7 +433,7 @@ input[aria-invalid="true"]:focus{outline-color:var(--err);outline-offset:2px}
     var rows=[['Namn',namn],['E-post',epost],['Typ',jur?'Juridisk person':'Fysisk person']];
     if(jur){rows.push(['Firmanamn',firma]);if(orgnr)rows.push(['Org.nr',orgnr]);rows.push(['Företrädare',ombud]);}
     if(disc)rows.push(['Discord',disc]);
-    rows.push(['Accepterat stadgarna','Ja, version 2026-09-10']);
+    rows.push(['Accepterat stadgarna','Ja, version 1.0']);
     rows.push(['Tidpunkt',new Date().toISOString().slice(0,16).replace('T',' ')]);
     var t='';rows.forEach(function(r){t+='<tr><td>'+r[0]+'</td><td>'+r[1].replace(/</g,'&lt;')+'</td></tr>';});
     ['Personnummer','Adress','Telefon','Medlemsavgift'].forEach(function(x){

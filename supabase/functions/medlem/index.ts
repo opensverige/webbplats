@@ -12,7 +12,11 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
   "http://localhost:3011",
   "http://localhost:3000"
 ];
-const STADGAR_VERSION = "2026-09-10";
+// Stadgarna ar antagna 2026-04-23 och har aldrig andrats. Nagon § 11-
+// stadgeandring har inte skett, sa versionen ar 1.0. Datumet som stod har
+// tidigare var nar HTML:en skrevs rent — inte ett foreningsbeslut, och
+// darfor missvisande att spara som det medlemmen accepterat.
+const STADGAR_VERSION = "1.0";
 // Taken ar med flit hoga. Pa en meetup kan ett helt rum anmala sig fran samma
 // wifi, och stadgarna § 4 later oss inte lagga till villkor for medlemskap.
 // Detta ska gora ett skript fran en maskin ohallbart, inte stoppa en publik.
