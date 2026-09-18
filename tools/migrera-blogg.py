@@ -17,6 +17,9 @@ MDX_DIR = Path(
 )
 OUT_DIR = ROOT / "site" / "blogg"
 TEMPLATE_SRC = ROOT / "tools" / "mallar" / "artikel.html"
+# Poster som skrivs direkt i HTML saknar MDX-källa. De listas här, annars
+# försvinner de ur blogg-index.json när det skrivs om vid varje bygge.
+HANDSKRIVNA = ROOT / "tools" / "blogg-handskrivna.json"
 
 BASE = "https://opensverige.se"
 DISCORD = "https://discord.gg/ZbV4qB34um"
@@ -342,6 +345,12 @@ def main():
         (OUT_DIR / f"{slug}.html").write_text(sida, encoding="utf-8")
         index.append(info)
         print(f"  {slug}.html  {ord_antal} ord, {info['lastid']} min, svarsruta={bool(svar)}")
+
+    for post in json.loads(HANDSKRIVNA.read_text(encoding="utf-8")):
+        if not (OUT_DIR / f"{post['slug']}.html").exists():
+            raise FileNotFoundError(f"handskriven post saknar sida: {post['slug']}.html")
+        index.append(post)
+        print(f"  {post['slug']}.html  handskriven, {post['lastid']} min")
 
     (ROOT / "tools" / "blogg-index.json").write_text(
         json.dumps(
