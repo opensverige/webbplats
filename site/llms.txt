@@ -58,6 +58,7 @@ Fullständig showcase: https://opensverige.se/showcase
 
 ## Blogg
 
+- Startup-krediter och GPU i Sverige: moln, API och EuroHPC (guide, finansiering) — https://opensverige.se/blogg/startup-krediter-gpu-sverige
 - Bygg ett spel med AI på en vecka (guide, hackathon) — https://opensverige.se/blogg/bygg-spel-med-ai
 - Koppla Fortnox till din AI-agent (guide, fortnox, openclaw) — https://opensverige.se/blogg/fortnox-agent-guide
 - Vad är AI-agenter? (intro) — https://opensverige.se/blogg/vad-ar-ai-agenter
