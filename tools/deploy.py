@@ -136,10 +136,11 @@ def main() -> None:
     sitemap = (SITE / "sitemap.xml").read_text(encoding="utf-8")
     kanon = len(re.findall(r"<loc>", sitemap))
     api = json.loads((SITE / "api" / "community.json").read_text(encoding="utf-8"))
+    # Medlemsantalet står inte här. Det bor i Supabase och en siffra skriven
+    # för hand blir fel så fort någon anmäler sig.
     print(
         f"\n{len(html_filer())} sidor · {kanon} i sitemap · "
-        f"{api['stats']['discord_members']} builders i Discorden · "
-        f"{api['stats']['registered_members']} i medlemsregistret"
+        f"{api['stats']['discord_members']} builders i Discorden"
     )
 
     if not pusha:
