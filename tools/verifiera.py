@@ -18,6 +18,11 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 BASE = "https://opensverige.se"
 
+# Sidor som med flit är noindex och inte ska in i sitemap. 404-sidan har
+# ingen egen adress att hitta. Bekräftelsesidan nås bara via länken i mejlet
+# och visar personens medlemsnummer; den har inget i ett sökresultat att göra.
+NOINDEX_SIDOR = {"404.html", "bekrafta.html"}
+
 # Prioritet och ändringsfrekvens per sökväg
 SITEMAP_VIKT = {
     "/": ("1.0", "weekly"),
@@ -57,14 +62,14 @@ def bygg_sitemap(sidor):
     poster = []
     for p in sidor:
         sv = sokvag_for(p)
+        if p.name in NOINDEX_SIDOR:
+            continue
         if sv.startswith("/blogg/"):
             pri, frek = BLOGG_VIKT
         elif sv.startswith("/gollum/"):
             pri, frek = GOLLUM_VIKT
         elif sv in SITEMAP_VIKT:
             pri, frek = SITEMAP_VIKT[sv]
-        elif sv == "/404":
-            continue
         else:
             varning.append(f"sitemap: {sv} saknar prioritet, hoppas över")
             continue
@@ -98,8 +103,10 @@ def kontrollera_sida(p: Path, giltiga: set):
     sv = sokvag_for(p)
 
     # 404-sidan ska vara noindex och saknar egen adress att peka canonical mot.
-    # Övriga krav gäller den precis som alla andra sidor.
+    # Bekräftelsesidan är också noindex men har en adress. Övriga krav gäller
+    # dem precis som alla andra sidor.
     ar_404 = namn == "404.html"
+    ar_noindex = namn in NOINDEX_SIDOR
 
     # Obligatoriska taggar
     for monster, etikett in [
@@ -139,7 +146,7 @@ def kontrollera_sida(p: Path, giltiga: set):
             fel.append(f"{namn}: ogiltig JSON-LD ({e})")
 
     # noindex får inte läcka till produktion
-    if not ar_404 and re.search(r'content="[^"]*noindex', h):
+    if not ar_noindex and re.search(r'content="[^"]*noindex', h):
         fel.append(f"{namn}: innehåller noindex")
 
     # Interna länkar

@@ -19,6 +19,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from verifiera import NOINDEX_SIDOR
+
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 BYGGSTEG = [
@@ -61,6 +63,9 @@ def satt_robots(varde: str) -> int:
     tagg = ROBOTS_TAGG.format(varde)
     n = 0
     for f in html_filer():
+        # Sidor som ska vara noindex även i produktion rörs inte.
+        if f.name in NOINDEX_SIDOR:
+            continue
         t = f.read_text(encoding="utf-8")
         if re.search(r'<meta name="robots" content="[^"]*">', t):
             t2 = re.sub(r'<meta name="robots" content="[^"]*">', tagg, t)
@@ -88,9 +93,9 @@ def kontrollera_prod() -> None:
     """Sista spärren: inget indexerbart bygge får innehålla draftspår."""
     fel = []
     for f in html_filer():
-        # 404-sidan ska vara noindex även i produktion. Den är inte en sida
-        # någon ska hitta i en sökmotor.
-        if f.name == "404.html":
+        # 404- och bekräftelsesidan ska vara noindex även i produktion. De är
+        # inga sidor någon ska hitta i en sökmotor.
+        if f.name in NOINDEX_SIDOR:
             continue
         t = f.read_text(encoding="utf-8")
         if ROBOTS_NOINDEX in t:
@@ -130,7 +135,7 @@ def main() -> None:
         print(f"  ✓ noindex på {satt_robots(ROBOTS_NOINDEX)} sidor, robots.txt blockerar allt")
     else:
         kontrollera_prod()
-        indexerbara = [f for f in html_filer() if f.name != "404.html"]
+        indexerbara = [f for f in html_filer() if f.name not in NOINDEX_SIDOR]
         print(f"  ✓ {len(indexerbara)} sidor indexerbara, robots.txt öppen")
 
     sitemap = (SITE / "sitemap.xml").read_text(encoding="utf-8")

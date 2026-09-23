@@ -1,0 +1,348 @@
+<!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bekräfta din anmälan — opensverige</title>
+<meta name="description" content="Bekräfta din e-postadress för att slutföra din anmälan till ideella föreningen opensverige. Länken i mejlet gäller i 24 timmar.">
+<link rel="canonical" href="https://opensverige.se/bekrafta">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#fbfaf7">
+<meta name="author" content="opensverige">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="opensverige">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:title" content="Bekräfta din anmälan — opensverige">
+<meta property="og:description" content="Bekräfta din e-postadress för att slutföra din anmälan till ideella föreningen opensverige. Länken i mejlet gäller i 24 timmar.">
+<meta property="og:url" content="https://opensverige.se/bekrafta">
+<meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bekräfta din anmälan — opensverige">
+<meta name="twitter:description" content="Bekräfta din e-postadress för att slutföra din anmälan till ideella föreningen opensverige. Länken i mejlet gäller i 24 timmar.">
+<meta name="twitter:image" content="https://opensverige.se/assets/og-image.jpg">
+<link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--surface:#fff;--ink:#151515;--body:#2b2724;--muted:#5b5651;--faint:#767169;--hair:#e4e2dc;
+--accent:#b72c07;--ok:#2d7f48;--err:#9E1B14;
+--sans:'Familjen Grotesk',-apple-system,Helvetica,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--serif:'Instrument Serif',Georgia,serif;
+--snap:cubic-bezier(.4,0,.2,1);--t:150ms var(--snap);--gut:20px}
+@media(min-width:900px){:root{--gut:44px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(251,250,247,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--hair)}
+.barin{max-width:1180px;margin:0 auto;height:58px;display:flex;align-items:center;gap:10px;padding:0 var(--gut)}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand img{height:28px;width:auto;image-rendering:pixelated;transition:transform var(--t)}
+.brand:hover img{transform:rotate(-9deg) scale(1.12)}
+.brand span{font-size:19px;font-weight:700;letter-spacing:-.04em}
+.nl{font-size:14px;color:var(--muted);padding:7px 11px;transition:color var(--t)}
+.nl:hover{color:var(--ink)}
+.nl.on{color:var(--ink);font-weight:600}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+.done{padding:56px 0 120px;max-width:52ch}
+/* .done p ligger senare och väger tyngre; numret måste därför pekas ut
+   med samma vikt, annars krymper det till brödtext. */
+.done .num{font-size:clamp(64px,13vw,120px);font-weight:700;line-height:.86;letter-spacing:-.05em;
+  color:var(--ink);margin-bottom:30px}
+.done .num small{display:block;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+h1{font-size:clamp(28px,5vw,40px);font-weight:700;letter-spacing:-.04em;line-height:1.05;margin:0 0 16px}
+.done p{font-size:16.5px;line-height:1.6;color:var(--muted);margin-bottom:12px}
+.knapp{display:inline-flex;align-items:center;gap:7px;padding:11px 18px;margin-top:8px;
+  border:1px solid var(--hair);border-radius:9px;background:#fff;font:inherit;font-size:14.5px;
+  color:var(--ink);cursor:pointer;transition:border-color var(--t),color var(--t),transform var(--t)}
+.knapp:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+/* Prickarna tickar medan vi väntar på servern, så sidan inte ser död ut. */
+@keyframes tick{0%,100%{opacity:.15}50%{opacity:1}}
+.dots span{animation:tick 1.2s infinite;color:var(--accent)}
+.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+@media(prefers-reduced-motion:reduce){.dots span{animation:none}}
+.dela{margin-top:36px;border-top:1px solid var(--hair);padding-top:18px}
+.dela h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:12px}
+.dela canvas{width:100%;height:auto;display:block;border:1px solid var(--hair);border-radius:10px}
+.delknappar{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.delknappar button,.delknappar a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;
+  border:1px solid var(--hair);border-radius:9px;background:#fff;font:inherit;font-size:14px;
+  color:var(--ink);text-decoration:none;cursor:pointer;
+  transition:border-color var(--t),color var(--t),transform var(--t)}
+.delknappar button:hover,.delknappar a:hover{border-color:var(--accent);color:var(--accent);
+  transform:translateY(-1px)}
+.delknappar button:focus-visible,.delknappar a:focus-visible{outline:2px solid var(--accent);
+  outline-offset:2px}
+.delhint{font-size:13px;color:var(--muted);margin-top:10px}
+.rec{margin-top:32px;border-top:1px solid var(--hair);padding-top:18px}
+.rec h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.rec table{border-collapse:collapse;width:100%;font-size:13.5px}
+.rec td{padding:6px 0;vertical-align:top;color:var(--muted);border-bottom:1px solid #f2f0ec}
+.rec td:first-child{width:44%;color:var(--ink);font-weight:500}
+.rec .off td{color:#b9b4ad;text-decoration:line-through}
+/* footer:start */
+.sfoot{border-top:1px solid var(--hair);margin-top:96px;padding:56px 0 44px}
+.sfin{max-width:1360px;margin:0 auto;padding:0 20px}
+.scols{display:grid;gap:36px 28px;grid-template-columns:1fr}
+.swm{font-family:var(--serif,'Instrument Serif',Georgia,serif);font-size:40px;line-height:.95;
+  letter-spacing:-.015em;color:var(--ink)}
+.sdesc{color:var(--muted);font-size:14px;line-height:1.55;margin:12px 0 0;max-width:32ch}
+/* Etiketten bär hierarkin i mörkt, länkarna ligger tillbaka i grått. */
+.scl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:13px}
+.scol a{display:block;width:max-content;font-size:14.5px;color:var(--muted);padding:5px 0;
+  transition:color 150ms cubic-bezier(.4,0,.2,1)}
+.scol a:hover{color:var(--accent)}
+.scol a i{font-style:normal;font-size:10px;margin-left:5px;vertical-align:1px;opacity:.45}
+.sbot{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:baseline;
+  margin-top:48px;padding-top:22px;border-top:1px solid var(--hair)}
+.sorg{margin:0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.01em}
+.sorg b{color:var(--ink);font-weight:500}
+.ssrc{font-family:var(--mono);font-size:12px;color:var(--muted);transition:color 150ms cubic-bezier(.4,0,.2,1)}
+.ssrc:hover{color:var(--accent)}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media(min-width:640px){.scols{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.scols{grid-template-columns:1.5fr repeat(4,1fr);gap:28px}}
+@media(min-width:1080px){.sfin{padding:0 46px}}
+/* footer:slut */
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://opensverige.se/bekrafta#webpage",
+  "url": "https://opensverige.se/bekrafta",
+  "name": "Bekräfta din anmälan — opensverige",
+  "description": "Bekräfta din e-postadress för att slutföra din anmälan till ideella föreningen opensverige. Länken i mejlet gäller i 24 timmar.",
+  "inLanguage": "sv-SE",
+  "isPartOf": {
+    "@id": "https://opensverige.se/#website"
+  },
+  "about": {
+    "@id": "https://opensverige.se/#organization"
+  }
+}
+</script>
+</head><body>
+
+<header class="topbar"><div class="barin">
+  <a class="brand" href="/"><img src="/assets/logo.webp" alt=""><span>opensverige</span></a>
+  <a class="nl" href="/stadgar">Stadgar</a>
+  <a class="nl" href="/regler">Regler</a>
+  <a class="nl" href="/bli-medlem">Bli medlem</a>
+</div></header>
+
+<div class="wrap">
+  <div class="done">
+    <p class="num" id="numrad" hidden><small>Du är medlem nr</small><span id="mnum"></span></p>
+    <h1 id="rubrik">Bekräftar din anmälan<span class="dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span></h1>
+
+    <div id="s-laddar"><p>Ett ögonblick.</p></div>
+
+    <div id="s-ogiltig" hidden>
+      <p>Länken har gått ut eller redan använts. Den gäller i 24 timmar och bara en gång.</p>
+      <p>Har du redan bekräftat en gång står ditt nummer i välkomstmejlet.</p>
+      <p><a class="knapp" href="/bli-medlem">Anmäl dig igen <span aria-hidden="true">→</span></a></p>
+    </div>
+
+    <div id="s-fel" hidden>
+      <p>Något gick fel på vår sida. Länken gäller fortfarande, så försök igen om en stund.</p>
+      <p><button type="button" class="knapp" id="igen">Försök igen <span aria-hidden="true">→</span></button></p>
+    </div>
+
+    <div id="s-klar" hidden>
+      <p id="klartext"></p>
+      <p id="kvittotext"></p>
+
+      <div class="dela">
+        <h3>Skryt om det</h3>
+        <canvas id="kort" width="1200" height="630" aria-label="Bild med ditt medlemsnummer"></canvas>
+        <div class="delknappar">
+          <button type="button" id="ladda">Ladda ner bild <span aria-hidden="true">→</span></button>
+          <a id="xlank" href="https://x.com/intent/post" target="_blank" rel="noopener">Dela på X
+            <span aria-hidden="true">↗</span><span class="vh">, öppnas i ny flik</span></a>
+        </div>
+        <p class="delhint">Ladda ner bilden först. X kan inte hämta den åt dig.</p>
+      </div>
+
+      <div class="rec"><h3>Det här sparades</h3><table id="recTable"></table></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var API='https://kmkttmasoemqcyzkjuyv.supabase.co/functions/v1/medlem/bekrafta';
+  var t=new URLSearchParams(location.search).get('t')||'';
+  /* Token bort ur adressfältet direkt, så den inte ligger kvar i historik,
+     bokmärken eller skärmdelningar. Sidan har den redan. */
+  if(t&&history.replaceState){history.replaceState(null,'',location.pathname);}
+
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function visa(id){['laddar','ogiltig','fel','klar'].forEach(function(s){document.getElementById('s-'+s).hidden=(s!==id);});}
+  function rubrik(txt){document.getElementById('rubrik').textContent=txt;}
+  function ogiltig(){rubrik('Länken fungerar inte.');visa('ogiltig');}
+  function fel(){rubrik('Det gick inte just nu.');visa('fel');}
+
+  function kor(){
+    if(!/^[A-Za-z0-9_-]{43}$/.test(t)){ogiltig();return;}
+    document.getElementById('rubrik').innerHTML='Bekräftar din anmälan<span class="dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>';
+    visa('laddar');
+    fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:t})})
+      .then(function(r){return r.json().then(function(d){return {s:r.status,d:d};});})
+      .then(function(res){
+        if(res.s===400||res.s===404||res.s===410){ogiltig();return;}
+        if(res.s>=400||!res.d||!res.d.ok){fel();return;}
+        klar(res.d);
+      }).catch(fel);
+  }
+
+  function klar(d){
+    var nr=d.medlemsnummer, a=d.anmalan||{}, redan=d.status==='redan';
+    document.getElementById('mnum').textContent=nr==null?'—':nr;
+    document.getElementById('numrad').hidden=false;
+    rubrik(redan?'Du var redan medlem.':'Välkommen in.');
+    document.getElementById('klartext').textContent=redan
+      ?'Ingenting har ändrats. Numret är detsamma som förut.'
+      :'Du står i röstlängden till nästa årsmöte, och kan söka resurser ur labbet från och med nu.';
+    document.getElementById('kvittotext').textContent=redan?'':'Ett kvitto med numret ligger i inkorgen. Säg hej i Discord när du vill.';
+    var jur=a.typ==='juridisk';
+    var rows=[['Namn',a.namn],['E-post',a.epost],['Typ',jur?'Juridisk person':'Fysisk person']];
+    if(jur){rows.push(['Firmanamn',a.firmanamn]);if(a.orgnr)rows.push(['Org.nr',a.orgnr]);rows.push(['Företrädare',a.foretradare]);}
+    if(a.discord)rows.push(['Discord',a.discord]);
+    rows.push(['Accepterat stadgarna','Ja, version '+(a.stadgar_version||'1.0')]);
+    if(a.stadgar_accepterad_at)rows.push(['Anmäld',String(a.stadgar_accepterad_at).slice(0,16).replace('T',' ')]);
+    var h='';rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td><td>'+esc(r[1])+'</td></tr>';});
+    ['Personnummer','Adress','Telefon','Medlemsavgift'].forEach(function(x){
+      h+='<tr class="off"><td>'+x+'</td><td>sparas inte</td></tr>';});
+    document.getElementById('recTable').innerHTML=h;
+    ordnaDelning(nr);
+    visa('klar');
+    window.scrollTo(0,0);
+  }
+
+  /* Bilden ritas i webbläsaren. Ingen server behöver veta att någon vill
+     skryta, och kortet finns bara hos den som laddar ner det. */
+  function ritaKort(nr){
+    var c=document.getElementById('kort'), g=c.getContext('2d');
+    var BG='#fbfaf7', INK='#151515', DIM='#767169', ROD='#b72c07',
+        SERIF='"Instrument Serif",Georgia,serif',
+        MONO='ui-monospace,SFMono-Regular,Menlo,monospace';
+    g.fillStyle=BG; g.fillRect(0,0,1200,630);
+    g.strokeStyle='#e4e2dc'; g.lineWidth=2; g.strokeRect(1,1,1198,628);
+
+    /* Centrerat, så kortet ser lika avvägt ut för nr 7 som för nr 1204. */
+    g.textBaseline='alphabetic'; g.textAlign='center';
+    var mitt=600;
+
+    g.fillStyle=INK; g.font='400 54px '+SERIF;
+    g.fillText('opensverige',mitt,132);
+
+    if(g.letterSpacing!==undefined) g.letterSpacing='0.2em';
+    g.fillStyle=ROD; g.font='400 19px '+MONO;
+    g.fillText('MEDLEM NR',mitt,258);
+    if(g.letterSpacing!==undefined) g.letterSpacing='0px';
+
+    g.fillStyle=INK; g.font='400 250px '+SERIF;
+    g.fillText(String(nr),mitt,470);
+
+    g.strokeStyle=ROD; g.lineWidth=3;
+    g.beginPath(); g.moveTo(mitt-34,520); g.lineTo(mitt+34,520); g.stroke();
+
+    if(g.letterSpacing!==undefined) g.letterSpacing='0.13em';
+    g.fillStyle=DIM; g.font='400 17px '+MONO;
+    g.fillText('IDEELL FÖRENING · ORG.NR 802557-3422 · OPENSVERIGE.SE',mitt,570);
+    if(g.letterSpacing!==undefined) g.letterSpacing='0px';
+  }
+
+  var delningOrdnad=false;
+  function ordnaDelning(nr){
+    var block=document.querySelector('.dela');
+    /* Utan nummer finns inget att visa. Hellre inget kort än ett tomt. */
+    if(nr==null){ block.style.display='none'; return; }
+    block.style.display='';
+
+    /* Serifen måste vara inläst innan vi ritar, annars fastnar siffran i
+       reservtypsnittet och kortet ser ut som något annat. */
+    var rita=function(){ ritaKort(nr); };
+    if(document.fonts&&document.fonts.load){
+      document.fonts.load('400 236px "Instrument Serif"').then(rita).catch(rita);
+    } else { rita(); }
+
+    document.getElementById('xlank').href='https://x.com/intent/post?text='
+      + encodeURIComponent('Jag blev medlem nr '+nr+' i opensverige.')
+      + '&url=' + encodeURIComponent('https://opensverige.se/bli-medlem');
+    if(delningOrdnad)return; delningOrdnad=true;
+    document.getElementById('ladda').addEventListener('click',function(){
+      document.getElementById('kort').toBlob(function(b){
+        var u=URL.createObjectURL(b), a=document.createElement('a');
+        a.href=u; a.download='opensverige-medlem-'+nr+'.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(u);
+      },'image/png');
+    });
+  }
+
+  document.getElementById('igen').addEventListener('click',kor);
+  kor();
+})();
+</script>
+<!-- footer:start -->
+<footer class="sfoot">
+  <div class="sfin">
+    <div class="scols">
+      <div>
+        <div class="swm">opensverige</div>
+        <p class="sdesc">Sveriges öppna community för builders som bygger AI-agenter,
+          MCP-servrar och vibecoding-projekt.</p>
+      </div>
+
+      <nav class="scol" aria-labelledby="f-sajt">
+        <div class="scl" id="f-sajt">Sajten</div>
+        <a href="/bli-medlem">Bli medlem</a>
+        <a href="/showcase">Showcase</a>
+        <a href="/blogg">Blogg</a>
+        <a href="/varfor">Varför opensverige</a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-foreningen">
+        <div class="scl" id="f-foreningen">Föreningen</div>
+        <a href="/stadgar">Stadgar</a>
+        <a href="/regler">Regler</a>
+        <a href="/integritet">Integritet</a>
+        <a href="mailto:opensverige@gmail.com">Kontakt</a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-community">
+        <div class="scl" id="f-community">Community</div>
+        <a href="https://discord.gg/ZbV4qB34um" target="_blank" rel="noopener">Discord<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+        <a href="https://github.com/orgs/opensverige" target="_blank" rel="noopener">GitHub<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+        <a href="https://www.linkedin.com/groups/9544657/" target="_blank" rel="noopener">LinkedIn<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-maskiner">
+        <div class="scl" id="f-maskiner">För maskiner</div>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/api/community.json">API</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+
+    <div class="sbot">
+      <p class="sorg">Ideell förening · Org.nr <b>802557-3422</b> · Bildad 23 april 2026</p>
+      <a class="ssrc" href="https://github.com/opensverige/webbplats" target="_blank" rel="noopener">Sajtens källkod<i aria-hidden="true">↗</i><span class="vh">, öppnas i ny flik</span></a>
+    </div>
+  </div>
+</footer>
+<!-- footer:slut -->
+</body></html>
