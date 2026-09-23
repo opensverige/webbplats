@@ -1,5 +1,7 @@
 -- Schemat för medlemsregistret, avläst från projektet kmkttmasoemqcyzkjuyv
--- 2026-09-11. Ögonblicksbild, inte en migrering — tabellen finns redan.
+-- 2026-09-11 och kompletterat 2026-09-24. Ögonblicksbild, inte en migrering —
+-- tabellerna finns redan. Tillägget 2026-09-24 ligger som migreringen
+-- anmalningar_och_utskick i projektet.
 --
 -- Registret är föreningens röstlängd enligt § 8. Databasen upprepar med flit
 -- valideringen som edge-funktionen gör, så en felskriven insert inte kan
@@ -61,3 +63,56 @@ create index anmalan_forsok_ip_at on public.anmalan_forsok (ip_hash, at desc);
 create index anmalan_forsok_at    on public.anmalan_forsok (at);
 
 alter table public.anmalan_forsok enable row level security;
+
+-- Väntande anmälningar. En rad här är ingen medlem: först när adressen
+-- bekräftats via engångslänken skapas raden i medlemmar och numret delas ut.
+-- Bara hashen av token sparas, så en läckt tabell ger inga giltiga länkar.
+create table public.anmalningar (
+  id                uuid primary key default gen_random_uuid(),
+  token_hash        text not null unique,
+  namn              text not null,
+  epost             text not null,
+  typ               text not null default 'fysisk',
+  firmanamn         text,
+  orgnr             text,
+  foretradare       text,
+  discord           text,
+  kalla             text not null default 'webb',
+  stadgar_version   text not null,
+  skapad_at         timestamptz not null default now(),
+  utgar_at          timestamptz not null,
+  bekraftad_at      timestamptz,
+  -- Omsändning: antal skickade bekräftelsemejl och när det senaste gick.
+  skickade          integer not null default 1,
+  senast_skickad_at timestamptz not null default now(),
+
+  constraint anmalningar_namn_check  check (length(btrim(namn)) > 0),
+  constraint anmalningar_epost_check check (position('@' in epost) > 1),
+  constraint anmalningar_typ_check   check (typ = any (array['fysisk', 'juridisk'])),
+  constraint anmalningar_kalla_check check (kalla = any (array['webb', 'discord'])),
+  constraint anmalningar_juridisk_kraver_foretradare
+    check (typ <> 'juridisk' or (firmanamn is not null and foretradare is not null))
+);
+
+comment on table public.anmalningar is
+  'Obekräftade medlemsanmälningar. Raderas sju dagar efter att länken gått ut. Rättslig grund: avtal (åtgärd på begäran före medlemskap).';
+
+-- Högst en väntande anmälan per adress. Skickas formuläret igen roteras
+-- token på den befintliga raden i stället för att en ny skapas.
+create unique index anmalningar_epost_vantande
+  on public.anmalningar (lower(epost))
+  where bekraftad_at is null;
+
+create index anmalningar_utgar_at on public.anmalningar (utgar_at);
+
+alter table public.anmalningar enable row level security;
+
+-- En rad per skickat mejl, så funktionen kan hålla sig under Resends
+-- dagstak. Rader äldre än ett dygn städas bort av funktionen.
+create table public.utskick (
+  at timestamptz not null default now()
+);
+
+create index utskick_at on public.utskick (at);
+
+alter table public.utskick enable row level security;
