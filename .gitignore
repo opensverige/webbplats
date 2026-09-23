@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# Lokal förhandsvisning för verktyg, inte källa.
+/.claude/
