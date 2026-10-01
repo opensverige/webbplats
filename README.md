@@ -36,9 +36,10 @@ Inga ramverk, inga byggberoenden, ingen JavaScript-bundle. Sidorna byggs av någ
 Python-skript och serveras som filer.
 
 ```
-site/       sajten som den ligger på webben
-tools/      byggskript och kontroller
-supabase/   medlemsformulärets backend
+site/            sajten som den ligger på webben
+tools/           byggskript och kontroller
+innehall/blogg/  blogginlägg i Markdown, renderas till site/blogg/
+supabase/        medlemsformulärets backend
 ```
 
 Undersidorna i `site/` genereras från mallar av skripten i `tools/`. Förstasidan
@@ -59,6 +60,34 @@ Lägg till `--push` för att deploya till Vercel.
 `draft` sätter `noindex` på varje sida och `Disallow: /` i robots.txt, så en
 förhandsvisning aldrig kan hamna i sökresultaten. `prod` städar bort de spåren
 och vägrar bygga om något av dem är kvar.
+
+### Bloggen
+
+Nya inlägg skrivs i Markdown i `innehall/blogg/<slug>.md`. Bygget gör om dem till
+HTML i artikelmallen. Frontmatter:
+
+```
+---
+titel: Högst 70 tecken
+beskrivning: 30–155 tecken
+kicker: Guide · Agenter
+taggar: [guide, mcp]
+forfattare: opensverige
+datum: 2026-10-01
+---
+```
+
+Inlägget behöver rubriken `## Kort svar`, som blir svarsrutan högst upp. Tabeller
+och citat fungerar. Länkar får vara `https://`, relativa eller ankare. Allt annat
+blir text.
+
+```
+python3 tools/migrera-blogg.py --kontroll   # granska innehall/blogg utan att skriva
+```
+
+Redaktionsboten öppnar PR:er från grenar som heter `redaktionen/<slug>`. CI-jobbet
+`bloggkontroll` stoppar en sådan PR om den rör något utanför `innehall/blogg/`.
+Inget publiceras förrän en människa har mergat och deployat.
 
 ### Medlemsformuläret
 
