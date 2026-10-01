@@ -1,0 +1,34 @@
+# Granskar PR:er mot main. För PR:er från Redaktionen (redaktionsboten) är det
+# också en spärr: de får bara lägga till eller ändra innehall/blogg/<slug>.md.
+# Kör på pull_request, inte pull_request_target, så jobbet har bara läsrätt och
+# inga hemligheter.
+name: Redaktionen
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  bloggkontroll:
+    name: bloggkontroll
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Redaktionen får bara röra innehall/blogg
+        if: startsWith(github.head_ref, 'redaktionen/') || github.event.pull_request.user.login == vars.REDAKTIONEN_BOT
+        run: |
+          git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" > andrade.txt
+          cat andrade.txt
+          if grep -vE '^innehall/blogg/[a-z0-9]+(-[a-z0-9]+)*\.md$' andrade.txt; then
+            echo "::error::En PR från Redaktionen får bara ändra innehall/blogg/<slug>.md"
+            exit 1
+          fi
+
+      - name: Granska inläggen i innehall/blogg
+        run: python3 tools/migrera-blogg.py --kontroll
