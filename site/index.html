@@ -273,6 +273,65 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 @media(prefers-reduced-motion:reduce){.typing .dots i{animation:none;opacity:.6}}
 @media(prefers-reduced-motion:reduce){.qc{animation:none}}
 
+/* ============ DEMO ============ */
+#demo h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
+/* Rubrik och ingress delar rad på bred skärm, så bandet kommer direkt. */
+.dhead{display:grid;gap:14px;padding:44px var(--gut) 6px}
+@media(min-width:900px){.dhead{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:end;padding:54px var(--gut) 0}}
+.dhead .lede{margin-top:0;max-width:44ch}
+/* Bandet: en kurva, två texter, två fönster som slutar under pillret.
+   Det råa går in i mono och kommer ut i grotesk på svart tejp. Portat
+   från ApiRibbon på headless.design (MIT, Gustaf Garnow). Allt mäts i
+   --apr-u så teckningen skalar med sektionens bredd, inte med viewporten. */
+.apr{container-type:inline-size;width:100%}
+.apr-stage{--apr-u:clamp(.42px,.3px + .04cqi,.8px);position:relative;height:calc(200 * var(--apr-u));overflow-x:clip}
+.apr-svg{position:absolute;left:50%;top:0;width:calc(1600 * var(--apr-u));height:calc(200 * var(--apr-u));
+  margin-left:calc(-800 * var(--apr-u));overflow:visible}
+.apr-ribbon{dominant-baseline:middle}
+.apr-ribbon--raw{font-family:var(--mono);font-size:50px;font-weight:400;letter-spacing:-.02em;fill:var(--faint)}
+.apr-ribbon--clean{font-family:var(--sans);font-size:64px;font-weight:600;letter-spacing:-.02em;fill:#fff}
+.apr-tape{fill:none;stroke:var(--ink);stroke-width:70px;stroke-linecap:round}
+.apr-wave{fill:none;stroke:var(--hair);stroke-width:1.5}
+.apr-pill{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;
+  display:inline-flex;align-items:center;justify-content:center;
+  height:calc(120 * var(--apr-u));min-width:calc(250 * var(--apr-u));padding:0 calc(42 * var(--apr-u));
+  border:2px solid var(--ink);border-radius:999px;background:var(--surface);color:var(--ink);
+  box-shadow:0 calc(15 * var(--apr-u)) calc(35 * var(--apr-u)) rgba(26,20,16,.18),0 1px rgba(0,0,0,.04);
+  transition:transform var(--t),background-color var(--t),color var(--t),border-color var(--t)}
+.apr-pill:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:translate(-50%,calc(-50% - 2px))}
+.apr-pill:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.apr-label{font-family:var(--serif);font-style:italic;font-weight:400;font-size:calc(66 * var(--apr-u));
+  letter-spacing:.01em;line-height:1;padding-top:.04em}
+.apr-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.io{display:flex;justify-content:space-between;gap:16px;padding:0 var(--gut);margin-top:6px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.io span:last-child{color:var(--ink)}
+/* En box, en väg in. Både öppen och bokad demo börjar i Discord. */
+.join{margin:26px var(--gut) 0;border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:3px;
+  background:var(--surface);padding:20px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+.join .ico{width:48px;height:48px;border-radius:6px;background:var(--ink);color:#fff;display:grid;place-items:center}
+.join .ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.join h3{font-size:clamp(21px,4vw,24px);letter-spacing:-.03em}
+.ways{grid-column:1 / -1;display:grid;gap:12px}
+.ways dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
+.ways dd{font-size:15.5px;line-height:1.5;color:var(--muted);margin-top:4px}
+.join .dbtn{grid-column:1 / -1}
+@media(min-width:560px){.ways{grid-template-columns:1fr 1fr;gap:28px}}
+@media(min-width:900px){
+  .join{grid-template-columns:auto minmax(0,1fr) auto;gap:6px 22px;padding:22px 26px}
+  .join .ico{grid-row:1 / span 2;align-self:start;width:52px;height:52px}
+  .ways{grid-column:2;margin-top:8px}
+  .join .dbtn{grid-column:3;grid-row:1 / span 2}
+}
+/* Sånt som visats som löpande text: sex rader blir tre. Varannan mening
+   är grå så de går att skilja åt utan punktlista. */
+.shown{display:grid;gap:8px;padding:26px var(--gut) 40px}
+@media(min-width:900px){.shown{grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:baseline;padding:28px var(--gut) 46px}}
+.shown .sl{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.shown p{font-family:var(--serif);font-size:clamp(20px,3.6vw,24px);line-height:1.32;max-width:60ch;color:var(--ink)}
+.shown p span:nth-child(even){color:var(--muted)}
+.shown p em{font-style:italic;color:var(--accent)}
+
 /* ============ VARFÖR ============ */
 #vision h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
 .wlede{font-size:17.5px;font-weight:500;line-height:1.5;color:var(--muted);max-width:46ch;margin-top:16px}
@@ -659,7 +718,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 </header>
 
 <nav class="chips" id="chips">
-  <a href="#hero">Start</a><a href="#discord">Discord</a><a href="#irl">IRL</a><a href="#bygget">Bygget</a>
+  <a href="#hero">Start</a><a href="#discord">Discord</a><a href="#demo">Demo</a><a href="#irl">IRL</a><a href="#bygget">Bygget</a>
   <a href="#vision">Varför</a><a href="/regler">Regler</a><a href="#slut">Kom förbi</a>
 </nav>
 
@@ -669,11 +728,12 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
     <nav id="rail">
       <a href="#hero"><span class="n">01</span> Start</a>
       <a href="#discord"><span class="n">02</span> Discord</a>
-      <a href="#vision"><span class="n">03</span> Varför</a>
-      <a href="#irl"><span class="n">04</span> IRL &amp; Labs</a>
-      <a href="#bygget"><span class="n">05</span> Bygget</a>
-      <a href="#skrivet"><span class="n">06</span> Blogg</a>
-      <a href="#slut"><span class="n">07</span> Kom förbi</a>
+      <a href="#demo"><span class="n">03</span> Demo</a>
+      <a href="#vision"><span class="n">04</span> Varför</a>
+      <a href="#irl"><span class="n">05</span> IRL &amp; Labs</a>
+      <a href="#bygget"><span class="n">06</span> Bygget</a>
+      <a href="#skrivet"><span class="n">07</span> Blogg</a>
+      <a href="#slut"><span class="n">08</span> Kom förbi</a>
     </nav>
     <div class="foot">
       <div class="live"><span class="pulse"></span><b class="onl" id="onl">107</b>&nbsp;online av <b>604</b></div>
@@ -744,6 +804,30 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       </div>
     </section>
 
+    <section id="demo">
+      <div class="dhead">
+        <h2 class="rv">Inga slides.<br><em>Bara din skärm.</em></h2>
+        <p class="lede rv">Visa det halvfärdigt, trasigt eller klart. Vi frågar, föreslår och pushar. Feedbacken landar rakt i sovrummet.</p>
+      </div>
+      <div class="apr" id="band"></div>
+      <div class="io" aria-hidden="true"><span>Det du har</span><span>Det du får</span></div>
+
+      <div class="join rv">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 3H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="m17 8 5-5"/><path d="M17 3h5v5"/></svg></div>
+        <h3>Du delar skärm. Vi tittar.</h3>
+        <dl class="ways">
+          <div><dt>Öppen demo</dt><dd>Hoppa in spontant. Vi växlar skärm när du är klar.</dd></div>
+          <div><dt>Bokad demo</dt><dd>En produkt: din. Säg till i Discord, så kör vi.</dd></div>
+        </dl>
+        <a class="dbtn big dc" href="https://discord.gg/ZbV4qB34um" rel="noopener"><svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>Hoppa in i Discord</a>
+      </div>
+
+      <div class="shown rv">
+        <div class="sl">Sånt som visats</div>
+        <p><span>Någon sprängde minor.</span> <span>Någon la ett sikte ovanpå ett spel.</span> <span>Någon höll på att mörda Hemnet.</span> <span>Ett skolsystem från 2009 fick pipelines.</span> <span>En agent fick mejl, telefon och bank.</span> <span>En bok som minns vad den sa.</span> <em>Ingen lineup. Ingen som övat hälsningsfras.</em></p>
+      </div>
+    </section>
+
     <section id="vision">
       <div class="pad">
         <h2 class="rv">Sverige har konferenser.<br>Vi har en <em>verkstad</em>.</h2>
@@ -802,7 +886,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 
       <div class="rhythm rv">
         <div><div class="w">Oftast söndagar</div><h4>IRL-träffar</h4><p>Vi försöker ses ofta. Alla har inte tid — men det ger mer än en tråd.</p></div>
-        <div><div class="w">Löpande</div><h4>Öppna demos</h4><p>Visa det medan det är trasigt.</p></div>
+        <div><div class="w">Löpande</div><h4>Öppna demos</h4><p>Visa det medan det är trasigt.</p><a class="slink" href="#demo">Så går det till →</a></div>
         <div><div class="w">Labs</div><h4>Vi testar det nya först</h4><p>Grokbot, Higgsfield, Mirofish. Det som släpptes i veckan, kört skarpt.</p></div>
       </div>
 
@@ -953,12 +1037,14 @@ document.querySelectorAll('.rv').forEach(e=>rio.observe(e));
 setTimeout(()=>document.querySelectorAll('.rv:not(.in)').forEach(e=>e.classList.add('in')),1200);
 
 const railLinks=[...document.querySelectorAll('#rail a')], chipLinks=[...document.querySelectorAll('#chips a')];
-const ids=['hero','discord','vision','irl','bygget','skrivet','slut'];
+const ids=['hero','discord','demo','vision','irl','bygget','skrivet','slut'];
 const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
-  const i=ids.indexOf(e.target.id); if(i<0)return;
+  if(ids.indexOf(e.target.id)<0)return;
+  // Slås upp på href: chipsen har färre länkar än railen och i annan ordning.
+  const h='#'+e.target.id, rl=railLinks.find(l=>l.getAttribute('href')===h), cl=chipLinks.find(l=>l.getAttribute('href')===h);
   railLinks.forEach(l=>l.classList.remove('on')); chipLinks.forEach(l=>l.classList.remove('on'));
-  railLinks[i]&&railLinks[i].classList.add('on'); if(chipLinks[i]){chipLinks[i].classList.add('on');
-    chipLinks[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});}
+  rl&&rl.classList.add('on'); if(cl){cl.classList.add('on');
+    cl.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});}
 }}),{rootMargin:'-45% 0px -50% 0px'});
 ids.forEach(id=>{const el=document.getElementById(id); el&&sio.observe(el);});
 
@@ -1024,6 +1110,68 @@ document.querySelectorAll('[data-c]').forEach(e=>cio.observe(e));
   },4200);
   var who=document.getElementById('typeWho'), roller=['Byggare','Shippare','Nyfiken'], ri=0;
   if(who) setInterval(function(){ ri++; who.textContent=roller[ri%roller.length]; },4200);
+})();
+
+/* ---- bandet i demo-sektionen ---- */
+/* Varje lista passerar en gång per period, så den längre går fortare:
+   mer går in än vad som kommer ut. Portat från ApiRibbon,
+   Copyright (c) 2026 Gustaf Garnow, MIT. */
+(function(){
+  var host=document.getElementById('band');
+  if(!host) return;
+  var PATH='M -1400 470 C -800 430, -200 380, 300 360 S 650 340, 800 340 S 1350 360, 1900 310 S 2800 220, 3200 180';
+  var MELLAN='\u00a0\u00a0\u00b7\u00a0\u00a0', PERIOD=4000;
+  var IN=['localhost:3000','ett repo ingen sett','halvf\u00e4rdigt','en dum grej','40 timmar','trasig build',
+    'funkar p\u00e5 min maskin','bara en grej till','f\u00f6rsta agenten','helgprojektet','ingen pitchdeck'];
+  var UT=['feedback','tre f\u00f6rslag','en bugg hittad','n\u00e4sta steg','n\u00e5gon som fattar','en ny id\u00e9','pushad vidare','shippat'];
+  // Fönstren slutar 105 enheter från pillrets mitt, alltså inne i pillret.
+  host.innerHTML='<div class="apr-stage"><svg class="apr-svg" viewBox="0 240 1600 200" aria-hidden="true" focusable="false"><defs>'+
+    '<path id="band-p" d="'+PATH+'"/>'+
+    '<clipPath id="band-l" clipPathUnits="userSpaceOnUse"><rect x="-400" y="0" width="1095" height="520"/></clipPath>'+
+    '<clipPath id="band-r" clipPathUnits="userSpaceOnUse"><rect x="905" y="0" width="900" height="520"/></clipPath></defs>'+
+    '<use href="#band-p" class="apr-wave"/>'+
+    '<g clip-path="url(#band-l)"><text class="apr-ribbon apr-ribbon--raw"><textPath href="#band-p"></textPath></text></g>'+
+    '<g clip-path="url(#band-r)"><use href="#band-p" class="apr-tape"/>'+
+    '<text class="apr-ribbon apr-ribbon--clean"><textPath href="#band-p"></textPath></text></g></svg>'+
+    '<a class="apr-pill" href="https://discord.gg/ZbV4qB34um" rel="noopener" aria-label="Demo. G\u00e5 med i Discord."><span class="apr-label">DEMO</span></a></div>'+
+    '<p class="apr-sr">Det du har: '+IN.join(', ')+'. Det du f\u00e5r: '+UT.join(', ')+'.</p>';
+  var path=host.querySelector('path'), flows=[].slice.call(host.querySelectorAll('textPath'));
+  var ones=[IN.join(MELLAN)+MELLAN, UT.join(MELLAN)+MELLAN], steps=[0,0];
+  var frame=0, last=0, ran=0, seen=true, held=false;
+  var still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function measure(){
+    var along=path.getTotalLength()||1;
+    flows.forEach(function(f,i){
+      f.textContent=ones[i];
+      var run=f.parentNode.getComputedTextLength();
+      if(!run) return;
+      steps[i]=run/along*100;
+      // kurvan, en lista till för glidet och en i reserv
+      f.textContent=ones[i].repeat(Math.min(Math.ceil(along/run)+2,60));
+    });
+  }
+  function place(){
+    var phase=(ran%PERIOD)/PERIOD;
+    flows.forEach(function(f,i){ f.setAttribute('startOffset',((phase-1)*steps[i]).toFixed(4)+'%'); });
+  }
+  function tick(now){
+    frame=0;
+    if(!seen||held) return;
+    if(last) ran+=now-last;
+    last=now; place();
+    frame=requestAnimationFrame(tick);
+  }
+  function run(){
+    if(frame||still||!seen||held||!steps[0]) return;
+    last=0; frame=requestAnimationFrame(tick);
+  }
+  // Texten har ingen sann längd förrän typsnittet har kommit.
+  (document.fonts?document.fonts.ready:Promise.resolve()).then(function(){ measure(); place(); run(); });
+  // Slingan går bara medan bandet syns.
+  new IntersectionObserver(function(es){ seen=es[0].isIntersecting; run(); }).observe(host);
+  // Samma regel som tickern i toppraden: rullande text ska gå att stanna.
+  host.addEventListener('pointerenter',function(){ held=true; });
+  host.addEventListener('pointerleave',function(){ held=false; run(); });
 })();
 </script>
 <!-- footer:start -->
