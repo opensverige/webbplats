@@ -209,6 +209,15 @@ PROJEKT = [
         "kategori": "BusinessApplication",
     },
     {
+        "namn": "AI-kartan",
+        "slug": "ai-kartan",
+        "url": "https://karta.opensverige.se",
+        "beskrivning": "Karta över organisationer som bygger AI i Sverige: bolag, myndigheter, lärosäten och communityn. Varje uppgift har källa och datum.",
+        "taggar": ["karta", "öppen data", "ekosystem", "källbelagt"],
+        "status": "live",
+        "kategori": "ReferenceApplication",
+    },
+    {
         "namn": "grunden.ai",
         "slug": "grunden-ai",
         "url": "https://grunden.ai",

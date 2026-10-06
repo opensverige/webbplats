@@ -47,6 +47,7 @@ Rollen följer vad du gör, inte vem du är. Tre nivåer: Nyfiken, Byggare, Ship
 
 - **Agent Readiness Scanner** (live) — Skannar din sajt och visar vad AI-agenter ser och vad som blockerar dem. 13 kontroller, 30 sekunder. https://agent.opensverige.se
 - **AI-Infra** (live) — Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt. https://infra.opensverige.se
+- **AI-kartan** (live) — Karta över organisationer som bygger AI i Sverige: bolag, myndigheter, lärosäten och communityn. Varje uppgift har källa och datum. https://karta.opensverige.se
 - **KAMMAREN** (live) — Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. https://kammaren.nu
 - **FAVER** (live) — Hitta matrabatter i realtid via GPS. https://faver-one.vercel.app/map
 - **fortnox-skill** (open source) — OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder, chatt. https://github.com/opensverige/fortnox-skill
