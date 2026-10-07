@@ -106,8 +106,8 @@ siffra som påstår sig vara aktuell.
 
 Logotypremsan under Labs-kortet läser tio SVG:er ur `site/assets/logos/`. De
 filerna ingår inte i repot — de är tredjepartsmaterial vi inte har rätt att sprida
-vidare. Klonar du repot saknas de, och strimman visar filnamnen som alternativtext
-i stället för bilder. Sajten fungerar i övrigt som vanligt.
+vidare. Klonar du repot saknas de, och strimman visar bara namnen, utan bilder.
+Sajten fungerar i övrigt som vanligt.
 
 Vill du köra den med logotyper får du lägga egna SVG:er i `site/assets/logos/` med
 namnen som står i `site/index.html`. [Simple Icons](https://simpleicons.org) har de
