@@ -67,6 +67,12 @@
       "tags": ["datasuveränitet", "gdpr", "jämförelse"]
     },
     {
+      "name": "AI-kartan",
+      "status": "live",
+      "url": "https://karta.opensverige.se",
+      "tags": ["karta", "öppen-data", "ekosystem"]
+    },
+    {
       "name": "Kammaren",
       "status": "live",
       "url": "https://kammaren.nu",
