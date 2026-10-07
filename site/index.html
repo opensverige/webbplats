@@ -1,8 +1,8 @@
 <!doctype html><html lang="sv"><head><meta charset="utf-8"><script>document.documentElement.className='js'</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>opensverige — Sveriges öppna community för AI-agenter och vibecoding</title>
+<title>opensverige — Sveriges öppna community för AI-agenter</title>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<meta name="description" content="Sveriges öppna community för AI-agenter och vibecoding. 600+ builders bygger med OpenClaw, Hermes, Grokbot, CrewAI och MCP. Gratis, öppen källkod, inga gatekeepers.">
+<meta name="description" content="Sveriges öppna community för AI-agenter och vibecoding. 600+ builders bygger med OpenClaw, Hermes och MCP. Gratis, öppen källkod, inga gatekeepers.">
 <link rel="canonical" href="https://opensverige.se/">
 <meta name="theme-color" content="#fbfaf7">
 <meta name="author" content="opensverige">
@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="opensverige">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:title" content="opensverige — Sveriges öppna community för AI-agenter">
-<meta property="og:description" content="600+ builders bygger AI-agenter, MCP-servrar och vibecoding-projekt. Gratis, öppen källkod, inga gatekeepers. Vi ses på Discord och IRL i Stockholm, Göteborg och Malmö.">
+<meta property="og:description" content="600+ builders bygger AI-agenter, MCP-servrar och vibecoding-projekt. Gratis, öppen källkod, inga gatekeepers.">
 <meta property="og:url" content="https://opensverige.se/">
 <meta property="og:image" content="https://opensverige.se/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -26,10 +26,30 @@
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
 <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
 <link rel="manifest" href="/favicon/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3GZR9ZHiDnImG6-NEMQ41wby8WbHoEj7E49PA.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7Motmp5g.woff2">
 <style>
-:root{--ok:#2d7f48;
+/* Typsnitten deklareras här i stället för via fonts.googleapis.com/css2.
+   Den stilmallen blockerade första renderingen i väntan på ett eget anrop.
+   Samma filer och unicode-range som Google skickar; rubrikens två snitt förladdas. */
+@font-face{font-family:'Familjen Grotesk';font-style:italic;font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3AZR9ZHiDnImG6-NEMQ41wby8WbH80grs_1vKbfPlA.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Familjen Grotesk';font-style:italic;font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3AZR9ZHiDnImG6-NEMQ41wby8WbH80g7s_1vKbfPlA.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Familjen Grotesk';font-style:italic;font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3AZR9ZHiDnImG6-NEMQ41wby8WbH80jbs_1vKbfA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3GZR9ZHiDnImG6-NEMQ41wby8WbHUEj7E49PCrfQ.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3GZR9ZHiDnImG6-NEMQ41wby8WbHQEj7E49PCrfQ.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/familjengrotesk/v11/Qw3GZR9ZHiDnImG6-NEMQ41wby8WbHoEj7E49PA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjgn7Motmp5r61.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7Motmp5g.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zsTjnTLgNuZ5w.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjnTLgNs.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx3cwgknk-6nFg.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxTcwgknk-6nFg.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxPcwgknk-6nFg.woff2) format('woff2');unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx_cwgknk-6nFg.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwgknk-6nFg.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{--ok:#2a7743;
   --bg:#fbfaf7; --surface:#fff; --ink:#151515; --muted:#5b5651; --faint:#767169; --hair:#e4e2dc;
   --accent:#b72c07; --discord:#5865F2;
   --sans:'Familjen Grotesk',-apple-system,Helvetica,sans-serif;
@@ -443,7 +463,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .rhythm > div{background:var(--surface);padding:18px;transition:background var(--t)}
 .rhythm > div:hover{background:#f6f4f0}
 .rhythm .w{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
-.rhythm h4{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-top:9px}
+.rhythm h3{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-top:9px}
 .rhythm p{font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
 /* Verktygsremsa: belägg för Labs-påståendet ovanför. Samma hårlinjegrid
    som .rhythm så den läser som en fortsättning, inte ett nytt element. */
@@ -627,7 +647,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       "@type": "WebPage",
       "@id": "https://opensverige.se/#webpage",
       "url": "https://opensverige.se/",
-      "name": "opensverige — Sveriges öppna community för AI-agenter och vibecoding",
+      "name": "opensverige — Sveriges öppna community för AI-agenter",
       "description": "600+ builders bygger AI-agenter, MCP-servrar och vibecoding-projekt. Gratis, öppen källkod, inga gatekeepers.",
       "isPartOf": { "@id": "https://opensverige.se/#website" },
       "about": { "@id": "https://opensverige.se/#organization" },
@@ -721,7 +741,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 
 <header class="topbar">
   <div class="barin">
-    <a class="brand" href="/"><img class="mark" src="/assets/logo.webp" alt="opensverige" width="28" height="30"><span class="wm">opensverige</span></a>
+    <a class="brand" href="/"><img class="mark" src="/assets/logo.webp" alt="" width="28" height="30"><span class="wm">opensverige</span></a>
     <div class="tick" aria-hidden="true"><div class="trun">
     <span class="tm"><b class="onl">107</b> online just nu</span><span class="tm"><i class="sd idle"></i>[RL]Kapten</span><span class="tm"><i class="sd"></i>Carnade</span><span class="tm"><i class="sd idle"></i>dnb</span><span class="tm"><i class="sd idle"></i>fuxen</span><span class="tm"><i class="sd"></i>Jens</span><span class="tm"><i class="sd idle"></i>m...</span><span class="tm"><i class="sd idle"></i>Nordan77</span><span class="tm"><i class="sd dnd"></i>Qitmedia</span><span class="tm"><i class="sd"></i>Statbot</span><span class="tm"><i class="sd idle"></i>v...</span><span class="tm"><b>604</b> builders totalt</span><span class="tm"><b class="onl">107</b> online just nu</span><span class="tm"><i class="sd idle"></i>[RL]Kapten</span><span class="tm"><i class="sd"></i>Carnade</span><span class="tm"><i class="sd idle"></i>dnb</span><span class="tm"><i class="sd idle"></i>fuxen</span><span class="tm"><i class="sd"></i>Jens</span><span class="tm"><i class="sd idle"></i>m...</span><span class="tm"><i class="sd idle"></i>Nordan77</span><span class="tm"><i class="sd dnd"></i>Qitmedia</span><span class="tm"><i class="sd"></i>Statbot</span><span class="tm"><i class="sd idle"></i>v...</span><span class="tm"><b>604</b> builders totalt</span>
   </div></div>
@@ -768,7 +788,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
           </div>
         </div>
         <div class="handwrap rv">
-          <img id="hand" src="/assets/hand.webp" alt="Hand som håller en kräfta">
+          <img id="hand" src="/assets/hand.webp" alt="Hand som håller en kräfta" width="620" height="863" fetchpriority="high">
           <figure class="qc qc1"><blockquote>Förlåt men varför behöver cursor 21 gb appminne för att vara idle</blockquote><figcaption>#bygg-skiten</figcaption></figure>
           <figure class="qc qc2"><blockquote>Kul! Låt oss testa att skapa en open sverige org</blockquote><figcaption>#bygg-skiten</figcaption></figure>
           <div class="typing" aria-live="polite"><span class="dots"><i></i><i></i><i></i></span><span class="who"><b id="typeWho">Byggare</b> skriver</span></div>
@@ -785,7 +805,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         </div>
         <p class="lede rv">Kaotiskt, öppet och roligt. Någon kör fast, någon annan svarar — dygnet runt.</p>
         <div class="grok rv">
-          <img src="/assets/grok.webp" alt="Pixelhand som håller Grok-loggan">
+          <img src="/assets/grok.webp" alt="Pixelhand som håller Grok-loggan" width="200" height="200" loading="lazy">
           <div>
             <h3>SuperGrok åt alla.</h3>
             <p>Hela Discorden har SuperGrok. Tagga <b>@SuperGrok-Handen</b> i vilken kanal som helst och researcha ihop — live X-sök, alltid med källa.</p>
@@ -806,9 +826,9 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 
         <h3 style="font-size:22px;font-weight:700;letter-spacing:-.03em;color:#fff;margin-top:44px">Vi värdesätter aktivitet.</h3>
         <div class="roles rv">
-          <div class="role"><img src="/assets/r-low.webp" alt="LOW"><div class="n">Nyfiken</div></div>
-          <div class="role"><img src="/assets/r-max.webp" alt="MAX"><div class="n">Byggare</div></div>
-          <div class="role"><img src="/assets/r-ultra.webp" alt="ULTRA"><div class="n">Shippare</div></div>
+          <div class="role"><img src="/assets/r-low.webp" alt="LOW" width="120" height="120" loading="lazy"><div class="n">Nyfiken</div></div>
+          <div class="role"><img src="/assets/r-max.webp" alt="MAX" width="120" height="120" loading="lazy"><div class="n">Byggare</div></div>
+          <div class="role"><img src="/assets/r-ultra.webp" alt="ULTRA" width="120" height="120" loading="lazy"><div class="n">Shippare</div></div>
         </div>
         <p class="rolefoot rv">Rollen följer vad du gör. <b>Inte vem du är.</b></p>
 
@@ -900,24 +920,24 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       </div>
 
       <div class="rhythm rv">
-        <div><div class="w">Oftast söndagar</div><h4>IRL-träffar</h4><p>Vi försöker ses ofta. Alla har inte tid — men det ger mer än en tråd.</p></div>
-        <div><div class="w">Löpande</div><h4>Öppna demos</h4><p>Visa det medan det är trasigt.</p><a class="slink" href="#demo">Så går det till →</a></div>
-        <div><div class="w">Labs</div><h4>Vi testar det nya först</h4><p>Grokbot, Higgsfield, Mirofish. Det som släpptes i veckan, kört skarpt.</p></div>
+        <div><div class="w">Oftast söndagar</div><h3>IRL-träffar</h3><p>Vi försöker ses ofta. Alla har inte tid — men det ger mer än en tråd.</p></div>
+        <div><div class="w">Löpande</div><h3>Öppna demos</h3><p>Visa det medan det är trasigt.</p><a class="slink" href="#demo">Så går det till →</a></div>
+        <div><div class="w">Labs</div><h3>Vi testar det nya först</h3><p>Grokbot, Higgsfield, Mirofish. Det som släpptes i veckan, kört skarpt.</p></div>
       </div>
 
       <div class="stack rv">
         <div class="sl">Kört skarpt i Discorden</div>
         <ul class="slogos">
-          <li><img src="/assets/logos/grok.svg" alt="Grok" width="26" height="26" loading="lazy"><b>Grok</b></li>
-          <li><img src="/assets/logos/claude.svg" alt="Claude" width="26" height="26" loading="lazy"><b>Claude</b></li>
-          <li><img src="/assets/logos/openai.svg" alt="OpenAI" width="26" height="26" loading="lazy"><b>OpenAI</b></li>
-          <li><img src="/assets/logos/cursor.svg" alt="Cursor" width="26" height="26" loading="lazy"><b>Cursor</b></li>
-          <li><img src="/assets/logos/perplexity.svg" alt="Perplexity" width="26" height="26" loading="lazy"><b>Perplexity</b></li>
-          <li><img src="/assets/logos/crewai.svg" alt="CrewAI" width="26" height="26" loading="lazy"><b>CrewAI</b></li>
-          <li><img src="/assets/logos/langgraph.svg" alt="LangGraph" width="26" height="26" loading="lazy"><b>LangGraph</b></li>
-          <li><img src="/assets/logos/n8n.svg" alt="n8n" width="26" height="26" loading="lazy"><b>n8n</b></li>
-          <li><img src="/assets/logos/ollama.svg" alt="Ollama" width="26" height="26" loading="lazy"><b>Ollama</b></li>
-          <li><img src="/assets/logos/huggingface.svg" alt="Hugging Face" width="26" height="26" loading="lazy"><b>Hugging Face</b></li>
+          <li><img src="/assets/logos/grok.svg" alt="" width="26" height="26" loading="lazy"><b>Grok</b></li>
+          <li><img src="/assets/logos/claude.svg" alt="" width="26" height="26" loading="lazy"><b>Claude</b></li>
+          <li><img src="/assets/logos/openai.svg" alt="" width="26" height="26" loading="lazy"><b>OpenAI</b></li>
+          <li><img src="/assets/logos/cursor.svg" alt="" width="26" height="26" loading="lazy"><b>Cursor</b></li>
+          <li><img src="/assets/logos/perplexity.svg" alt="" width="26" height="26" loading="lazy"><b>Perplexity</b></li>
+          <li><img src="/assets/logos/crewai.svg" alt="" width="26" height="26" loading="lazy"><b>CrewAI</b></li>
+          <li><img src="/assets/logos/langgraph.svg" alt="" width="26" height="26" loading="lazy"><b>LangGraph</b></li>
+          <li><img src="/assets/logos/n8n.svg" alt="" width="26" height="26" loading="lazy"><b>n8n</b></li>
+          <li><img src="/assets/logos/ollama.svg" alt="" width="26" height="26" loading="lazy"><b>Ollama</b></li>
+          <li><img src="/assets/logos/huggingface.svg" alt="" width="26" height="26" loading="lazy"><b>Hugging Face</b></li>
         </ul>
       </div>
     </section>
@@ -926,34 +946,31 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       <div class="pad" style="padding-bottom:26px"><h2 class="rv">Det här ramlade ut.</h2>
         <p class="lede rv">Ingen beställde dem. Någon började bygga och andra hängde på.</p></div>
       <div class="prods">
-        <a class="prod rv" href="https://karta.opensverige.se" target="_blank" rel="noopener noreferrer"
-           aria-label="AI-kartan på karta.opensverige.se — öppnas i ny flik">
+        <a class="prod rv" href="https://karta.opensverige.se" target="_blank" rel="noopener noreferrer">
           <div class="chrome"><i></i><i></i><i></i><span class="url">karta.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="hl"><span class="hlt">Vilka bygger AI i Sverige?</span></div>
           <div class="ptx">
             <h3>AI-kartan</h3>
             <p>Bolag, myndigheter, lärosäten och communityn på en karta. Varje uppgift har källa och datum. Lägg till dig själv.</p>
-            <span class="pgo">Öppna i ny flik <i>↗</i></span>
+            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
           </div>
         </a>
-        <a class="prod rv" href="https://agent.opensverige.se" target="_blank" rel="noopener noreferrer"
-           aria-label="Agent Readiness Scanner på agent.opensverige.se — öppnas i ny flik">
+        <a class="prod rv" href="https://agent.opensverige.se" target="_blank" rel="noopener noreferrer">
           <div class="chrome"><i></i><i></i><i></i><span class="url">agent.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="hl"><span class="hlt">Hur agent-redo är din sajt?</span></div>
           <div class="ptx">
             <h3>Agent Readiness Scanner</h3>
             <p>Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.</p>
-            <span class="pgo">Öppna i ny flik <i>↗</i></span>
+            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
           </div>
         </a>
-        <a class="prod rv" href="https://infra.opensverige.se" target="_blank" rel="noopener noreferrer"
-           aria-label="AI-Infra på infra.opensverige.se — öppnas i ny flik">
+        <a class="prod rv" href="https://infra.opensverige.se" target="_blank" rel="noopener noreferrer">
           <div class="chrome"><i></i><i></i><i></i><span class="url">infra.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="hl"><span class="hlt">Hitta rätt svensk AI-infrastruktur.</span></div>
           <div class="ptx">
             <h3>AI-Infra</h3>
             <p>Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt.</p>
-            <span class="pgo">Öppna i ny flik <i>↗</i></span>
+            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
           </div>
         </a>
       </div>
