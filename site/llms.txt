@@ -45,68 +45,68 @@ Rollen följer vad du gör, inte vem du är. Tre nivåer: Nyfiken, Byggare, Ship
 
 ## Aktiva projekt
 
-- **Agent Readiness Scanner** (live) — Skannar din sajt och visar vad AI-agenter ser och vad som blockerar dem. 13 kontroller, 30 sekunder. https://agent.opensverige.se
-- **AI-Infra** (live) — Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt. https://infra.opensverige.se
-- **AI-kartan** (live) — Karta över organisationer som bygger AI i Sverige: bolag, myndigheter, lärosäten och communityn. Varje uppgift har källa och datum. https://karta.opensverige.se
-- **KAMMAREN** (live) — Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. https://kammaren.nu
-- **FAVER** (live) — Hitta matrabatter i realtid via GPS. https://faver-one.vercel.app/map
-- **fortnox-skill** (open source) — OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder, chatt. https://github.com/opensverige/fortnox-skill
-- **LunarAIstorm** (live) — Socialt nätverk för AI-agenter, inspirerat av LunarStorm. https://lunaraistorm.se
-- **Gollum-testet** (live) — Quiz: är du builder eller hoardar du idéer? 90 sekunder. https://opensverige.se/gollum
+- [Agent Readiness Scanner](https://agent.opensverige.se): Live. Skannar din sajt och visar vad AI-agenter ser och vad som blockerar dem. 13 kontroller, 30 sekunder.
+- [AI-Infra](https://infra.opensverige.se): Live. Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt.
+- [AI-kartan](https://karta.opensverige.se): Live. Karta över organisationer som bygger AI i Sverige: bolag, myndigheter, lärosäten och communityn. Varje uppgift har källa och datum.
+- [KAMMAREN](https://kammaren.nu): Live. Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi.
+- [FAVER](https://faver-one.vercel.app/map): Live. Hitta matrabatter i realtid via GPS.
+- [fortnox-skill](https://github.com/opensverige/fortnox-skill): Open source. OpenClaw-skill som kopplar en AI-agent direkt till Fortnox. Fakturor, kunder, chatt.
+- [LunarAIstorm](https://lunaraistorm.se): Live. Socialt nätverk för AI-agenter, inspirerat av LunarStorm.
+- [Gollum-testet](https://opensverige.se/gollum): Live. Quiz: är du builder eller hoardar du idéer? 90 sekunder.
 - **grunden.ai** — grundat ur communityn
 
-Fullständig showcase: https://opensverige.se/showcase
+Fullständig showcase: [opensverige.se/showcase](https://opensverige.se/showcase)
 
 ## Blogg
 
-- Startup-krediter och GPU i Sverige: moln, API och EuroHPC (guide, finansiering) — https://opensverige.se/blogg/startup-krediter-gpu-sverige
-- Bygg ett spel med AI på en vecka (guide, hackathon) — https://opensverige.se/blogg/bygg-spel-med-ai
-- Koppla Fortnox till din AI-agent (guide, fortnox, openclaw) — https://opensverige.se/blogg/fortnox-agent-guide
-- Vad är AI-agenter? (intro) — https://opensverige.se/blogg/vad-ar-ai-agenter
-- MCP vs REST — när ska du använda vad? (arkitektur) — https://opensverige.se/blogg/mcp-vs-rest
-- Gollum-testet — vilken typ av builder är du? — https://opensverige.se/blogg/gollum-testet
+- [Startup-krediter och GPU i Sverige: moln, API och EuroHPC](https://opensverige.se/blogg/startup-krediter-gpu-sverige): guide, finansiering
+- [Bygg ett spel med AI på en vecka](https://opensverige.se/blogg/bygg-spel-med-ai): guide, hackathon
+- [Koppla Fortnox till din AI-agent](https://opensverige.se/blogg/fortnox-agent-guide): guide, fortnox, openclaw
+- [Vad är AI-agenter?](https://opensverige.se/blogg/vad-ar-ai-agenter): intro
+- [MCP vs REST — när ska du använda vad?](https://opensverige.se/blogg/mcp-vs-rest): arkitektur
+- [Gollum-testet — vilken typ av builder är du?](https://opensverige.se/blogg/gollum-testet)
 
 Gästinlägg är öppna för alla. Hör av dig i Discorden.
 
 ## Sidor
 
-- Startsida: https://opensverige.se/
-- Varför opensverige finns: https://opensverige.se/varfor
-- Showcase: https://opensverige.se/showcase
-- Blogg: https://opensverige.se/blogg
-- Bli medlem: https://opensverige.se/bli-medlem
-- Stadgar: https://opensverige.se/stadgar
-- Regler: https://opensverige.se/regler
-- Gollum-testet: https://opensverige.se/gollum
-- Spelhackathon (arkiverat, regler och resurser bevarade): https://opensverige.se/hackathon
-- Integritetspolicy: https://opensverige.se/integritet
+- [Startsida](https://opensverige.se/)
+- [Varför opensverige finns](https://opensverige.se/varfor)
+- [Showcase](https://opensverige.se/showcase)
+- [Blogg](https://opensverige.se/blogg)
+- [Bli medlem](https://opensverige.se/bli-medlem)
+- [Stadgar](https://opensverige.se/stadgar)
+- [Regler](https://opensverige.se/regler)
+- [Gollum-testet](https://opensverige.se/gollum)
+- [Spelhackathon](https://opensverige.se/hackathon): arkiverat, regler och resurser bevarade
+- [Integritetspolicy](https://opensverige.se/integritet)
 
 ## Gollum-testets fyra arketyper
 
 Tio frågor placerar en builder på två axlar: shippar mot hoardar, och beroende av AI mot självgående.
 
-- Gollum — shippar snabbt men klarar sig inte utan AI: https://opensverige.se/gollum/gollum
-- Drömbyggaren — hoardar idéer, bygger själv: https://opensverige.se/gollum/dreambuilder
-- Speedrunnaren — hoardar idéer, lutar sig mot AI: https://opensverige.se/gollum/speedrunner
-- Shippern — shippar och kan hantverket: https://opensverige.se/gollum/shipper
+- [Gollum](https://opensverige.se/gollum/gollum): shippar snabbt men klarar sig inte utan AI
+- [Drömbyggaren](https://opensverige.se/gollum/dreambuilder): hoardar idéer, bygger själv
+- [Speedrunnaren](https://opensverige.se/gollum/speedrunner): hoardar idéer, lutar sig mot AI
+- [Shippern](https://opensverige.se/gollum/shipper): shippar och kan hantverket
 
 ## API och maskinläsbar data
 
 opensverige.se erbjuder öppna maskinläsbara resurser för agenter och crawlers:
 
-- **Community API**: GET https://opensverige.se/api/community — JSON med community-info, stats, ramverk och aktiva projekt
-- **OpenAPI-spec**: https://opensverige.se/openapi.json — OpenAPI 3.0-dokumentation
-- **llms.txt**: https://opensverige.se/llms.txt — denna fil
-- **Sitemap**: https://opensverige.se/sitemap.xml
+- [Community API](https://opensverige.se/api/community): GET. JSON med community-info, stats, ramverk och aktiva projekt
+- [OpenAPI-spec](https://opensverige.se/openapi.json): OpenAPI 3.0-dokumentation
+- [llms.txt](https://opensverige.se/llms.txt): denna fil
+- [Sitemap](https://opensverige.se/sitemap.xml)
 
 Inga API-nycklar krävs. Endpoints är öppna och cachade. CORS tillåtet från alla origins.
 
 ## Kontakt och community
 
-- Discord (primär kanal): https://discord.gg/ZbV4qB34um
-- GitHub: https://github.com/orgs/opensverige
+- [Discord](https://discord.gg/ZbV4qB34um): primär kanal
+- [GitHub](https://github.com/orgs/opensverige)
 - Email: opensverige@gmail.com
-- LinkedIn-grupp: https://www.linkedin.com/groups/9544657/
+- [LinkedIn-grupp](https://www.linkedin.com/groups/9544657/)
 
 ## AI-innehållspolicy (EU AI Act Art. 50)
 
