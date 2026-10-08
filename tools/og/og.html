@@ -1,0 +1,60 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8">
+<title>Delningsbilder — opensverige</title>
+<!-- Källan till delningsbilderna i site/assets/og-*.jpg. En sida, ett kort per
+     bild; ?v=<namn> väljer kort. Renderas till 1200x630 av tools/bygg-og.py. -->
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet">
+<style>
+:root{--paper:#fbfaf7;--ink:#151515;--glod:#ff5a2a;
+  --sans:'Familjen Grotesk',Helvetica,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --serif:'Instrument Serif',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px;overflow:hidden;background:#000}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.kort{display:none;position:absolute;inset:0;overflow:hidden;background:var(--ink);color:var(--paper)}
+
+.brand{position:absolute;left:64px;top:50px;z-index:3;display:flex;align-items:center;gap:12px;
+  font-size:31px;font-weight:700;letter-spacing:-.04em}
+.brand img{height:42px;width:auto;image-rendering:pixelated}
+h1{position:absolute;left:60px;z-index:3;font-weight:700;letter-spacing:-.058em;line-height:.9}
+h1 em{display:block;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.03em}
+.fot{position:absolute;left:66px;bottom:46px;z-index:3;font-family:var(--mono);font-size:17px;
+  font-weight:500;letter-spacing:.15em;text-transform:uppercase}
+.fot b{font-weight:500;opacity:.5;padding:0 .5em}
+
+/* ---- skiten: startsidan och standardbilden. Kräftan ---- */
+.skiten .sken{position:absolute;right:-180px;top:-150px;width:1000px;height:1000px;z-index:0;
+  background:radial-gradient(closest-side,rgba(196,120,44,.52),rgba(120,56,16,.24) 52%,rgba(21,21,21,0) 100%)}
+.skiten .hand{position:absolute;right:24px;top:-6px;height:820px;z-index:1;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.55))}
+.skiten h1{top:138px;font-size:208px;letter-spacing:-.06em;line-height:.86}
+.skiten h1 em{font-size:222px;color:var(--glod)}
+
+/* ---- lurka: Bli medlem. Bara typografi ---- */
+.lurka h1{left:56px;top:122px;font-size:196px}
+.lurka h1 em{margin-top:6px;margin-left:150px;font-size:226px}
+.lurka h1 s{text-decoration:none;position:relative;color:#77726b}
+.lurka h1 s::after{content:"";position:absolute;left:-10px;right:-14px;top:54%;height:17px;
+  background:var(--glod);transform:rotate(-3.2deg);border-radius:2px}
+</style></head>
+<body>
+
+<section class="kort skiten">
+  <div class="sken"></div>
+  <img class="hand" src="../../site/assets/hand.webp" alt="">
+  <div class="brand"><img src="../../site/assets/logo.webp" alt=""><span>opensverige</span></div>
+  <h1>Bygg<em>skiten.</em></h1>
+  <div class="fot">Sveriges öppna AI-community<b>/</b>opensverige.se</div>
+</section>
+
+<section class="kort lurka">
+  <div class="brand"><img src="../../site/assets/logo.webp" alt=""><span>opensverige</span></div>
+  <h1>Sluta <s>lurka.</s><em>Börja bygga.</em></h1>
+  <div class="fot">Gratis<b>/</b>En röst på årsmötet<b>/</b>opensverige.se/bli-medlem</div>
+</section>
+
+<script>
+var kort=document.querySelector('.kort.'+(new URLSearchParams(location.search).get('v')||'skiten'));
+if(kort) kort.style.display='block';
+</script>
+</body></html>

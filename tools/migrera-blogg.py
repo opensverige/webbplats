@@ -31,6 +31,10 @@ HANDSKRIVNA = ROOT / "tools" / "blogg-handskrivna.json"
 BASE = "https://opensverige.se"
 DISCORD = "https://discord.gg/ZbV4qB34um"
 
+# Delningsbilden. Källan är tools/og/og.html.
+OG_BILD = "/assets/og-bygg-skiten.jpg"
+OG_ALT = "opensverige: Bygg skiten. En hand håller en röd kräfta."
+
 MANADER = "jan feb mar apr maj jun jul aug sep okt nov dec".split()
 
 # Rubriker som ska renderas som AEO-svarsruta istället för vanlig sektion
@@ -262,6 +266,7 @@ def bygg_sida(slug, meta, svar, kropp, ord_antal, css):
     datum_lang = f"{d} {MANADER[m - 1]} {y}"
     lastid = max(1, round(ord_antal / 200))
     url = f"{BASE}/blogg/{slug}"
+    og_bild = BASE + OG_BILD
 
     # De gamla posterna har handskrivna värden här. Redaktionens poster bär
     # sina egna i frontmatter.
@@ -293,7 +298,7 @@ def bygg_sida(slug, meta, svar, kropp, ord_antal, css):
                 "mainEntityOfPage": {"@type": "WebPage", "@id": url},
                 "image": {
                     "@type": "ImageObject",
-                    "url": f"{BASE}/assets/og-image.jpg",
+                    "url": og_bild,
                     "width": 1200,
                     "height": 630,
                 },
@@ -349,10 +354,10 @@ def bygg_sida(slug, meta, svar, kropp, ord_antal, css):
 <meta property="og:title" content="{html.escape(titel, quote=True)}">
 <meta property="og:description" content="{html.escape(beskrivning, quote=True)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}/assets/og-image.jpg">
+<meta property="og:image" content="{og_bild}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta property="og:image:alt" content="{html.escape(OG_ALT, quote=True)}">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="article:published_time" content="{iso}">
 <meta property="article:author" content="{html.escape(forfattare)}">
@@ -360,7 +365,7 @@ def bygg_sida(slug, meta, svar, kropp, ord_antal, css):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{html.escape(titel, quote=True)}">
 <meta name="twitter:description" content="{html.escape(beskrivning, quote=True)}">
-<meta name="twitter:image" content="{BASE}/assets/og-image.jpg">
+<meta name="twitter:image" content="{og_bild}">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
 <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">

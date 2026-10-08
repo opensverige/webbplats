@@ -15,6 +15,10 @@ SITE = ROOT / "site"
 BASE = "https://opensverige.se"
 DISCORD = "https://discord.gg/ZbV4qB34um"
 
+# Delningsbilden. Källan är tools/og/og.html.
+OG_BILD = "/assets/og-bygg-skiten.jpg"
+OG_ALT = "opensverige: Bygg skiten. En hand håller en röd kräfta."
+
 DISCORD_SVG = (
     '<svg viewBox="0 0 127 96"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 '
     "72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 "
@@ -121,6 +125,8 @@ def head(cfg, css, jsonld, og_typ="website"):
     b = html.escape(cfg["beskrivning"], quote=True)
     t = html.escape(cfg["titel"])
     ogt = html.escape(cfg.get("og_titel", cfg["titel"]), quote=True)
+    og_bild = BASE + OG_BILD
+    og_alt = html.escape(OG_ALT, quote=True)
     ld = json.dumps(jsonld, ensure_ascii=False, indent=2)
     return f"""<!doctype html><html lang="sv" class="js"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -136,15 +142,15 @@ def head(cfg, css, jsonld, og_typ="website"):
 <meta property="og:title" content="{ogt}">
 <meta property="og:description" content="{b}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}/assets/og-image.jpg">
+<meta property="og:image" content="{og_bild}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta property="og:image:alt" content="{og_alt}">
 <meta property="og:image:type" content="image/jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ogt}">
 <meta name="twitter:description" content="{b}">
-<meta name="twitter:image" content="{BASE}/assets/og-image.jpg">
+<meta name="twitter:image" content="{og_bild}">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
 <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
