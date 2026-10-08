@@ -89,6 +89,21 @@ Redaktionsboten öppnar PR:er från grenar som heter `redaktionen/<slug>`. CI-jo
 `bloggkontroll` stoppar en sådan PR om den rör något utanför `innehall/blogg/`.
 Inget publiceras förrän en människa har mergat och deployat.
 
+### Delningsbilder
+
+Bilden som visas när en länk delas ligger i `site/assets/og-*.jpg`. Källan är
+`tools/og/og.html`, en sida med ett kort per bild. Alla sidor delar på "Bygg skiten.",
+utom Bli medlem och Gollum-testet som har var sin.
+
+```
+python3 tools/bygg-og.py          # rendera alla kort
+python3 tools/bygg-og.py lurka    # rendera ett
+```
+
+Det är det enda skriptet som behöver mer än Python: Google Chrome och ImageMagick.
+Det körs för hand och ingår inte i bygget. Ge en ändrad bild ett nytt filnamn,
+annars visar LinkedIn, Slack och Discord den gamla.
+
 ### Medlemsformuläret
 
 Anmälan går till en edge-funktion hos Supabase i Stockholm, som skriver till
