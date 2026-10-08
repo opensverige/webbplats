@@ -154,6 +154,22 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
   padding:7px 12px;border:1px solid var(--hair);border-radius:100px;color:var(--muted);transition:all var(--t)}
 .chips a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 
+/* ============ TECH EMBASSY-REMSAN ============ */
+/* Kartans gula, inte sajtens accent: remsan ska läsas som kartans röst.
+   Smal med flit. Den pekar ut kartan utan att skjuta ner hjälten. */
+.te{display:flex;align-items:center;justify-content:center;gap:10px;min-height:40px;padding:7px var(--gut);
+  background:#ffd60a;color:var(--ink);font-size:14px;font-weight:500;line-height:1.25;
+  border-bottom:1px solid rgba(21,21,21,.14)}
+.te .tag{flex:none;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--ink);color:#ffd60a;padding:4px 7px;border-radius:2px}
+.te b{font-weight:700}
+.te .mid,.te .long,.te .go span{display:none}
+.te .go{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.te .go i{display:inline-block;font-style:normal;font-size:13px;transition:transform var(--t)}
+.te:hover .go i{transform:translate(2px,-2px)}
+@media(min-width:560px){.te{gap:12px;font-size:14.5px}.te .mid,.te .go span{display:inline}}
+@media(min-width:900px){.te .long{display:inline}}
+
 section{border-bottom:1px solid var(--hair)}
 .pad{padding:44px var(--gut)}
 @media(min-width:860px){.pad{padding:62px var(--gut)}}
@@ -752,6 +768,14 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
   </div>
 </header>
 
+<!-- Siffran är seedad vid deploy och skrivs över från kartans status.json.
+     Går hämtningen inte igenom står raden kvar utan siffra. -->
+<a class="te" href="https://www.techembassy.se/" target="_blank" rel="noopener">
+  <span class="tag">Tech Embassy</span>
+  <span id="teTxt"><b id="teN">336</b><span class="mid"> organisationer</span> bygger AI i Sverige<span class="long">. Alla på en karta.</span></span>
+  <span class="go"><span>Öppna </span><i aria-hidden="true">↗</i></span>
+</a>
+
 <nav class="chips" id="chips">
   <a href="#hero">Start</a><a href="#discord">Discord</a><a href="#demo">Demo</a><a href="#irl">IRL</a><a href="#bygget">Bygget</a>
   <a href="#vision">Varför</a><a href="/regler">Regler</a><a href="#slut">Kom förbi</a>
@@ -1070,6 +1094,18 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
     /* Töms, tas inte bort: .tick är navens flexibla mitt och håller isär
        ordmärket från högergruppen. Utan elementet kollapsar raden. */
     .catch(function(){if(tick)tick.querySelector('.trun').textContent=''});
+})();
+
+/* Antalet i den gula remsan kommer från kartans status.json, inte från koden.
+   Samma regel som för Discord-siffrorna: seedat vid deploy, överskrivet vid
+   sidladdning. Misslyckas hämtningen byts raden mot en utan siffra. */
+(function(){
+  var txt=document.getElementById('teTxt'), n=document.getElementById('teN');
+  if(!txt||!n)return;
+  fetch('https://www.techembassy.se/api/status.json')
+    .then(function(r){if(!r.ok)throw 0;return r.json()})
+    .then(function(d){if(typeof d.antal_organisationer!=='number')throw 0;n.textContent=d.antal_organisationer})
+    .catch(function(){txt.textContent='Alla som bygger AI i Sverige'});
 })();
 
 const rio=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){
