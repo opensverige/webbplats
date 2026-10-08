@@ -15,12 +15,18 @@ SITE = ROOT / "site"
 BASE = "https://opensverige.se"
 DISCORD = "https://discord.gg/ZbV4qB34um"
 
+# Delningsbild när sidan inte anger en egen. Källan är tools/og/og.html.
+OG_BILD = "/assets/og-bygg-skiten.jpg"
+OG_ALT = "opensverige: Bygg skiten. En hand håller en röd kräfta."
+
 SIDOR = {
     "bli-medlem.html": {
         "sokvag": "/bli-medlem",
         "titel": "Bli medlem i opensverige — gratis, en röst på årsmötet",
         "beskrivning": "Bli medlem i ideella föreningen opensverige. Avgiften är frivillig, du får en röst på årsmötet och rätt att söka resurser ur labbet. Tre fält.",
         "og_titel": "Bli medlem i opensverige",
+        "og_bild": "/assets/og-lurka.jpg",
+        "og_alt": "opensverige: Sluta lurka. Börja bygga.",
         "brodsmula": "Bli medlem",
     },
     "stadgar.html": {
@@ -54,6 +60,8 @@ def bygg_head(cfg):
     url = BASE + cfg["sokvag"]
     b = html.escape(cfg["beskrivning"], quote=True)
     ogt = html.escape(cfg["og_titel"], quote=True)
+    og_bild = BASE + cfg.get("og_bild", OG_BILD)
+    og_alt = html.escape(cfg.get("og_alt", OG_ALT), quote=True)
     return f"""<meta name="description" content="{b}">
 <link rel="canonical" href="{url}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -65,15 +73,15 @@ def bygg_head(cfg):
 <meta property="og:title" content="{ogt}">
 <meta property="og:description" content="{b}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}/assets/og-image.jpg">
+<meta property="og:image" content="{og_bild}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta property="og:image:alt" content="{og_alt}">
 <meta property="og:image:type" content="image/jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ogt}">
 <meta name="twitter:description" content="{b}">
-<meta name="twitter:image" content="{BASE}/assets/og-image.jpg">
+<meta name="twitter:image" content="{og_bild}">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
 <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">

@@ -32,15 +32,15 @@ SIDA = f"""<!doctype html><html lang="sv"><head><meta charset="utf-8">
 <meta property="og:title" content="Sidan finns inte — opensverige">
 <meta property="og:description" content="{BESKRIVNING}">
 <meta property="og:url" content="{BASE}/404">
-<meta property="og:image" content="{BASE}/assets/og-image.jpg">
+<meta property="og:image" content="{BASE}/assets/og-bygg-skiten.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="opensverige — Sveriges öppna community för AI-agenter, MCP och vibecoding">
+<meta property="og:image:alt" content="opensverige: Bygg skiten. En hand håller en röd kräfta.">
 <meta property="og:image:type" content="image/jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sidan finns inte — opensverige">
 <meta name="twitter:description" content="{BESKRIVNING}">
-<meta name="twitter:image" content="{BASE}/assets/og-image.jpg">
+<meta name="twitter:image" content="{BASE}/assets/og-bygg-skiten.jpg">
 <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
 <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
