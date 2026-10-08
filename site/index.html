@@ -83,7 +83,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
    döljs så fort naven blir trång, pausas på hover och står still vid
    reducerad rörelse — rullande text i all evighet faller under WCAG 2.2.2. */
 .tick{display:none}
-@media(min-width:1080px){
+@media(min-width:1000px){
   .tick{display:block;flex:1;min-width:0;margin:0 10px;overflow:hidden;
     mask-image:linear-gradient(90deg,transparent,#000 62px,#000 calc(100% - 62px),transparent)}
   .tick:hover .trun{animation-play-state:paused}
@@ -99,6 +99,16 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .sd.idle{background:#c8901f}
 .sd.dnd{background:#d63b3b}
 @media(prefers-reduced-motion:reduce){.trun{animation:none}}
+/* Kartans rad i banderollen. Gulmarkerad i kartans egen färg så att den
+   skiljer sig från namnen runt omkring, utan en egen ruta på sidan. */
+.tek{display:inline-flex;align-items:center;gap:7px;background:#ffd60a;color:var(--ink);
+  padding:4px 9px 4px 5px;border-radius:3px;transition:background var(--t)}
+.tek img{width:16px;height:16px;flex:none;image-rendering:pixelated}
+.tek b{font-weight:700}
+a.tm:hover .tek{background:#ffe45c}
+/* Utan Discord-namnen finns inget att rulla. Då står kartans rad still,
+   indragen förbi maskens toning. */
+.trun.still{animation:none;padding-left:44px}
 
 
 /* ===== TOPPRAD ===== */
@@ -106,7 +116,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .barin{max-width:1360px;margin:0 auto;height:58px;display:flex;align-items:center;gap:14px;padding:0 var(--gut)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 /* Utan tickern finns inget som trycker högergruppen åt höger. */
-@media(max-width:1079px){.brand{margin-right:auto}}
+@media(max-width:999px){.brand{margin-right:auto}}
 .brand .mark{height:28px;width:auto;image-rendering:pixelated;transition:transform var(--t)}
 .brand:hover .mark{transform:rotate(-9deg) scale(1.12)}
 .brand .wm{font-size:19px;font-weight:700;letter-spacing:-.04em}
@@ -153,22 +163,12 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .chips a{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
   padding:7px 12px;border:1px solid var(--hair);border-radius:100px;color:var(--muted);transition:all var(--t)}
 .chips a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-
-/* ============ TECH EMBASSY-REMSAN ============ */
-/* Kartans gula, inte sajtens accent: remsan ska läsas som kartans röst.
-   Smal med flit. Den pekar ut kartan utan att skjuta ner hjälten. */
-.te{display:flex;align-items:center;justify-content:center;gap:10px;min-height:40px;padding:7px var(--gut);
-  background:#ffd60a;color:var(--ink);font-size:14px;font-weight:500;line-height:1.25;
-  border-bottom:1px solid rgba(21,21,21,.14)}
-.te .tag{flex:none;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
-  background:var(--ink);color:#ffd60a;padding:4px 7px;border-radius:2px}
-.te b{font-weight:700}
-.te .mid,.te .long,.te .go span{display:none}
-.te .go{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.te .go i{display:inline-block;font-style:normal;font-size:13px;transition:transform var(--t)}
-.te:hover .go i{transform:translate(2px,-2px)}
-@media(min-width:560px){.te{gap:12px;font-size:14.5px}.te .mid,.te .go span{display:inline}}
-@media(min-width:900px){.te .long{display:inline}}
+/* Kartan först i flikraden. Under 1000 px finns ingen banderoll, och här
+   får ikonen sällskap av ett ord. Gulmarkerad som raden i banderollen. */
+.chips a.kart{display:inline-flex;align-items:center;gap:6px;padding:6px 11px 6px 7px;
+  background:#ffd60a;border-color:#ffd60a;color:var(--ink);font-weight:500}
+.chips a.kart img{width:16px;height:16px;image-rendering:pixelated}
+.chips a.kart i{font-style:normal}
 
 section{border-bottom:1px solid var(--hair)}
 .pad{padding:44px var(--gut)}
@@ -759,7 +759,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
   <div class="barin">
     <a class="brand" href="/"><img class="mark" src="/assets/logo.webp" alt="" width="28" height="30"><span class="wm">opensverige</span></a>
     <div class="tick" aria-hidden="true"><div class="trun">
-    <span class="tm"><b class="onl">107</b> online just nu</span><span class="tm"><i class="sd idle"></i>[RL]Kapten</span><span class="tm"><i class="sd"></i>Carnade</span><span class="tm"><i class="sd idle"></i>dnb</span><span class="tm"><i class="sd idle"></i>fuxen</span><span class="tm"><i class="sd"></i>Jens</span><span class="tm"><i class="sd idle"></i>m...</span><span class="tm"><i class="sd idle"></i>Nordan77</span><span class="tm"><i class="sd dnd"></i>Qitmedia</span><span class="tm"><i class="sd"></i>Statbot</span><span class="tm"><i class="sd idle"></i>v...</span><span class="tm"><b>604</b> builders totalt</span><span class="tm"><b class="onl">107</b> online just nu</span><span class="tm"><i class="sd idle"></i>[RL]Kapten</span><span class="tm"><i class="sd"></i>Carnade</span><span class="tm"><i class="sd idle"></i>dnb</span><span class="tm"><i class="sd idle"></i>fuxen</span><span class="tm"><i class="sd"></i>Jens</span><span class="tm"><i class="sd idle"></i>m...</span><span class="tm"><i class="sd idle"></i>Nordan77</span><span class="tm"><i class="sd dnd"></i>Qitmedia</span><span class="tm"><i class="sd"></i>Statbot</span><span class="tm"><i class="sd idle"></i>v...</span><span class="tm"><b>604</b> builders totalt</span>
+    <span class="tm"><b class="onl">107</b> online just nu</span><a class="tm" href="https://www.techembassy.se/" target="_blank" rel="noopener" tabindex="-1"><span class="tek"><img src="/assets/tech-embassy.svg" alt="" width="16" height="16">Tech Embassy: hitta alla som bygger AI i Sverige. <b class="teN">336</b> organisationer på en karta ↗</span></a><span class="tm"><i class="sd idle"></i>[RL]Kapten</span><span class="tm"><i class="sd"></i>Carnade</span><span class="tm"><i class="sd idle"></i>dnb</span><span class="tm"><i class="sd idle"></i>fuxen</span><span class="tm"><i class="sd"></i>Jens</span><span class="tm"><i class="sd idle"></i>m...</span><span class="tm"><i class="sd idle"></i>Nordan77</span><span class="tm"><i class="sd dnd"></i>Qitmedia</span><span class="tm"><i class="sd"></i>Statbot</span><span class="tm"><i class="sd idle"></i>v...</span><span class="tm"><b>604</b> builders totalt</span><span class="tm"><b class="onl">107</b> online just nu</span><a class="tm" href="https://www.techembassy.se/" target="_blank" rel="noopener" tabindex="-1"><span class="tek"><img src="/assets/tech-embassy.svg" alt="" width="16" height="16">Tech Embassy: hitta alla som bygger AI i Sverige. <b class="teN">336</b> organisationer på en karta ↗</span></a><span class="tm"><i class="sd idle"></i>[RL]Kapten</span><span class="tm"><i class="sd"></i>Carnade</span><span class="tm"><i class="sd idle"></i>dnb</span><span class="tm"><i class="sd idle"></i>fuxen</span><span class="tm"><i class="sd"></i>Jens</span><span class="tm"><i class="sd idle"></i>m...</span><span class="tm"><i class="sd idle"></i>Nordan77</span><span class="tm"><i class="sd dnd"></i>Qitmedia</span><span class="tm"><i class="sd"></i>Statbot</span><span class="tm"><i class="sd idle"></i>v...</span><span class="tm"><b>604</b> builders totalt</span>
   </div></div>
     <a class="tl" href="/stadgar">Stadgar</a>
     <a class="tl" href="/regler">Regler</a>
@@ -768,15 +768,8 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
   </div>
 </header>
 
-<!-- Siffran är seedad vid deploy och skrivs över från kartans status.json.
-     Går hämtningen inte igenom står raden kvar utan siffra. -->
-<a class="te" href="https://www.techembassy.se/" target="_blank" rel="noopener">
-  <span class="tag">Tech Embassy</span>
-  <span id="teTxt"><b id="teN">336</b><span class="mid"> organisationer</span> bygger AI i Sverige<span class="long">. Alla på en karta.</span></span>
-  <span class="go"><span>Öppna </span><i aria-hidden="true">↗</i></span>
-</a>
-
 <nav class="chips" id="chips">
+  <a class="kart" href="https://www.techembassy.se/" target="_blank" rel="noopener"><img src="/assets/tech-embassy.svg" alt="" width="16" height="16">AI-kartan <i aria-hidden="true">↗</i></a>
   <a href="#hero">Start</a><a href="#discord">Discord</a><a href="#demo">Demo</a><a href="#irl">IRL</a><a href="#bygget">Bygget</a>
   <a href="#vision">Varför</a><a href="/regler">Regler</a><a href="#slut">Kom förbi</a>
 </nav>
@@ -1073,6 +1066,22 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
   var url='https://discord.com/api/guilds/1466847548864987289/widget.json';
   function esc(s){var e=document.createElement('div');e.textContent=s;return e.innerHTML}
   function hamta(){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.json()})}
+  /* Kartans rad i banderollen. Antalet är seedat i markupen vid deploy och
+     skrivs över från kartans status.json. null betyder att hämtningen inte
+     gick igenom: då står raden utan siffra hellre än med en gammal.
+     tabindex=-1 eftersom hela banderollen är aria-hidden; kortet för kartan
+     längre ner är länken för tangentbord och skärmläsare. */
+  var seedN=document.querySelector('.teN'), teAntal=seedN?+seedN.textContent:null;
+  function teRad(){
+    return '<a class="tm" href="https://www.techembassy.se/" target="_blank" rel="noopener" tabindex="-1"><span class="tek">'+
+      '<img src="/assets/tech-embassy.svg" alt="" width="16" height="16">Tech Embassy: hitta alla som bygger AI i Sverige'+
+      (teAntal===null?'':'. <b class="teN">'+teAntal+'</b> organisationer på en karta')+' \u2197</span></a>';
+  }
+  fetch('https://www.techembassy.se/api/status.json')
+    .then(function(r){if(!r.ok)throw 0;return r.json()})
+    .then(function(d){if(typeof d.antal_organisationer!=='number')throw 0;teAntal=d.antal_organisationer})
+    .catch(function(){teAntal=null})
+    .then(function(){document.querySelectorAll('.tick a.tm').forEach(function(a){a.outerHTML=teRad()})});
   /* Discord svarar 429 när anropen kommer tätt, och en delad utgående IP
      (kontor, skola, mobilnät) kan råka ut för det på en helt vanlig laddning.
      Ett omtag efter en paus räcker i praktiken. */
@@ -1085,27 +1094,20 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       if(!tick)return;
       var steg=Math.max(1,Math.floor(m.length/10)),urval=[];
       for(var i=0;i<m.length&&urval.length<10;i+=steg)urval.push(m[i]);
-      var halva='<span class="tm"><b>'+n+'</b> online just nu</span>'+urval.map(function(x){
+      var halva='<span class="tm"><b>'+n+'</b> online just nu</span>'+teRad()+urval.map(function(x){
         var kl=x.status==='idle'?' idle':(x.status==='dnd'?' dnd':'');
         return '<span class="tm'+(x.bot?' isbot':'')+'"><i class="sd'+kl+'"></i>'+esc(x.username)+'</span>';
       }).join('')+'<span class="tm"><b>604</b> builders totalt</span>';
       tick.querySelector('.trun').innerHTML=halva+halva;
     })
-    /* Töms, tas inte bort: .tick är navens flexibla mitt och håller isär
-       ordmärket från högergruppen. Utan elementet kollapsar raden. */
-    .catch(function(){if(tick)tick.querySelector('.trun').textContent=''});
-})();
-
-/* Antalet i den gula remsan kommer från kartans status.json, inte från koden.
-   Samma regel som för Discord-siffrorna: seedat vid deploy, överskrivet vid
-   sidladdning. Misslyckas hämtningen byts raden mot en utan siffra. */
-(function(){
-  var txt=document.getElementById('teTxt'), n=document.getElementById('teN');
-  if(!txt||!n)return;
-  fetch('https://www.techembassy.se/api/status.json')
-    .then(function(r){if(!r.ok)throw 0;return r.json()})
-    .then(function(d){if(typeof d.antal_organisationer!=='number')throw 0;n.textContent=d.antal_organisationer})
-    .catch(function(){txt.textContent='Alla som bygger AI i Sverige'});
+    /* Namnen tas bort men .tick står kvar: den är navens flexibla mitt och
+       håller isär ordmärket från högergruppen. Kartans rad behöver inte
+       Discord och får stå kvar, stilla. */
+    .catch(function(){
+      if(!tick)return;
+      var t=tick.querySelector('.trun');
+      t.innerHTML=teRad();t.classList.add('still');
+    });
 })();
 
 const rio=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){
