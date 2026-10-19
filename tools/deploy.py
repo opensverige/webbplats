@@ -29,6 +29,7 @@ BYGGSTEG = [
     "tools/bygg-sidor.py",
     "tools/bygg-gollum.py",
     "tools/bygg-404.py",
+    "tools/discord-antal.py",
     "tools/footer.py",
     "tools/verifiera.py",
 ]
