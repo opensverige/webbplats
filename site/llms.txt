@@ -1,6 +1,6 @@
 # opensverige
 
-> opensverige är Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. 600+ builders i Discorden. Gratis. Öppen källkod. Ingen gallring — du anmäler dig och är medlem.
+> opensverige är Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. 700+ builders i Discorden. Gratis. Öppen källkod. Ingen gallring — du anmäler dig och är medlem.
 
 ## Om communityn
 
@@ -8,7 +8,7 @@
 - Föreningen bildades 2026-04-23, org.nr 802557-3422 — ideell förening med säte i Stockholm
 - Oberoende: inget företag sponsrar oss, ingen partipolitisk koppling, ingen leverantör betalar för omnämnande
 - Rekommendationer av verktyg bygger på vad som fungerar, inte på affärer
-- 600+ builders: nybörjare, veteraner, designers, systemutvecklare
+- 700+ builders: nybörjare, veteraner, designers, systemutvecklare
 - Städer med IRL-träffar: Stockholm, Göteborg, Malmö — nya städer startar själva, kravet är tre personer
 - Kanaler: Discord (primär), GitHub, LinkedIn
 - Modell: ideell förening, öppen källkod, inga mellanhänder, ingen obligatorisk avgift

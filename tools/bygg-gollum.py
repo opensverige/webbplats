@@ -447,9 +447,7 @@ if (delad && RESULTS[delad]) {
   <main class="scr" id="app">
     <h1>Är du Gollum?</h1>
     <p class="sub">Tio frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.</p>
-    <noscript><p class="fine">Testet kräver JavaScript. Läs om arketyperna:
-      <a href="/gollum/gollum">Gollum</a>, <a href="/gollum/dreambuilder">Drömbyggaren</a>,
-      <a href="/gollum/speedrunner">Speedrunnern</a>, <a href="/gollum/shipper">Shipparen</a>.</p></noscript>
+    <noscript><p class="fine">Testet kräver JavaScript.</p></noscript>
   </main>
 </div>
 <script>
@@ -476,7 +474,6 @@ NAMN_SV = {
 def bygg_resultat(slug):
     r = DATA["RESULTS"][slug]
     meta = RESULTAT_META[slug]
-    andra = [s for s in ARKETYPER if s != slug]
 
     ld = {
         "@context": "https://schema.org",
@@ -503,10 +500,6 @@ def bygg_resultat(slug):
         ],
     }
 
-    lankar = " · ".join(
-        f'<a href="/gollum/{s}">{NAMN_SV[s]}</a>' for s in andra
-    )
-
     return (
         head("/gollum/" + slug, meta["titel"], meta["beskrivning"], "/assets/og-gollum.jpg", ld)
         + f"""
@@ -529,7 +522,6 @@ def bygg_resultat(slug):
     <div class="sekt">
       <div class="sl">Är du inte den här?</div>
       <div class="spegel">Ta testet själv — tio frågor, 90 sekunder. <a href="/gollum">Starta testet →</a></div>
-      <div class="spegel">Andra arketyper: {lankar}</div>
     </div>
   </main>
 </div>
