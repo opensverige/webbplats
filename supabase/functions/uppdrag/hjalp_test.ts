@@ -87,8 +87,8 @@ Deno.test("för lång text avvisas, kortas inte tyst", () => {
 
 Deno.test("länken i mejlet går bara till våra egna adresser", () => {
   const tillatna = ["https://karta.opensverige.se", "http://localhost:4321"];
-  assertEquals(redigeraUrl("https://ond.se", "T", tillatna), "https://karta.opensverige.se/uppdrag/redigera?t=T");
-  assertEquals(redigeraUrl("http://localhost:4321", "T", tillatna), "http://localhost:4321/uppdrag/redigera?t=T");
+  assertEquals(redigeraUrl("https://ond.se", "T", tillatna), "https://karta.opensverige.se/uppdrag/redigera#t=T");
+  assertEquals(redigeraUrl("http://localhost:4321", "T", tillatna), "http://localhost:4321/uppdrag/redigera#t=T");
 });
 
 Deno.test("robotar räknas inte som klick", () => {

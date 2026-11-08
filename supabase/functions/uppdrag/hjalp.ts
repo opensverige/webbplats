@@ -134,10 +134,13 @@ export async function sha256Hex(s: string): Promise<string> {
   return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-/** Länken i mejlet pekar dit formuläret skickades från, om det är en av våra adresser. */
+/**
+ * Länken i mejlet pekar dit formuläret skickades från, om det är en av våra adresser. Koden
+ * ligger efter # och skickas därför aldrig till någon server, varken i loggar eller i statistik.
+ */
 export function redigeraUrl(origin: string | null, token: string, tillatna: readonly string[]): string {
   const bas = origin && tillatna.includes(origin) ? origin : tillatna[0];
-  return `${bas}/uppdrag/redigera?t=${token}`;
+  return `${bas}/uppdrag/redigera#t=${token}`;
 }
 
 /**

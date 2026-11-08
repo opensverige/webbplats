@@ -17,6 +17,7 @@ annanstans — därför ligger den i repot.
 | `schema.sql` | Tabellerna `medlemmar`, `anmalningar`, `anmalan_forsok` och `utskick` |
 | `functions/uppdrag/` | Edge-funktionen bakom Tar uppdrag på AI-kartan, se nedan |
 | `migrations/20261108_uppdrag.sql` | Tabellerna för Tar uppdrag, driftsatta som migreringen `uppdrag` |
+| `migrations/20261109_uppdrag_stadning.sql` | Nattlig städning med pg_cron, migreringen `uppdrag_stadning` |
 
 ## Flödet i två steg
 
@@ -169,9 +170,10 @@ Föreningsmedlemmar som visar på AI-kartan att de tar uppdrag eller säljer tj�
 skild från `medlem`, som inte rörs. Den läser `medlemmar` men skriver aldrig dit.
 
 **Bara aktiva medlemmar som är personer.** Medlemmen skriver sin e-post på kartan. Är adressen
-en aktiv fysisk medlem mejlas en engångslänk som gäller i 30 minuter. Sidan på kartan byter
-länken mot en session på en timme med `POST /uppdrag/session`, så att mejlskannrar inte
-förbrukar den. Svaret på `POST /uppdrag/lank` är detsamma för alla adresser, och uppslaget sker
+en aktiv fysisk medlem mejlas en engångslänk som gäller i 30 minuter. Koden ligger efter `#`,
+så den når aldrig en server eller en logg. Sidan på kartan byter den mot en session på en timme
+med `POST /uppdrag/session` först när medlemmen klickar på Öppna min profil, så att inte ens en
+mejlskanner som kör JavaScript förbrukar den. Svaret på `POST /uppdrag/lank` är detsamma för alla adresser, och uppslaget sker
 efter att svaret skickats, så att varken svaret eller tiden säger något om vem som är medlem.
 Registret är beviset. Ingen admin, nyckel eller modell behöver kontrollera någon.
 
@@ -192,8 +194,10 @@ in dem i bygget.
   och i CHECK-villkoren. Det fångar också en enskild firmas organisationsnummer.
 - **Samtycke** är skilt från medlemskapet. `samtycke_version` och `samtycke_at` sparas vid
   varje sparning. Texten står på kartans sida `/uppdrag/redigera`, version 1.
-- **Utträde** döljer profilen direkt, eftersom vyn bara visar aktiva medlemmar. Funktionen
-  raderar profilen och klicken 30 dagar efter utträdet. Klick sparas i 90 dagar.
+- **Utträde** döljer profilen direkt, eftersom vyn bara visar aktiva medlemmar. Profilen och
+  klicken raderas 30 dagar efter utträdet, och klick sparas i 90 dagar. Det sköter pg_cron-jobbet
+  `uppdrag-stada` varje natt kl. 03.17 UTC, med funktionen `uppdrag_stada()` ur migreringen
+  `uppdrag_stadning`, oavsett om någon använder sidan.
 - **Mejltaket.** Länkarna räknas mot samma 90 per dygn i `utskick` som anmälan, och har ett eget
   tak på 30 per dygn och 3 per medlem och timme, så att de aldrig tränger undan en anmälan.
 - **Hastighetsgräns** per nätverk i `uppdrag_forsok`, skild från `anmalan_forsok`.
