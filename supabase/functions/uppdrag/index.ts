@@ -2,11 +2,15 @@ import "jsr:@supabase/functions-js@2/edge-runtime.d.ts";
 import { createClient, type SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import {
   arRobot,
+  type Bild,
+  bildFilnamn,
   epostOk,
   esc,
   fornamn,
   giltigSlug,
+  giltigtBildnamn,
   giltigtTokenFormat,
+  lasBild,
   lasProfil,
   nySlug,
   nyToken,
@@ -23,6 +27,7 @@ import {
  *
  *   GET    /uppdrag              publicerade profiler, öppet för alla
  *   GET    /uppdrag/k/<slug>     räknar ett klick och skickar vidare till medlemmens länk
+ *   GET    /uppdrag/b/<slug>     profilens bild, bara så länge profilen syns i listan
  *   POST   /uppdrag/lank         mejlar en engångslänk, om adressen är en aktiv medlem
  *   POST   /uppdrag/session      byter länken mot en session på en timme
  *   PUT    /uppdrag/profil       sparar och publicerar, kräver session
@@ -39,7 +44,7 @@ const ALLOWED_ORIGINS = [
   "http://localhost:4322",
 ];
 const KARTAN = "https://karta.opensverige.se";
-const SAMTYCKE_VERSION = "2";
+const SAMTYCKE_VERSION = "3";
 const LANK_GILTIG_MS = 30 * 60 * 1000;
 const SESSION_MS = 60 * 60 * 1000;
 // Samma nivå som anmälan. Skript från en maskin ska stoppas, inte ett rum på en meetup.
@@ -58,6 +63,8 @@ type Medlem = { id: string; namn: string; epost: string; typ: string; uttradd_at
 type ProfilRad = Profilfalt & {
   medlem_id: string;
   slug: string;
+  /** Filnamnet i lagringen uppdrag-bilder, eller null för en profil från innan bilden fanns. */
+  bild: string | null;
   samtycke_version: string;
   samtycke_at: string;
   skapad_at: string;
@@ -109,7 +116,11 @@ type Database = {
 type Db = SupabaseClient<Database>;
 
 const PUBLIKA_FALT =
-  "slug, namn, rubrik, lank, erbjuder, kommun, distans, omraden, bolag_namn, bolag_webbplats, uppdaterad_at, figur";
+  "slug, namn, rubrik, lank, erbjuder, kommun, distans, omraden, bolag_namn, bolag_webbplats, uppdaterad_at, bild";
+
+// Bilderna ligger i en lagring som inte är publik. De lämnas ut genom /b/<slug>, och bara för en
+// profil som syns i listan, så en medlem som går ur försvinner med bild i samma stund.
+const BILDER = "uppdrag-bilder";
 
 function corsSkyddad(origin: string | null): Record<string, string> {
   const ok = origin && ALLOWED_ORIGINS.includes(origin);
@@ -230,6 +241,24 @@ async function stada(db: Db): Promise<void> {
     await db.from("uppdrag_klick").delete().in("medlem_id", ids);
     await db.from("uppdrag_profiler").delete().in("medlem_id", ids);
   }
+  await stadaBilder(db);
+}
+
+/**
+ * Raderar bilder som ingen profil pekar på längre: den gamla bilden när någon byter, och bilden
+ * för en profil som nattens städning har tagit bort. De syns aldrig utåt ändå, se /b/<slug>.
+ */
+async function stadaBilder(db: Db): Promise<void> {
+  const { data: filer, error } = await db.storage.from(BILDER).list("", { limit: 1000 });
+  if (error || !filer?.length) return;
+  const { data: rader } = await db.from("uppdrag_profiler").select("bild").not("bild", "is", null);
+  const anvanda = new Set((rader ?? []).map((r) => r.bild));
+  // En bild som just laddats upp kan sakna sin rad några sekunder. Den får vara i fred en timme.
+  const timmeSedan = Date.now() - 3600000;
+  const bort = filer
+    .filter((f) => !anvanda.has(f.name) && new Date(f.created_at ?? 0).getTime() < timmeSedan)
+    .map((f) => f.name);
+  if (bort.length) await db.storage.from(BILDER).remove(bort);
 }
 
 /** Hastighetsgräns per nätverk, räknad på en saltad hash. Gäller bara anrop som skriver eller mejlar. */
@@ -283,6 +312,9 @@ async function lista(db: Db): Promise<Response> {
     console.error("kunde inte läsa profiler", error.message);
     return svar(500, { fel: "Kunde inte läsa profilerna." }, headers);
   }
+  // Listan hämtas oftare än någon skriver, så bilder utan profil städas också härifrån ibland,
+  // efter svaret. Då ligger en bild aldrig kvar länge efter att nattens städning tagit profilen.
+  if (Math.random() < 0.05) iBakgrunden(stadaBilder(db));
   return svar(200, { antal: data.length, profiler: data }, headers);
 }
 
@@ -394,6 +426,37 @@ async function medlemForSession(db: Db, req: Request): Promise<Medlem | null> {
   return data ? await aktivMedlem(db, data.medlem_id) : null;
 }
 
+/** Lägger bilden i lagringen under ett slumpat namn. Ger namnet, eller null om det inte gick. */
+async function laddaUppBild(db: Db, bild: Bild): Promise<string | null> {
+  const namn = bildFilnamn(bild.typ);
+  const { error } = await db.storage.from(BILDER).upload(namn, bild.bytes, { contentType: bild.typ, upsert: false });
+  if (error) {
+    console.error("kunde inte spara bilden", error.message);
+    return null;
+  }
+  return namn;
+}
+
+/** Profilens bild, bara så länge profilen syns i listan. Adressen bär bildens namn, så den kan cachas. */
+async function bildSvar(db: Db, slug: string): Promise<Response> {
+  const huvud = { "Access-Control-Allow-Origin": "*", "X-Content-Type-Options": "nosniff", "Cache-Control": "no-store" };
+  if (!giltigSlug(slug)) return new Response(null, { status: 404, headers: huvud });
+  const { data } = await db.from("uppdrag_publika").select("bild").eq("slug", slug).maybeSingle();
+  if (!data?.bild || !giltigtBildnamn(data.bild)) return new Response(null, { status: 404, headers: huvud });
+  const { data: fil, error } = await db.storage.from(BILDER).download(data.bild);
+  if (error || !fil) return new Response(null, { status: 404, headers: huvud });
+  return new Response(fil, {
+    status: 200,
+    headers: {
+      ...huvud,
+      "Content-Type": data.bild.endsWith(".webp") ? "image/webp" : "image/jpeg",
+      // Kort tid, så att en borttagen profil inte ligger kvar länge i någons cache.
+      "Cache-Control": "public, max-age=3600",
+      "Content-Security-Policy": "default-src 'none'",
+    },
+  });
+}
+
 async function sparaProfil(
   db: Db,
   medlem: Medlem,
@@ -401,38 +464,56 @@ async function sparaProfil(
   headers: Record<string, string>,
 ): Promise<Response> {
   const last = lasProfil(body);
-  if ("fel" in last) return svar(422, { fel: "Några fält behöver rättas.", falt: last.fel }, headers);
+  const bild = lasBild(body.bild);
+  const { data: finns } = await db.from("uppdrag_profiler").select("slug, bild").eq("medlem_id", medlem.id).maybeSingle();
+  // Bilden krävs. En profil från innan bilden fanns behåller sin plats, men får en bild nästa gång.
+  const felFalt = [...("fel" in last ? last.fel : []), ...(bild === "fel" || (!bild && !finns?.bild) ? ["bild"] : [])];
+  if ("fel" in last || felFalt.length) return svar(422, { fel: "Några fält behöver rättas.", falt: felFalt }, headers);
+
+  const nyBild = bild && bild !== "fel" ? await laddaUppBild(db, bild) : null;
+  if (bild && bild !== "fel" && !nyBild) return svar(500, { fel: "Kunde inte spara bilden. Försök igen." }, headers);
+  const avbryt = async (): Promise<void> => {
+    if (nyBild) await db.storage.from(BILDER).remove([nyBild]);
+  };
+
   const nu = new Date().toISOString();
   const samtycke = { samtycke_version: SAMTYCKE_VERSION, samtycke_at: nu };
-  const { data: finns } = await db.from("uppdrag_profiler").select("slug").eq("medlem_id", medlem.id).maybeSingle();
+  const falt = { ...last.falt, ...(nyBild ? { bild: nyBild } : {}) };
 
   let profil: ProfilRad | null = null;
   if (finns) {
-    const { data, error } = await db.from("uppdrag_profiler").update({ ...last.falt, ...samtycke, uppdaterad_at: nu })
+    const { data, error } = await db.from("uppdrag_profiler").update({ ...falt, ...samtycke, uppdaterad_at: nu })
       .eq("medlem_id", medlem.id).select("*").single();
     if (error) {
       console.error("kunde inte uppdatera profilen", error.code, error.message);
+      await avbryt();
       return svar(500, { fel: "Kunde inte spara. Försök igen." }, headers);
     }
     profil = data;
+    if (nyBild && finns.bild) await db.storage.from(BILDER).remove([finns.bild]);
   } else {
     // Adressen sätts en gång och ändras inte när namnet ändras, så en delad länk håller.
     for (let forsok = 0; forsok < 3 && !profil; forsok++) {
       const { data, error } = await db.from("uppdrag_profiler")
-        .insert({ medlem_id: medlem.id, slug: nySlug(last.falt.namn, slumpHex(4)), ...last.falt, ...samtycke })
+        .insert({ medlem_id: medlem.id, slug: nySlug(last.falt.namn, slumpHex(4)), ...falt, bild: nyBild, ...samtycke })
         .select("*").single();
       if (!error) profil = data;
       else if (error.code !== "23505") {
         console.error("kunde inte spara profilen", error.code, error.message);
+        await avbryt();
         return svar(500, { fel: "Kunde inte spara. Försök igen." }, headers);
       }
     }
-    if (!profil) return svar(500, { fel: "Kunde inte spara. Försök igen." }, headers);
+    if (!profil) {
+      await avbryt();
+      return svar(500, { fel: "Kunde inte spara. Försök igen." }, headers);
+    }
   }
   return svar(200, { ok: true, profil: egenProfil(profil), klick30: await klickSenaste30(db, medlem.id) }, headers);
 }
 
 async function raderaProfil(db: Db, medlem: Medlem, headers: Record<string, string>): Promise<Response> {
+  const { data: rad } = await db.from("uppdrag_profiler").select("bild").eq("medlem_id", medlem.id).maybeSingle();
   const [klickSvar, profilSvar] = await Promise.all([
     db.from("uppdrag_klick").delete().eq("medlem_id", medlem.id),
     db.from("uppdrag_profiler").delete().eq("medlem_id", medlem.id),
@@ -441,6 +522,8 @@ async function raderaProfil(db: Db, medlem: Medlem, headers: Record<string, stri
     console.error("kunde inte radera", klickSvar.error?.message ?? profilSvar.error?.message);
     return svar(500, { fel: "Kunde inte radera. Försök igen." }, headers);
   }
+  // Raden är borta, så bilden syns inte längre. Går lagringen inte att nå nu tar städningen den.
+  if (rad?.bild) await db.storage.from(BILDER).remove([rad.bild]);
   return svar(200, { ok: true }, headers);
 }
 
@@ -455,6 +538,7 @@ Deno.serve(async (req) => {
     return await klick(db, req, decodeURIComponent(vag.slice(3)));
   }
   if (req.method === "GET" && vag === "") return await lista(db);
+  if (req.method === "GET" && vag.startsWith("/b/")) return await bildSvar(db, decodeURIComponent(vag.slice(3)));
 
   const headers = corsSkyddad(origin);
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers });

@@ -95,14 +95,73 @@ export function giltigaOmraden(v: unknown): string[] | null {
 }
 
 /**
- * Figuren som står på kortet i stället för en bild: ett id ur kartans lista, f01 till f16.
- * Samma lista som kartans src/lib/figurer.ts. Ett id byts aldrig ut eller tas bort, eftersom det
- * kan stå i en sparad profil. Kartan väljer en figur själv när fältet är tomt.
+ * Bilden på kortet. Webbläsaren beskär den till en kvadrat och kodar om den, så att metadata som
+ * plats försvinner. Funktionen godtar ändå bara det enkla formatet: WebP utan utökade block och
+ * JPEG utan EXIF- och XMP-block. En bild med metadata stoppas i stället för att rensas.
  */
-export const ANTAL_FIGURER = 16;
-export function giltigFigur(s: string): boolean {
-  const m = /^f(\d{2})$/.exec(s);
-  return !!m && Number(m[1]) >= 1 && Number(m[1]) <= ANTAL_FIGURER;
+export const BILD_MAX_BYTES = 300 * 1024;
+export type Bild = { bytes: Uint8Array; typ: "image/webp" | "image/jpeg" };
+
+function base64Bytes(s: string): Uint8Array | null {
+  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(s)) return null;
+  try {
+    const bin = atob(s);
+    const ut = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) ut[i] = bin.charCodeAt(i);
+    return ut;
+  } catch {
+    return null;
+  }
+}
+
+const ascii = (b: Uint8Array, fran: number, langd: number): string =>
+  String.fromCharCode(...b.subarray(fran, fran + langd));
+
+/** WebP med ett enda bildblock, VP8 eller VP8L. Det utökade formatet VP8X kan bära EXIF och XMP. */
+export function enkelWebp(b: Uint8Array): boolean {
+  return b.length > 30 && ascii(b, 0, 4) === "RIFF" && ascii(b, 8, 4) === "WEBP" &&
+    (ascii(b, 12, 4) === "VP8 " || ascii(b, 12, 4) === "VP8L");
+}
+
+/** JPEG utan APP1 (EXIF och XMP) och utan APP13 (IPTC). Läser blocken fram till bilddatat. */
+export function renJpeg(b: Uint8Array): boolean {
+  if (b.length < 4 || b[0] !== 0xff || b[1] !== 0xd8) return false;
+  let i = 2;
+  while (i + 4 <= b.length) {
+    if (b[i] !== 0xff) return false;
+    const typ = b[i + 1];
+    if (typ === 0xda) return true;
+    if (typ === 0xe1 || typ === 0xed) return false;
+    const langd = (b[i + 2] << 8) | b[i + 3];
+    if (langd < 2) return false;
+    i += 2 + langd;
+  }
+  return false;
+}
+
+/**
+ * Läser bilden ur formuläret, en data-adress. Ger null när ingen ny bild skickades och "fel" när
+ * det som skickades inte går igenom.
+ */
+export function lasBild(v: unknown): Bild | null | "fel" {
+  if (v === undefined || v === null || v === "") return null;
+  if (typeof v !== "string" || v.length > Math.ceil(BILD_MAX_BYTES / 3) * 4 + 40) return "fel";
+  const m = /^data:(image\/webp|image\/jpeg);base64,(.+)$/.exec(v);
+  if (!m) return "fel";
+  const bytes = base64Bytes(m[2]);
+  if (!bytes || bytes.length > BILD_MAX_BYTES) return "fel";
+  const typ = m[1] as Bild["typ"];
+  if (typ === "image/webp" ? !enkelWebp(bytes) : !renJpeg(bytes)) return "fel";
+  return { bytes, typ };
+}
+
+/** Filnamnet i lagringen: slumpat, så att ingen kan gissa sig till en annans bild. */
+export function bildFilnamn(typ: Bild["typ"]): string {
+  return `${crypto.randomUUID()}.${typ === "image/webp" ? "webp" : "jpg"}`;
+}
+
+export function giltigtBildnamn(s: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.(webp|jpg)$/.test(s);
 }
 
 const TECKEN: Record<string, string> = { "å": "a", "ä": "a", "ö": "o", "é": "e", "ü": "u" };
@@ -174,7 +233,6 @@ export type Profilfalt = {
   omraden: string[];
   bolag_namn: string | null;
   bolag_webbplats: string | null;
-  figur: string | null;
 };
 
 const text = (
@@ -194,7 +252,6 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
   const bolagNamn = text(body.bolag_namn, 80);
   const bolagWebbText = text(body.bolag_webbplats, 300);
   const bolagWebb = bolagWebbText ? httpsAdress(bolagWebbText) : null;
-  const figur = text(body.figur, 3);
 
   if (!giltigtNamn(namn)) fel.push("namn");
   if (!giltigText(rubrik, 90)) fel.push("rubrik");
@@ -205,7 +262,6 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
   if (!omraden) fel.push("omraden");
   if (bolagNamn && !giltigText(bolagNamn, 80)) fel.push("bolag_namn");
   if (bolagWebbText && !bolagWebb) fel.push("bolag_webbplats");
-  if (figur && !giltigFigur(figur)) fel.push("figur");
   if (body.samtycke !== true) fel.push("samtycke");
   if (fel.length) return { fel };
 
@@ -220,7 +276,6 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
       omraden: omraden!,
       bolag_namn: bolagNamn || null,
       bolag_webbplats: bolagWebb,
-      figur: figur || null,
     },
   };
 }

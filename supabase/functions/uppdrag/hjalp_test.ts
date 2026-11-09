@@ -3,7 +3,10 @@ import { assertEquals } from "jsr:@std/assert@1";
 import {
   arRobot,
   giltigaOmraden,
-  giltigFigur,
+  enkelWebp,
+  giltigtBildnamn,
+  lasBild,
+  renJpeg,
   giltigSlug,
   harPersonnummer,
   httpsAdress,
@@ -99,15 +102,35 @@ Deno.test("robotar räknas inte som klick", () => {
   assertEquals(arRobot("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Safari/604.1"), false);
 });
 
-Deno.test("figuren är ett id ur kartans lista, och tom betyder att kartan väljer", () => {
-  for (const f of ["f01", "f09", "f16"]) assertEquals(giltigFigur(f), true, f);
-  for (const f of ["f00", "f17", "f1", "F01", "f01 ", "../f01", "f01.svg", ""]) assertEquals(giltigFigur(f), false, f);
-  const utan = lasProfil(giltig);
-  assertEquals("falt" in utan && utan.falt.figur, null);
-  const med = lasProfil({ ...giltig, figur: "f07" });
-  assertEquals("falt" in med && med.falt.figur, "f07");
-  const fel = lasProfil({ ...giltig, figur: "f99" });
-  assertEquals("fel" in fel && fel.fel, ["figur"]);
-  const inteText = lasProfil({ ...giltig, figur: 7 });
-  assertEquals("falt" in inteText && inteText.falt.figur, null);
+const bytes = (...b: number[]) => new Uint8Array(b);
+const dataUrl = (typ: string, b: Uint8Array) => `data:${typ};base64,${btoa(String.fromCharCode(...b))}`;
+const riff = (block: string) =>
+  new Uint8Array([..."RIFF"].map((c) => c.charCodeAt(0)).concat([40, 0, 0, 0], [..."WEBP"].map((c) => c.charCodeAt(0)), [...block].map((c) => c.charCodeAt(0)), Array(24).fill(0)));
+// FFD8, APP0 JFIF med längd 4, sedan SOS.
+const jpegRen = bytes(0xff, 0xd8, 0xff, 0xe0, 0x00, 0x04, 0x4a, 0x46, 0xff, 0xda, 0x00, 0x02, 0x00);
+const jpegExif = bytes(0xff, 0xd8, 0xff, 0xe1, 0x00, 0x04, 0x45, 0x78, 0xff, 0xda, 0x00, 0x02, 0x00);
+
+Deno.test("bilden: enkel WebP och JPEG utan EXIF går igenom, resten stoppas", () => {
+  assertEquals(enkelWebp(riff("VP8 ")), true);
+  assertEquals(enkelWebp(riff("VP8L")), true);
+  assertEquals(enkelWebp(riff("VP8X")), false);
+  assertEquals(renJpeg(jpegRen), true);
+  assertEquals(renJpeg(jpegExif), false);
+  assertEquals(lasBild(undefined), null);
+  assertEquals(lasBild(""), null);
+  const ok = lasBild(dataUrl("image/webp", riff("VP8 ")));
+  assertEquals(typeof ok === "object" && ok !== null && ok.typ, "image/webp");
+  assertEquals(lasBild(dataUrl("image/webp", riff("VP8X"))), "fel");
+  assertEquals(lasBild(dataUrl("image/jpeg", jpegExif)), "fel");
+  assertEquals(lasBild(dataUrl("image/png", jpegRen)), "fel");
+  assertEquals(lasBild(dataUrl("image/jpeg", riff("VP8 "))), "fel");
+  assertEquals(lasBild("data:image/webp;base64,@@@"), "fel");
+  assertEquals(lasBild(`data:image/webp;base64,${"A".repeat(420000)}`), "fel");
+  assertEquals(lasBild(42), "fel");
+});
+
+Deno.test("bildens namn är slumpat och har ett känt slut", () => {
+  assertEquals(giltigtBildnamn("3f1c2a9e-1b2c-4d5e-8f90-0a1b2c3d4e5f.webp"), true);
+  assertEquals(giltigtBildnamn("3f1c2a9e-1b2c-4d5e-8f90-0a1b2c3d4e5f.png"), false);
+  assertEquals(giltigtBildnamn("../3f1c2a9e-1b2c-4d5e-8f90-0a1b2c3d4e5f.webp"), false);
 });
