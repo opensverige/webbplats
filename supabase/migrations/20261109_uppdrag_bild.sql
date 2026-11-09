@@ -4,7 +4,7 @@
 -- Bilderna ligger i lagringen uppdrag-bilder, som inte är publik och inte går att lista. Bara
 -- funktionen uppdrag når den, med service_role, och den lämnar ut en bild bara för en profil som
 -- syns i listan. Webbläsaren beskär och kodar om bilden innan den skickas, så metadata som plats
--- följer inte med, och funktionen stoppar en bild som ändå bär EXIF eller XMP.
+-- följer inte med, och funktionen tar bort EXIF, XMP och IPTC ur en JPEG.
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('uppdrag-bilder', 'uppdrag-bilder', false, 307200, array['image/webp', 'image/jpeg']);

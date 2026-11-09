@@ -6,7 +6,7 @@ import {
   enkelWebp,
   giltigtBildnamn,
   lasBild,
-  renJpeg,
+  rensaJpeg,
   giltigSlug,
   harPersonnummer,
   httpsAdress,
@@ -110,18 +110,22 @@ const riff = (block: string) =>
 const jpegRen = bytes(0xff, 0xd8, 0xff, 0xe0, 0x00, 0x04, 0x4a, 0x46, 0xff, 0xda, 0x00, 0x02, 0x00);
 const jpegExif = bytes(0xff, 0xd8, 0xff, 0xe1, 0x00, 0x04, 0x45, 0x78, 0xff, 0xda, 0x00, 0x02, 0x00);
 
-Deno.test("bilden: enkel WebP och JPEG utan EXIF går igenom, resten stoppas", () => {
+Deno.test("bilden: enkel WebP går igenom, och ur en JPEG tas EXIF bort", () => {
   assertEquals(enkelWebp(riff("VP8 ")), true);
   assertEquals(enkelWebp(riff("VP8L")), true);
   assertEquals(enkelWebp(riff("VP8X")), false);
-  assertEquals(renJpeg(jpegRen), true);
-  assertEquals(renJpeg(jpegExif), false);
+  assertEquals(rensaJpeg(jpegRen), jpegRen);
+  // APP1 med sitt innehåll är borta, SOI och bilddatat är kvar.
+  assertEquals(rensaJpeg(jpegExif), bytes(0xff, 0xd8, 0xff, 0xda, 0x00, 0x02, 0x00));
+  assertEquals(rensaJpeg(bytes(0xff, 0xd8, 0xff, 0xe1, 0x00, 0x40)), null);
+  assertEquals(rensaJpeg(riff("VP8 ")), null);
   assertEquals(lasBild(undefined), null);
   assertEquals(lasBild(""), null);
   const ok = lasBild(dataUrl("image/webp", riff("VP8 ")));
   assertEquals(typeof ok === "object" && ok !== null && ok.typ, "image/webp");
   assertEquals(lasBild(dataUrl("image/webp", riff("VP8X"))), "fel");
-  assertEquals(lasBild(dataUrl("image/jpeg", jpegExif)), "fel");
+  const rensad = lasBild(dataUrl("image/jpeg", jpegExif));
+  assertEquals(typeof rensad === "object" && rensad !== null && rensad.bytes, bytes(0xff, 0xd8, 0xff, 0xda, 0x00, 0x02, 0x00));
   assertEquals(lasBild(dataUrl("image/png", jpegRen)), "fel");
   assertEquals(lasBild(dataUrl("image/jpeg", riff("VP8 "))), "fel");
   assertEquals(lasBild("data:image/webp;base64,@@@"), "fel");

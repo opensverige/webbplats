@@ -185,15 +185,16 @@ in dem i bygget.
 | --- | --- |
 | `GET /uppdrag` | Publicerade profiler ur vyn `uppdrag_publika`, bara aktiva fysiska medlemmar |
 | `GET /uppdrag/k/<slug>` | Räknar ett klick per profil och dag och skickar vidare. Robotar räknas inte |
+| `GET /uppdrag/b/<slug>` | Profilens bild, bara så länge profilen syns i `uppdrag_publika` |
 | `POST /uppdrag/lank` | Mejlar engångslänken, om adressen är en aktiv fysisk medlem |
 | `POST /uppdrag/session` | Byter länken mot en session, ger medlemmens egen profil och klicken för 30 dagar |
-| `PUT /uppdrag/profil` | Sparar och publicerar. Sessionen skickas i huvudet `x-uppdrag-session` |
-| `DELETE /uppdrag/profil` | Raderar profilen och klicken direkt |
+| `PUT /uppdrag/profil` | Sparar och publicerar, med bilden som data-adress. Sessionen skickas i huvudet `x-uppdrag-session` |
+| `DELETE /uppdrag/profil` | Raderar profilen, bilden och klicken direkt |
 
 - **Inga personnummer.** Tio siffror i följd avvisas i namn, rubrik och bolagsnamn, i funktionen
   och i CHECK-villkoren. Det fångar också en enskild firmas organisationsnummer.
 - **Samtycke** är skilt från medlemskapet. `samtycke_version` och `samtycke_at` sparas vid
-  varje sparning. Texten står på kartans sida `/uppdrag/redigera`, version 1.
+  varje sparning. Texten står på kartans sida `/uppdrag/redigera`, version 3.
 - **Utträde** döljer profilen direkt, eftersom vyn bara visar aktiva medlemmar. Profilen och
   klicken raderas 30 dagar efter utträdet, och klick sparas i 90 dagar. Det sköter pg_cron-jobbet
   `uppdrag-stada` varje natt kl. 03.17 UTC, med funktionen `uppdrag_stada()` ur migreringen
@@ -202,7 +203,15 @@ in dem i bygget.
   tak på 30 per dygn och 3 per medlem och timme, så att de aldrig tränger undan en anmälan.
 - **Hastighetsgräns** per nätverk i `uppdrag_forsok`, skild från `anmalan_forsok`.
 - **Origin.** `https://karta.opensverige.se` och för utveckling `localhost:4321` och `4322`.
+- **Bilden** krävs. Medlemmens webbläsare beskär den till 512 × 512 och kodar om den, och
+  funktionen tar dessutom bort EXIF-, XMP- och IPTC-block ur en JPEG och godtar bara enkel WebP.
+  Den ligger i lagringen `uppdrag-bilder`, som inte är publik, och lämnas ut genom `/b/<slug>`.
+  Bilder utan profil städas bort när någon sparar och ibland när listan hämtas.
 - **Styrelsen avpublicerar** en profil genom att radera raden i `uppdrag_profiler` i dashboarden.
+- **En olämplig bild** tas bort utan att profilen försvinner:
+  1. `update public.uppdrag_profiler set bild = null where slug = '<slug>';` tar bort den från
+     sajten direkt. Kortet visar pixelhanden, och nästa sparning kräver en ny bild.
+  2. Radera filen i Storage, `uppdrag-bilder`, eller vänta på städningen.
 
 Funktionen driftsätts som `medlem`, med `verify_jwt` avstängt och båda filerna:
 

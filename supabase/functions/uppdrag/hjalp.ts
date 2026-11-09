@@ -96,8 +96,9 @@ export function giltigaOmraden(v: unknown): string[] | null {
 
 /**
  * Bilden på kortet. Webbläsaren beskär den till en kvadrat och kodar om den, så att metadata som
- * plats försvinner. Funktionen godtar ändå bara det enkla formatet: WebP utan utökade block och
- * JPEG utan EXIF- och XMP-block. En bild med metadata stoppas i stället för att rensas.
+ * plats försvinner. Funktionen ser ändå till att inget följer med: WebP godtas bara i det enkla
+ * formatet utan utökade block, och ur en JPEG tas EXIF-, XMP- och IPTC-blocken bort. Safari kodar
+ * alltid JPEG, och vad den skriver i filen styr vi inte över.
  */
 export const BILD_MAX_BYTES = 300 * 1024;
 export type Bild = { bytes: Uint8Array; typ: "image/webp" | "image/jpeg" };
@@ -123,20 +124,34 @@ export function enkelWebp(b: Uint8Array): boolean {
     (ascii(b, 12, 4) === "VP8 " || ascii(b, 12, 4) === "VP8L");
 }
 
-/** JPEG utan APP1 (EXIF och XMP) och utan APP13 (IPTC). Läser blocken fram till bilddatat. */
-export function renJpeg(b: Uint8Array): boolean {
-  if (b.length < 4 || b[0] !== 0xff || b[1] !== 0xd8) return false;
+/**
+ * JPEG utan APP1 (EXIF och XMP) och APP13 (IPTC). Läser blocken fram till bilddatat och lämnar
+ * bort de två. Allt från bilddatat och framåt följer med orört. Ger null för en fil som inte är
+ * en hel JPEG.
+ */
+export function rensaJpeg(b: Uint8Array): Uint8Array | null {
+  if (b.length < 4 || b[0] !== 0xff || b[1] !== 0xd8) return null;
+  const delar: Uint8Array[] = [b.subarray(0, 2)];
   let i = 2;
   while (i + 4 <= b.length) {
-    if (b[i] !== 0xff) return false;
+    if (b[i] !== 0xff) return null;
     const typ = b[i + 1];
-    if (typ === 0xda) return true;
-    if (typ === 0xe1 || typ === 0xed) return false;
+    if (typ === 0xda) {
+      delar.push(b.subarray(i));
+      const ut = new Uint8Array(delar.reduce((n, d) => n + d.length, 0));
+      let pos = 0;
+      for (const d of delar) {
+        ut.set(d, pos);
+        pos += d.length;
+      }
+      return ut;
+    }
     const langd = (b[i + 2] << 8) | b[i + 3];
-    if (langd < 2) return false;
+    if (langd < 2 || i + 2 + langd > b.length) return null;
+    if (typ !== 0xe1 && typ !== 0xed) delar.push(b.subarray(i, i + 2 + langd));
     i += 2 + langd;
   }
-  return false;
+  return null;
 }
 
 /**
@@ -151,8 +166,9 @@ export function lasBild(v: unknown): Bild | null | "fel" {
   const bytes = base64Bytes(m[2]);
   if (!bytes || bytes.length > BILD_MAX_BYTES) return "fel";
   const typ = m[1] as Bild["typ"];
-  if (typ === "image/webp" ? !enkelWebp(bytes) : !renJpeg(bytes)) return "fel";
-  return { bytes, typ };
+  if (typ === "image/webp") return enkelWebp(bytes) ? { bytes, typ } : "fel";
+  const ren = rensaJpeg(bytes);
+  return ren ? { bytes: ren, typ } : "fel";
 }
 
 /** Filnamnet i lagringen: slumpat, så att ingen kan gissa sig till en annans bild. */
