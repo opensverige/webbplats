@@ -39,7 +39,7 @@ const ALLOWED_ORIGINS = [
   "http://localhost:4322",
 ];
 const KARTAN = "https://karta.opensverige.se";
-const SAMTYCKE_VERSION = "1";
+const SAMTYCKE_VERSION = "2";
 const LANK_GILTIG_MS = 30 * 60 * 1000;
 const SESSION_MS = 60 * 60 * 1000;
 // Samma nivå som anmälan. Skript från en maskin ska stoppas, inte ett rum på en meetup.
