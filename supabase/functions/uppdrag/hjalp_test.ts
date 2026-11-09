@@ -3,6 +3,7 @@ import { assertEquals } from "jsr:@std/assert@1";
 import {
   arRobot,
   giltigaOmraden,
+  giltigFigur,
   giltigSlug,
   harPersonnummer,
   httpsAdress,
@@ -96,4 +97,17 @@ Deno.test("robotar räknas inte som klick", () => {
   assertEquals(arRobot("facebookexternalhit/1.1"), true);
   assertEquals(arRobot(null), true);
   assertEquals(arRobot("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Safari/604.1"), false);
+});
+
+Deno.test("figuren är ett id ur kartans lista, och tom betyder att kartan väljer", () => {
+  for (const f of ["f01", "f09", "f16"]) assertEquals(giltigFigur(f), true, f);
+  for (const f of ["f00", "f17", "f1", "F01", "f01 ", "../f01", "f01.svg", ""]) assertEquals(giltigFigur(f), false, f);
+  const utan = lasProfil(giltig);
+  assertEquals("falt" in utan && utan.falt.figur, null);
+  const med = lasProfil({ ...giltig, figur: "f07" });
+  assertEquals("falt" in med && med.falt.figur, "f07");
+  const fel = lasProfil({ ...giltig, figur: "f99" });
+  assertEquals("fel" in fel && fel.fel, ["figur"]);
+  const inteText = lasProfil({ ...giltig, figur: 7 });
+  assertEquals("falt" in inteText && inteText.falt.figur, null);
 });

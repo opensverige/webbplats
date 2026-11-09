@@ -109,7 +109,7 @@ type Database = {
 type Db = SupabaseClient<Database>;
 
 const PUBLIKA_FALT =
-  "slug, namn, rubrik, lank, erbjuder, kommun, distans, omraden, bolag_namn, bolag_webbplats, uppdaterad_at";
+  "slug, namn, rubrik, lank, erbjuder, kommun, distans, omraden, bolag_namn, bolag_webbplats, uppdaterad_at, figur";
 
 function corsSkyddad(origin: string | null): Record<string, string> {
   const ok = origin && ALLOWED_ORIGINS.includes(origin);

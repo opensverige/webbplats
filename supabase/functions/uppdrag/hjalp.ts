@@ -94,6 +94,17 @@ export function giltigaOmraden(v: unknown): string[] | null {
   return ut.length <= MAX_OMRADEN ? ut : null;
 }
 
+/**
+ * Figuren som står på kortet i stället för en bild: ett id ur kartans lista, f01 till f16.
+ * Samma lista som kartans src/lib/figurer.ts. Ett id byts aldrig ut eller tas bort, eftersom det
+ * kan stå i en sparad profil. Kartan väljer en figur själv när fältet är tomt.
+ */
+export const ANTAL_FIGURER = 16;
+export function giltigFigur(s: string): boolean {
+  const m = /^f(\d{2})$/.exec(s);
+  return !!m && Number(m[1]) >= 1 && Number(m[1]) <= ANTAL_FIGURER;
+}
+
 const TECKEN: Record<string, string> = { "å": "a", "ä": "a", "ö": "o", "é": "e", "ü": "u" };
 /** Adressens del för profilen: namnet i små bokstäver och fyra slumpade tecken, så två Kim inte krockar. */
 export function nySlug(namn: string, slump: string): string {
@@ -163,6 +174,7 @@ export type Profilfalt = {
   omraden: string[];
   bolag_namn: string | null;
   bolag_webbplats: string | null;
+  figur: string | null;
 };
 
 const text = (
@@ -182,6 +194,7 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
   const bolagNamn = text(body.bolag_namn, 80);
   const bolagWebbText = text(body.bolag_webbplats, 300);
   const bolagWebb = bolagWebbText ? httpsAdress(bolagWebbText) : null;
+  const figur = text(body.figur, 3);
 
   if (!giltigtNamn(namn)) fel.push("namn");
   if (!giltigText(rubrik, 90)) fel.push("rubrik");
@@ -192,6 +205,7 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
   if (!omraden) fel.push("omraden");
   if (bolagNamn && !giltigText(bolagNamn, 80)) fel.push("bolag_namn");
   if (bolagWebbText && !bolagWebb) fel.push("bolag_webbplats");
+  if (figur && !giltigFigur(figur)) fel.push("figur");
   if (body.samtycke !== true) fel.push("samtycke");
   if (fel.length) return { fel };
 
@@ -206,6 +220,7 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
       omraden: omraden!,
       bolag_namn: bolagNamn || null,
       bolag_webbplats: bolagWebb,
+      figur: figur || null,
     },
   };
 }
