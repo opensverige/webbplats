@@ -63,7 +63,7 @@ type Medlem = { id: string; namn: string; epost: string; typ: string; uttradd_at
 type ProfilRad = Profilfalt & {
   medlem_id: string;
   slug: string;
-  /** Filnamnet i lagringen uppdrag-bilder, eller null för en profil från innan bilden fanns. */
+  /** Filnamnet i lagringen uppdrag-bilder, eller null för en profil utan bild. */
   bild: string | null;
   samtycke_version: string;
   samtycke_at: string;
@@ -116,7 +116,7 @@ type Database = {
 type Db = SupabaseClient<Database>;
 
 const PUBLIKA_FALT =
-  "slug, namn, rubrik, lank, erbjuder, kommun, distans, omraden, bolag_namn, bolag_webbplats, uppdaterad_at, bild";
+  "slug, namn, rubrik, lank, erbjuder, kommun, distans, omraden, kunskaper, bolag_namn, bolag_webbplats, uppdaterad_at, bild";
 
 // Bilderna ligger i en lagring som inte är publik. De lämnas ut genom /b/<slug>, och bara för en
 // profil som syns i listan, så en medlem som går ur försvinner med bild i samma stund.
@@ -466,8 +466,8 @@ async function sparaProfil(
   const last = lasProfil(body);
   const bild = lasBild(body.bild);
   const { data: finns } = await db.from("uppdrag_profiler").select("slug, bild").eq("medlem_id", medlem.id).maybeSingle();
-  // Bilden krävs. En profil från innan bilden fanns behåller sin plats, men får en bild nästa gång.
-  const felFalt = [...("fel" in last ? last.fel : []), ...(bild === "fel" || (!bild && !finns?.bild) ? ["bild"] : [])];
+  // Bilden är frivillig. Utan bild visar kortet föreningens hand.
+  const felFalt = [...("fel" in last ? last.fel : []), ...(bild === "fel" ? ["bild"] : [])];
   if ("fel" in last || felFalt.length) return svar(422, { fel: "Några fält behöver rättas.", falt: felFalt }, headers);
 
   const nyBild = bild && bild !== "fel" ? await laddaUppBild(db, bild) : null;

@@ -18,6 +18,7 @@ annanstans — därför ligger den i repot.
 | `functions/uppdrag/` | Edge-funktionen bakom Tar uppdrag på AI-kartan, se nedan |
 | `migrations/20261108_uppdrag.sql` | Tabellerna för Tar uppdrag, driftsatta som migreringen `uppdrag` |
 | `migrations/20261109_uppdrag_stadning.sql` | Nattlig städning med pg_cron, migreringen `uppdrag_stadning` |
+| `migrations/20261110_uppdrag_kunskaper.sql` | Kunskaper som medlemmen skriver själv, migreringen `uppdrag_kunskaper` |
 
 ## Flödet i två steg
 
@@ -203,14 +204,17 @@ in dem i bygget.
   tak på 30 per dygn och 3 per medlem och timme, så att de aldrig tränger undan en anmälan.
 - **Hastighetsgräns** per nätverk i `uppdrag_forsok`, skild från `anmalan_forsok`.
 - **Origin.** `https://karta.opensverige.se` och för utveckling `localhost:4321` och `4322`.
-- **Bilden** krävs. Medlemmens webbläsare beskär den till 512 × 512 och kodar om den, och
+- **Kunskaper** är högst sex korta ord som medlemmen skriver själv, som RAG eller Python, högst
+  24 tecken var. Funktionen avvisar länkar, adresser och tio siffror i följd, och tabellen håller
+  taket. De står på raden i listan och går att söka på.
+- **Bilden** är frivillig. Medlemmens webbläsare beskär den till 512 × 512 och kodar om den, och
   funktionen tar dessutom bort EXIF-, XMP- och IPTC-block ur en JPEG och godtar bara enkel WebP.
   Den ligger i lagringen `uppdrag-bilder`, som inte är publik, och lämnas ut genom `/b/<slug>`.
   Bilder utan profil städas bort när någon sparar och ibland när listan hämtas.
 - **Styrelsen avpublicerar** en profil genom att radera raden i `uppdrag_profiler` i dashboarden.
 - **En olämplig bild** tas bort utan att profilen försvinner:
   1. `update public.uppdrag_profiler set bild = null where slug = '<slug>';` tar bort den från
-     sajten direkt. Kortet visar pixelhanden, och nästa sparning kräver en ny bild.
+     sajten direkt. Raden visar pixelhanden tills medlemmen lägger upp en ny bild.
   2. Radera filen i Storage, `uppdrag-bilder`, eller vänta på städningen.
 
 Funktionen driftsätts som `medlem`, med `verify_jwt` avstängt och båda filerna:

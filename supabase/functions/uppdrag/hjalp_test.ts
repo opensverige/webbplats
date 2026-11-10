@@ -2,6 +2,7 @@
 import { assertEquals } from "jsr:@std/assert@1";
 import {
   arRobot,
+  giltigaKunskaper,
   giltigaOmraden,
   enkelWebp,
   giltigtBildnamn,
@@ -53,6 +54,21 @@ Deno.test("områden: högst tre, i formen id, dubbletter räknas en gång", () =
   assertEquals(giltigaOmraden("juridik"), null);
 });
 
+Deno.test("kunskaper: korta ord, högst sex, samma ord räknas en gång", () => {
+  assertEquals(giltigaKunskaper(["RAG", " Python ", "C#", "Node.js", ".NET", "CI/CD"]), ["RAG", "Python", "C#", "Node.js", ".NET", "CI/CD"]);
+  assertEquals(giltigaKunskaper(["RAG", "rag", "Rag"]), ["RAG"]);
+  assertEquals(giltigaKunskaper([]), []);
+  assertEquals(giltigaKunskaper(["a", "b", "c", "d", "e", "f", "g"]), null);
+  assertEquals(giltigaKunskaper(["x".repeat(25)]), null);
+  assertEquals(giltigaKunskaper(["<b>"]), null);
+  assertEquals(giltigaKunskaper(["https://kim.se"]), null);
+  assertEquals(giltigaKunskaper(["kim@kim.se"]), null);
+  assertEquals(giltigaKunskaper(["850101-1234"]), null);
+  assertEquals(giltigaKunskaper([""]), null);
+  assertEquals(giltigaKunskaper([7]), null);
+  assertEquals(giltigaKunskaper("RAG"), null);
+});
+
 Deno.test("slug av namnet, med slump på slutet", () => {
   assertEquals(nySlug("Åsa Öberg", "3f9a"), "asa-oberg-3f9a");
   assertEquals(nySlug("<<>>", "3f9a"), "medlem-3f9a");
@@ -67,7 +83,12 @@ Deno.test("en giltig profil går igenom", () => {
     assertEquals(r.falt.lank, "https://www.linkedin.com/in/kim-exempel");
     assertEquals(r.falt.bolag_namn, null);
     assertEquals(r.falt.kommun, "1480");
+    assertEquals(r.falt.kunskaper, []);
   }
+  const med = lasProfil({ ...giltig, kunskaper: ["RAG", "LangGraph"] });
+  assertEquals("falt" in med ? med.falt.kunskaper : null, ["RAG", "LangGraph"]);
+  const fel = lasProfil({ ...giltig, kunskaper: ["en hel mening om vad jag kan göra åt er"] });
+  assertEquals("fel" in fel ? fel.fel : [], ["kunskaper"]);
 });
 
 Deno.test("felen pekar ut fälten", () => {

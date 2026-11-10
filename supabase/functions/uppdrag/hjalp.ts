@@ -95,6 +95,25 @@ export function giltigaOmraden(v: unknown): string[] | null {
 }
 
 /**
+ * Kunskaper som medlemmen skriver själv: korta ord som RAG, Python eller C#, högst sex och högst
+ * 24 tecken var. Inga meningar, länkar eller adresser. Samma ord med andra stora bokstäver räknas
+ * som ett, och det första sättet att skriva det gäller.
+ */
+export const MAX_KUNSKAPER = 6;
+const KUNSKAP = /^[\p{L}\p{N}.][\p{L}\p{N} .+#/&-]{0,23}$/u;
+export function giltigaKunskaper(v: unknown): string[] | null {
+  if (!Array.isArray(v)) return null;
+  const ut: string[] = [];
+  for (const x of v) {
+    if (typeof x !== "string") return null;
+    const s = x.trim().replace(/\s+/g, " ");
+    if (!KUNSKAP.test(s) || harPersonnummer(s)) return null;
+    if (!ut.some((u) => u.toLowerCase() === s.toLowerCase())) ut.push(s);
+  }
+  return ut.length <= MAX_KUNSKAPER ? ut : null;
+}
+
+/**
  * Bilden på kortet. Webbläsaren beskär den till en kvadrat och kodar om den, så att metadata som
  * plats försvinner. Funktionen ser ändå till att inget följer med: WebP godtas bara i det enkla
  * formatet utan utökade block, och ur en JPEG tas EXIF-, XMP- och IPTC-blocken bort. Safari kodar
@@ -247,6 +266,7 @@ export type Profilfalt = {
   kommun: string | null;
   distans: boolean;
   omraden: string[];
+  kunskaper: string[];
   bolag_namn: string | null;
   bolag_webbplats: string | null;
 };
@@ -265,6 +285,7 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
   const erbjuder = text(body.erbjuder, 20);
   const kommunText = text(body.kommun, 4);
   const omraden = giltigaOmraden(body.omraden ?? []);
+  const kunskaper = giltigaKunskaper(body.kunskaper ?? []);
   const bolagNamn = text(body.bolag_namn, 80);
   const bolagWebbText = text(body.bolag_webbplats, 300);
   const bolagWebb = bolagWebbText ? httpsAdress(bolagWebbText) : null;
@@ -276,6 +297,7 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
   if (kommunText && !giltigKommun(kommunText)) fel.push("kommun");
   if (typeof body.distans !== "boolean") fel.push("distans");
   if (!omraden) fel.push("omraden");
+  if (!kunskaper) fel.push("kunskaper");
   if (bolagNamn && !giltigText(bolagNamn, 80)) fel.push("bolag_namn");
   if (bolagWebbText && !bolagWebb) fel.push("bolag_webbplats");
   if (body.samtycke !== true) fel.push("samtycke");
@@ -290,6 +312,7 @@ export function lasProfil(body: Record<string, unknown>): { falt: Profilfalt } |
       kommun: kommunText || null,
       distans: body.distans as boolean,
       omraden: omraden!,
+      kunskaper: kunskaper!,
       bolag_namn: bolagNamn || null,
       bolag_webbplats: bolagWebb,
     },
