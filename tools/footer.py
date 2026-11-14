@@ -84,7 +84,6 @@ HTML = f"""{HTML_START}
         <a href="/gollum">Gollum-testet</a>
         {lank_ut("https://www.techembassy.se/", "Tech Embassy")}
         {lank_ut("https://infra.opensverige.se", "AI-Infra")}
-        {lank_ut("https://agent.opensverige.se", "Agent Scanner")}
       </nav>
 
       <nav class="scol" aria-labelledby="f-foreningen">
