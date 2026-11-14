@@ -245,15 +245,16 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 .chrome .lv{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ok);display:flex;align-items:center;gap:5px}
 .chrome .lv::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s var(--snap) infinite}
-/* Rubrikpanel istället för skärmdump: målsajtens h1 på enfärgad yta.
-   Kortet lovar mindre och man klickar sig vidare för att se sajten. */
-.hl{display:flex;align-items:center;min-height:132px;padding:24px 22px;
-  background:#f2f0ec;border-bottom:1px solid var(--hair)}
-.hl .hlt{font-family:var(--serif);font-weight:400;font-size:27px;line-height:1.14;
-  letter-spacing:-.02em;color:var(--ink);max-width:24ch;
-  transition:color var(--t)}
-.prod:hover .hl .hlt{color:var(--accent)}
-@media(min-width:900px){.hl{min-height:148px}.hl .hlt{font-size:30px}}
+/* Thumbnails: skärmdumpar av målsajterna, tagna i 2x och sparade som webp i
+   1200 x 750. Tas om när en sajt byter utseende, med samma fönster så att de
+   håller ihop: kartan och infra 1280x800, agent 1040x650, gollum 880x550.
+   Kartan kräver WebGL och några sekunders väntan innan bilden tas.
+   Toppen visas, eftersom det är där varje sajt säger vad den är. */
+.thumb{aspect-ratio:16/10;overflow:hidden;background:#f2f0ec;border-bottom:1px solid var(--hair)}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;
+  transition:transform 700ms cubic-bezier(.16,1,.3,1)}
+.prod:hover .thumb img{transform:scale(1.025)}
+@media(prefers-reduced-motion:reduce){.thumb img{transition:none}.prod:hover .thumb img{transform:none}}
 .ptx{padding:18px 20px 20px}
 .ptx h3{font-size:20px;font-weight:700;letter-spacing:-.03em}
 .ptx p{font-size:14.5px;line-height:1.5;color:var(--muted);margin-top:8px}
@@ -1041,7 +1042,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       <div class="prods">
         <a class="prod rv" href="https://www.techembassy.se/" target="_blank" rel="noopener noreferrer">
           <div class="chrome"><i></i><i></i><i></i><span class="url">techembassy.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
-          <div class="hl"><span class="hlt">Vilka bygger AI i Sverige?</span></div>
+          <div class="thumb"><img src="/assets/bygget/tech-embassy.webp" alt="Tech Embassy: Sverigekartan med antal AI-organisationer per län" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
             <h3>Tech Embassy</h3>
             <p>Sveriges öppna AI-karta. Bolag, myndigheter, lärosäten och communityn. Varje uppgift har källa och datum. Lägg till dig själv.</p>
@@ -1050,7 +1051,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         </a>
         <a class="prod rv" href="https://agent.opensverige.se" target="_blank" rel="noopener noreferrer">
           <div class="chrome"><i></i><i></i><i></i><span class="url">agent.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
-          <div class="hl"><span class="hlt">Hur agent-redo är din sajt?</span></div>
+          <div class="thumb"><img src="/assets/bygget/agent.webp" alt="Agent Readiness Scanner: Rekommenderar AI ditt företag? med fält för din domän" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
             <h3>Agent Readiness Scanner</h3>
             <p>Skannar din sajt och visar vad AI-agenter ser — och vad som blockerar dem. 13 kontroller, 30 sekunder.</p>
@@ -1059,7 +1060,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         </a>
         <a class="prod rv" href="https://infra.opensverige.se" target="_blank" rel="noopener noreferrer">
           <div class="chrome"><i></i><i></i><i></i><span class="url">infra.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
-          <div class="hl"><span class="hlt">Hitta rätt svensk AI-infrastruktur.</span></div>
+          <div class="thumb"><img src="/assets/bygget/infra.webp" alt="AI-Infra: jämförelsetabell över svenska AI-leverantörer" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
             <h3>AI-Infra</h3>
             <p>Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt.</p>
@@ -1068,7 +1069,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         </a>
         <a class="prod rv" href="/gollum">
           <div class="chrome"><i></i><i></i><i></i><span class="url">opensverige.se/gollum</span><span class="lv">live</span><i class="ext" aria-hidden="true">→</i></div>
-          <div class="hl"><span class="hlt">Är du Gollum?</span></div>
+          <div class="thumb"><img src="/assets/bygget/gollum.webp" alt="Gollum-testet: Är du Gollum? med knappen Starta testet" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
             <h3>Gollum-testet</h3>
             <p>Tio brutalt ärliga frågor. Bygger du, eller sitter du fast i AI-loopen? 90 sekunder, ingen inloggning.</p>
