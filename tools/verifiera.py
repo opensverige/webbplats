@@ -73,11 +73,12 @@ def bygg_sitemap(sidor):
         else:
             varning.append(f"sitemap: {sv} saknar prioritet, hoppas över")
             continue
-        loc = BASE + ("" if sv == "/" else sv)
+        # Samma form som startsidans canonical, annars ser Google två adresser.
+        loc = BASE + ("/" if sv == "/" else sv)
         poster.append((loc, pri, frek))
 
     # Startsidan först, sen efter prioritet
-    poster.sort(key=lambda x: (x[0] != BASE, -float(x[1]), x[0]))
+    poster.sort(key=lambda x: (x[0] != BASE + "/", -float(x[1]), x[0]))
 
     rader = [
         '<?xml version="1.0" encoding="UTF-8"?>',
