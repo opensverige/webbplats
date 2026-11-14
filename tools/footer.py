@@ -47,7 +47,8 @@ CSS = f"""{CSS_START}
 .vh{{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}}
 @media(min-width:640px){{.scols{{grid-template-columns:repeat(2,1fr)}}}}
-@media(min-width:960px){{.scols{{grid-template-columns:1.5fr repeat(4,1fr);gap:28px}}}}
+@media(min-width:640px) and (max-width:959px){{.scols{{grid-template-columns:repeat(3,1fr)}}.scols>div:first-child{{grid-column:1/-1}}}}
+@media(min-width:960px){{.scols{{grid-template-columns:1.5fr repeat(5,1fr);gap:28px}}}}
 @media(min-width:1080px){{.sfin{{padding:0 46px}}}}
 {CSS_SLUT}"""
 
@@ -76,6 +77,14 @@ HTML = f"""{HTML_START}
         <a href="/showcase">Showcase</a>
         <a href="/blogg">Blogg</a>
         <a href="/varfor">Varför opensverige</a>
+      </nav>
+
+      <nav class="scol" aria-labelledby="f-verktyg">
+        <div class="scl" id="f-verktyg">Verktyg</div>
+        <a href="/gollum">Gollum-testet</a>
+        {lank_ut("https://www.techembassy.se/", "Tech Embassy")}
+        {lank_ut("https://infra.opensverige.se", "AI-Infra")}
+        {lank_ut("https://agent.opensverige.se", "Agent Scanner")}
       </nav>
 
       <nav class="scol" aria-labelledby="f-foreningen">
