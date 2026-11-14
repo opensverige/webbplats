@@ -15,6 +15,10 @@ annanstans — därför ligger den i repot.
 | `functions/medlem/hjalp.ts` | Rena hjälpfunktioner: escaping, validering, token |
 | `functions/medlem/hjalp_test.ts` | Tester för dem, `deno test --allow-net=jsr.io` |
 | `schema.sql` | Tabellerna `medlemmar`, `anmalningar`, `anmalan_forsok` och `utskick` |
+| `functions/uppdrag/` | Edge-funktionen bakom Tar uppdrag på AI-kartan, se nedan |
+| `migrations/20261108_uppdrag.sql` | Tabellerna för Tar uppdrag, driftsatta som migreringen `uppdrag` |
+| `migrations/20261109_uppdrag_stadning.sql` | Nattlig städning med pg_cron, migreringen `uppdrag_stadning` |
+| `migrations/20261110_uppdrag_kunskaper.sql` | Kunskaper som medlemmen skriver själv, migreringen `uppdrag_kunskaper` |
 
 ## Flödet i två steg
 
@@ -159,6 +163,70 @@ nummer.
 
 Numret räknas om från 1 med `alter table medlemmar alter column nummer restart
 with 1`. Det får bara göras när registret är tomt.
+
+## Tar uppdrag
+
+Föreningsmedlemmar som visar på AI-kartan att de tar uppdrag eller säljer tjänster, på
+<https://karta.opensverige.se/uppdrag>. Funktionen `uppdrag` driftsattes 2026-11-08 och är
+skild från `medlem`, som inte rörs. Den läser `medlemmar` men skriver aldrig dit.
+
+**Bara aktiva medlemmar som är personer.** Medlemmen skriver sin e-post på kartan. Är adressen
+en aktiv fysisk medlem mejlas en engångslänk som gäller i 30 minuter. Koden ligger efter `#`,
+så den når aldrig en server eller en logg. Sidan på kartan byter den mot en session på en timme
+med `POST /uppdrag/session` först när medlemmen klickar på Öppna min profil, så att inte ens en
+mejlskanner som kör JavaScript förbrukar den. Svaret på `POST /uppdrag/lank` är detsamma för alla adresser, och uppslaget sker
+efter att svaret skickats, så att varken svaret eller tiden säger något om vem som är medlem.
+Registret är beviset. Ingen admin, nyckel eller modell behöver kontrollera någon.
+
+**Profilerna ligger här, aldrig i kartans git.** Git sparar allt för alltid, och en profil som
+tas bort ska vara borta. Kartan ritar korten i webbläsaren från `GET /uppdrag` och bakar aldrig
+in dem i bygget.
+
+| Anrop | Gör |
+| --- | --- |
+| `GET /uppdrag` | Publicerade profiler ur vyn `uppdrag_publika`, bara aktiva fysiska medlemmar |
+| `GET /uppdrag/k/<slug>` | Räknar ett klick per profil och dag och skickar vidare. Robotar räknas inte |
+| `GET /uppdrag/b/<slug>` | Profilens bild, bara så länge profilen syns i `uppdrag_publika` |
+| `POST /uppdrag/lank` | Mejlar engångslänken, om adressen är en aktiv fysisk medlem |
+| `POST /uppdrag/session` | Byter länken mot en session, ger medlemmens egen profil och klicken för 30 dagar |
+| `PUT /uppdrag/profil` | Sparar och publicerar, med bilden som data-adress. Sessionen skickas i huvudet `x-uppdrag-session` |
+| `DELETE /uppdrag/profil` | Raderar profilen, bilden och klicken direkt |
+
+- **Inga personnummer.** Tio siffror i följd avvisas i namn, rubrik och bolagsnamn, i funktionen
+  och i CHECK-villkoren. Det fångar också en enskild firmas organisationsnummer.
+- **Samtycke** är skilt från medlemskapet. `samtycke_version` och `samtycke_at` sparas vid
+  varje sparning. Texten står på kartans sida `/uppdrag/redigera`, version 3.
+- **Utträde** döljer profilen direkt, eftersom vyn bara visar aktiva medlemmar. Profilen och
+  klicken raderas 30 dagar efter utträdet, och klick sparas i 90 dagar. Det sköter pg_cron-jobbet
+  `uppdrag-stada` varje natt kl. 03.17 UTC, med funktionen `uppdrag_stada()` ur migreringen
+  `uppdrag_stadning`, oavsett om någon använder sidan.
+- **Mejltaket.** Länkarna räknas mot samma 90 per dygn i `utskick` som anmälan, och har ett eget
+  tak på 30 per dygn och 3 per medlem och timme, så att de aldrig tränger undan en anmälan.
+- **Hastighetsgräns** per nätverk i `uppdrag_forsok`, skild från `anmalan_forsok`.
+- **Origin.** `https://karta.opensverige.se` och för utveckling `localhost:4321` och `4322`.
+- **Kunskaper** är högst sex korta ord som medlemmen skriver själv, som RAG eller Python, högst
+  24 tecken var. Funktionen avvisar länkar, adresser och tio siffror i följd, och tabellen håller
+  taket. De står på raden i listan och går att söka på.
+- **Bilden** är frivillig. Medlemmens webbläsare beskär den till 512 × 512 och kodar om den, och
+  funktionen tar dessutom bort EXIF-, XMP- och IPTC-block ur en JPEG och godtar bara enkel WebP.
+  Den ligger i lagringen `uppdrag-bilder`, som inte är publik, och lämnas ut genom `/b/<slug>`.
+  Bilder utan profil städas bort när någon sparar och ibland när listan hämtas.
+- **Styrelsen avpublicerar** en profil genom att radera raden i `uppdrag_profiler` i dashboarden.
+- **En olämplig bild** tas bort utan att profilen försvinner:
+  1. `update public.uppdrag_profiler set bild = null where slug = '<slug>';` tar bort den från
+     sajten direkt. Raden visar pixelhanden tills medlemmen lägger upp en ny bild.
+  2. Radera filen i Storage, `uppdrag-bilder`, eller vänta på städningen.
+
+Funktionen driftsätts som `medlem`, med `verify_jwt` avstängt och båda filerna:
+
+```sh
+cd supabase/functions/uppdrag
+deno test --allow-net=jsr.io hjalp_test.ts && deno check index.ts
+curl -sS -X POST -H "Authorization: Bearer $SB" \
+  "https://api.supabase.com/v1/projects/$REF/functions/deploy?slug=uppdrag" \
+  -F 'metadata={"entrypoint_path":"index.ts","name":"uppdrag","verify_jwt":false};type=application/json' \
+  -F "file=@index.ts" -F "file=@hjalp.ts"
+```
 
 ## Röstlängden
 

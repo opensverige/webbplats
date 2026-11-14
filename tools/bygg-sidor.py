@@ -727,10 +727,17 @@ def bygg_integritet(css):
   <p><b>Vi frågar aldrig efter personnummer.</b> Föreningen tar inte emot betalningar via sajten och lagrar inga betaluppgifter — medlemsavgiften är frivillig enligt § 4.</p>
   <p><b>Varför.</b> Registret är föreningens röstlängd enligt § 8. Vi behöver det för att kunna kalla till årsmöte, veta vem som får rösta och kunna nå dig som medlem. Den lagliga grunden är <b>avtal</b> (GDPR artikel 6.1b) — medlemskapet är en överenskommelse mellan dig och föreningen.</p>
   <p><b>Vem ser det.</b> Styrelsen. Registret ligger hos Supabase i Stockholm och är inte läsbart utifrån. Vi delar det inte med någon, och det publiceras aldrig.</p>
-  <p><b>Vem mer behandlar uppgifterna.</b> Två leverantörer, båda inom EU och båda enbart på vårt uppdrag. <b>Supabase</b> lagrar registret i Stockholm. <b>Resend</b> skickar bekräftelse- och välkomstmejlet från Irland och sparar mottagaradress och ämnesrad i sin logg i trettio dagar. Ingen av dem får använda uppgifterna till något eget.</p>
+  <p><b>Vem mer behandlar uppgifterna.</b> Två leverantörer, båda inom EU och båda enbart på vårt uppdrag. <b>Supabase</b> lagrar registret i Stockholm. <b>Resend</b> skickar bekräftelse- och välkomstmejlet, och länken till Tar uppdrag, från Irland och sparar mottagaradress och ämnesrad i sin logg i trettio dagar. Ingen av dem får använda uppgifterna till något eget.</p>
   <p><b>Hur länge.</b> Så länge du är medlem. Går du ur raderas inte raden automatiskt — den märks med utträdesdatum så att tidigare röstlängder går att styrka i efterhand. Vill du bli helt borttagen ur registret räcker det att du säger till.</p>
   <p><b>Skräpskydd.</b> När formuläret skickas sparar vi en envägshash av din IP-adress i högst ett dygn, för att hindra massanmälningar. Själva adressen sparas aldrig, och hashen går inte att räkna baklänges till den. Vi räknar också hur många mejl som skickats per dygn, utan någon koppling till vem. Grunden är <b>berättigat intresse</b> (artikel 6.1f) av att skydda röstlängden.</p>
-  <p><b>Mejlen.</b> Två stycken: länken som bekräftar adressen, och kvittot med ditt medlemsnummer när du klickat. Det är den enda post vi skickar automatiskt. Vi har inget nyhetsbrev och lägger dig inte i någon utskickslista.</p>
+  <p><b>Mejlen.</b> Två stycken: länken som bekräftar adressen, och kvittot med ditt medlemsnummer när du klickat. Ber du själv om en länk till Tar uppdrag, se nedan, skickar vi den också. Det är den enda post vi skickar automatiskt. Vi har inget nyhetsbrev och lägger dig inte i någon utskickslista.</p>
+
+  <h3>Tar uppdrag på AI-kartan</h3>
+  <p>Som medlem kan du själv visa att du tar uppdrag eller säljer tjänster, på <a href="https://karta.opensverige.se/uppdrag">karta.opensverige.se/uppdrag</a>. Det är frivilligt och skilt från medlemskapet. Du skriver din e-post, och är du aktiv medlem mejlar vi en engångslänk till adressen i registret. Sidan säger samma sak oavsett adress, så ingen kan pröva sig fram till vem som är medlem.</p>
+  <p><b>Vad som syns.</b> Det du själv fyller i: namn, en rad om vad du gör, en länk och, om du vill, kunskaper, områden, kommun, bolag och en bild. Raden visar att du är medlem, och allt på den går att söka på i listan. Har du valt kommun står en hand i kommunens mitt på kartan, aldrig närmare. Din e-post, ditt medlemsnummer och ditt personnummer visas aldrig.</p>
+  <p><b>Bilden och det som hämtas.</b> Bilden är frivillig. Den beskärs i din webbläsare, så platsuppgifter i filen följer inte med. Den sparas så att bara kartan kan visa den, och raderas med profilen. Du kan låta din webbläsare hämta det som ligger öppet på din egen länk: bilden slås upp av unavatar.io, som får ditt användarnamn på X eller GitHub eller din sidas adress, och från GitHub hämtas också din presentation och språken i dina öppna kodförråd som förslag. Det sker bara när du trycker på knappen, och inget sparas förrän du sparar. Från LinkedIn hämtas ingenting, och föreningen hämtar aldrig något om dig på egen hand.</p>
+  <p><b>Var och hur länge.</b> Profilen ligger i samma databas hos Supabase i Stockholm, aldrig i kartans öppna kodförråd. Den syns tills du tar bort den, och då raderas den direkt. Går du ur föreningen döljs den samma dag och raderas efter trettio dagar. Klick på din länk räknas per dag, utan något om den som klickar, och raderas efter nittio dagar.</p>
+  <p><b>Grund.</b> Ditt <b>samtycke</b> (artikel 6.1a), som du lämnar när du publicerar och tar tillbaka genom att ta bort profilen. Mer på <a href="https://karta.opensverige.se/integritet#uppdrag">kartans integritetssida</a>.</p>
 
   <h3>Webbplatsen</h3>
   <p><b>Vercel Analytics</b> — anonymiserad besöksstatistik. Inga cookies. Ingen personidentifiering. Vi ser sidvisningar och ungefärligt land, inte vem du är.</p>
@@ -764,6 +771,7 @@ def bygg_integritet(css):
 
   <h2>Laglig grund</h2>
   <p><b>Medlemsregistret</b> behandlas med stöd av <b>avtal</b> (GDPR artikel 6.1b). Medlemskapet är en överenskommelse mellan dig och föreningen, och registret är röstlängden enligt § 8.</p>
+  <p><b>Tar uppdrag</b> bygger på ditt <b>samtycke</b> (artikel 6.1a), skilt från medlemskapet.</p>
   <p>Övrig behandling vilar på <b>berättigat intresse</b> (artikel 6.1f) för att driva communityn och skydda den mot missbruk. För email-kommunikation baseras behandlingen på <b>samtycke</b> — du kontaktade oss.</p>
   <p>Vi fattar inga automatiserade beslut som har rättslig eller liknande effekt på dig (GDPR artikel 22). Ingen profilering används för att fatta sådana beslut.</p>
 
