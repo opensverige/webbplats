@@ -240,7 +240,12 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 /* Tre kort får plats på en rad när railen och spalten ger dem minst 330 px var. */
 @media(min-width:1280px){.prods:has(> .prod:first-child:nth-last-child(3)){grid-template-columns:repeat(3,1fr)}
   .prods .prod:first-child:nth-last-child(3){grid-column:auto}
-  .prods .prod:first-child:nth-last-child(3) .thumb{aspect-ratio:16/10}}
+  .prods .prod:first-child:nth-last-child(3) .thumb{aspect-ratio:16/10}
+  .prods:has(> .prod:first-child:nth-last-child(5)){grid-template-columns:repeat(6,1fr)}
+  .prods .prod:first-child:nth-last-child(5),.prods .prod:first-child:nth-last-child(5) ~ .prod{grid-column:span 2}
+  .prods .prod:first-child:nth-last-child(5) .thumb{aspect-ratio:16/10}
+  .prods .prod:first-child:nth-last-child(5) ~ .prod:nth-child(n+4){grid-column:span 3}
+  .prods .prod:first-child:nth-last-child(5) ~ .prod:nth-child(n+4) .thumb{aspect-ratio:12/5}}
 .prod{display:block;background:var(--surface);border:1px solid var(--hair);border-radius:7px;overflow:hidden;
   box-shadow:0 1px 2px rgba(0,0,0,.03);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
 .prod:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(20,8,4,.32);border-color:#cfcac2}
@@ -738,7 +743,7 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
       "@type": "ItemList",
       "@id": "https://opensverige.se/#projekt",
       "name": "Projekt byggda i opensverige",
-      "description": "Öppna projekt som startat i communityn.",
+      "description": "Öppna projekt från communityn.",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -792,6 +797,31 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
             "operatingSystem": "Web",
             "inLanguage": "sv-SE",
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SEK" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "SoftwareSourceCode",
+            "name": "openaudit",
+            "url": "https://openaudit.se",
+            "description": "Gratis granskning av kod och sajter: säkerhet, läckta nycklar, prestanda och tillgänglighet. Körs från CI eller via MCP.",
+            "codeRepository": "https://github.com/wezter96/openaudit",
+            "license": "https://opensource.org/licenses/MIT"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "SoftwareSourceCode",
+            "name": "BitNomad Skills",
+            "url": "https://github.com/BitNomadAB/Skills",
+            "description": "Gratis skills för kodagenter: arkitektur, affärsmodell och riskanalys med etablerade metoder som ATAM, FMEA och Lean Canvas.",
+            "codeRepository": "https://github.com/BitNomadAB/Skills",
+            "programmingLanguage": "Python",
+            "license": "https://www.apache.org/licenses/LICENSE-2.0"
           }
         }
       ]
@@ -1057,6 +1087,24 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
             <h3>Gollum-testet</h3>
             <p>Tio brutalt ärliga frågor. Bygger du, eller sitter du fast i AI-loopen? 90 sekunder, ingen inloggning.</p>
             <span class="pgo">Gör testet <i aria-hidden="true">→</i></span>
+          </div>
+        </a>
+        <a class="prod rv" href="https://openaudit.se" target="_blank" rel="noopener noreferrer">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">openaudit.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
+          <div class="thumb"><img src="/assets/bygget/openaudit.webp" alt="openaudit: rubriken AI wrote it. Nobody checked it. bredvid betyget A, 100 av 100" width="1200" height="750" loading="lazy" decoding="async"></div>
+          <div class="ptx">
+            <h3>openaudit</h3>
+            <p>AI skrev koden. Ingen kollade den. openaudit letar säkerhetshål, läckta nycklar och tillgänglighetsfel. Sen får din AI listan att fixa.</p>
+            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
+          </div>
+        </a>
+        <a class="prod rv" href="https://github.com/BitNomadAB/Skills" target="_blank" rel="noopener noreferrer">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">github.com/BitNomadAB/Skills</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
+          <div class="thumb"><img src="/assets/bygget/skills.webp" alt="BitNomad Skills på GitHub: Vibe coding is great. But who checks if your idea actually makes sense?" width="1200" height="750" loading="lazy" decoding="async"></div>
+          <div class="ptx">
+            <h3>BitNomad Skills</h3>
+            <p>Gratis skills för din kodagent. Arkitektur, affärsmodell och riskanalys med beprövade metoder. Låt AI:n ifrågasätta det du bygger.</p>
+            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
           </div>
         </a>
       </div>
