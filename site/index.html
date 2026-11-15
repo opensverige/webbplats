@@ -232,52 +232,33 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
 
 /* ============ PRODUKTER ============ */
 #bygget h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
-.prods{display:grid;gap:18px;padding:6px var(--gut) 0}
-@media(min-width:900px){.prods{grid-template-columns:1fr 1fr;gap:22px}
-  .prods .prod:first-child:nth-last-child(odd){grid-column:1/-1}
-  /* Ett helbrett kort får en lägre bild, annars tar skärmdumpen hela skärmen. */
-  .prods .prod:first-child:nth-last-child(odd) .thumb{aspect-ratio:21/8}}
-/* Tre kort får plats på en rad när railen och spalten ger dem minst 330 px var. */
-@media(min-width:1280px){.prods:has(> .prod:first-child:nth-last-child(3)){grid-template-columns:repeat(3,1fr)}
-  .prods .prod:first-child:nth-last-child(3){grid-column:auto}
-  .prods .prod:first-child:nth-last-child(3) .thumb{aspect-ratio:16/10}
-  .prods:has(> .prod:first-child:nth-last-child(5)){grid-template-columns:repeat(6,1fr)}
-  .prods .prod:first-child:nth-last-child(5),.prods .prod:first-child:nth-last-child(5) ~ .prod{grid-column:span 2}
-  .prods .prod:first-child:nth-last-child(5) .thumb{aspect-ratio:16/10}
-  .prods .prod:first-child:nth-last-child(5) ~ .prod:nth-child(n+4){grid-column:span 3}
-  .prods .prod:first-child:nth-last-child(5) ~ .prod:nth-child(n+4) .thumb{aspect-ratio:12/5}}
-.prod{display:block;background:var(--surface);border:1px solid var(--hair);border-radius:7px;overflow:hidden;
+/* Kompakta kort: bild, namn och en rad. Rutnätet växer med fler projekt
+   utan att varje kort tar en halv skärm. */
+.prods{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:6px var(--gut) 0}
+@media(min-width:700px){.prods{grid-template-columns:repeat(3,1fr);gap:16px}}
+@media(min-width:1600px){.prods{grid-template-columns:repeat(4,1fr)}}
+.prod{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--hair);border-radius:7px;overflow:hidden;
   box-shadow:0 1px 2px rgba(0,0,0,.03);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
 .prod:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(20,8,4,.32);border-color:#cfcac2}
-.chrome{display:flex;align-items:center;gap:6px;padding:0 13px;height:34px;background:#f2f0ec;border-bottom:1px solid var(--hair)}
-.chrome i{width:8px;height:8px;border-radius:50%;background:#d8d4cd;flex:none}
-.chrome .url{margin-left:9px;font-family:var(--mono);font-size:11px;color:var(--muted);
-  background:var(--surface);border:1px solid var(--hair);border-radius:100px;padding:3px 11px}
-.chrome .lv{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ok);display:flex;align-items:center;gap:5px}
-.chrome .lv::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s var(--snap) infinite}
 /* Thumbnails: skärmdumpar av målsajterna, tagna i 2x och sparade som webp i
    1200 x 750. Tas om när en sajt byter utseende, med samma fönster så att de
-   håller ihop: kartan och infra 1280x800, agent 1040x650, gollum 880x550.
-   Kartan kräver WebGL och några sekunders väntan innan bilden tas.
-   Toppen visas, eftersom det är där varje sajt säger vad den är. */
+   håller ihop: 1280x800, utom gollum 880x550. Kartan kräver WebGL och några
+   sekunders väntan innan bilden tas. Toppen visas, eftersom det är där varje
+   sajt säger vad den är. */
 .thumb{aspect-ratio:16/10;overflow:hidden;background:#f2f0ec;border-bottom:1px solid var(--hair)}
 .thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;
   transition:transform 700ms cubic-bezier(.16,1,.3,1)}
 .prod:hover .thumb img{transform:scale(1.025)}
 @media(prefers-reduced-motion:reduce){.thumb img{transition:none}.prod:hover .thumb img{transform:none}}
-.ptx{padding:18px 20px 20px}
-.ptx h3{font-size:20px;font-weight:700;letter-spacing:-.03em}
-.ptx p{font-size:14.5px;line-height:1.5;color:var(--muted);margin-top:8px}
-.pgo{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink);margin-top:15px}
-.pgo i{font-style:normal;color:var(--accent);transition:transform var(--t)}
-.prod:hover .pgo i{transform:translate(3px,-3px)}
-/* Extern länk: ↗ i webbläsarramen så det syns före klicket, inte bara i texten */
-.chrome .ext{margin-left:auto;font-style:normal;font-size:14px;line-height:1;color:var(--muted);
+.ptx{display:flex;flex-direction:column;flex:1;padding:12px 13px 13px}
+.ptx h3{display:flex;align-items:baseline;gap:8px;font-size:15.5px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.ptx h3 i{margin-left:auto;font-style:normal;font-weight:400;font-size:14px;color:var(--muted);
   transition:color var(--t),transform var(--t)}
-.chrome .lv + .ext{margin-left:9px}
-.prod:hover .chrome .ext{color:var(--accent);transform:translate(2px,-2px)}
+.prod:hover .ptx h3 i{color:var(--accent);transform:translate(2px,-2px)}
+.ptx p{font-size:13px;line-height:1.4;color:var(--muted);margin-top:5px}
+.host{margin-top:auto;padding-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--faint);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(min-width:700px){.ptx{padding:14px 16px 15px}.ptx h3{font-size:17px}.ptx p{font-size:14px}}
 .more{padding:26px var(--gut)}
 .more p{font-size:16px;line-height:1.55;color:var(--muted);max-width:56ch}
 .more p b{color:var(--ink);font-weight:600}
@@ -1063,48 +1044,43 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc
         <p class="lede rv">Ingen beställde dem. Någon började bygga och andra hängde på.</p></div>
       <div class="prods">
         <a class="prod rv" href="https://www.techembassy.se/" target="_blank" rel="noopener noreferrer">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">techembassy.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="thumb"><img src="/assets/bygget/tech-embassy.webp" alt="Tech Embassy: Sverigekartan med antal AI-organisationer per län" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
-            <h3>Tech Embassy</h3>
-            <p>Sveriges öppna AI-karta. Bolag, myndigheter, lärosäten och communityn. Varje uppgift har källa och datum. Lägg till dig själv.</p>
-            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
+            <h3>Tech Embassy<span class="vh">, öppnas i ny flik</span><i aria-hidden="true">↗</i></h3>
+            <p>Sveriges öppna AI-karta, med källor.</p>
+            <span class="host">techembassy.se</span>
           </div>
         </a>
         <a class="prod rv" href="https://infra.opensverige.se" target="_blank" rel="noopener noreferrer">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">infra.opensverige.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="thumb"><img src="/assets/bygget/infra.webp" alt="AI-Infra: jämförelsetabell över svenska AI-leverantörer" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
-            <h3>AI-Infra</h3>
-            <p>Jämför svenska och europeiska AI-leverantörer på datasuveränitet, modeller, pris och GDPR. Källbelagt.</p>
-            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
+            <h3>AI-Infra<span class="vh">, öppnas i ny flik</span><i aria-hidden="true">↗</i></h3>
+            <p>Jämför svensk och europeisk AI-infra.</p>
+            <span class="host">infra.opensverige.se</span>
           </div>
         </a>
         <a class="prod rv" href="/gollum">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">opensverige.se/gollum</span><span class="lv">live</span><i class="ext" aria-hidden="true">→</i></div>
           <div class="thumb"><img src="/assets/bygget/gollum.webp" alt="Gollum-testet: Är du Gollum? med knappen Starta testet" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
-            <h3>Gollum-testet</h3>
-            <p>Tio brutalt ärliga frågor. Bygger du, eller sitter du fast i AI-loopen? 90 sekunder, ingen inloggning.</p>
-            <span class="pgo">Gör testet <i aria-hidden="true">→</i></span>
+            <h3>Gollum-testet<i aria-hidden="true">→</i></h3>
+            <p>Bygger du, eller loopar du? 90 sekunder.</p>
+            <span class="host">opensverige.se/gollum</span>
           </div>
         </a>
         <a class="prod rv" href="https://openaudit.se" target="_blank" rel="noopener noreferrer">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">openaudit.se</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="thumb"><img src="/assets/bygget/openaudit.webp" alt="openaudit: rubriken AI wrote it. Nobody checked it. bredvid betyget A, 100 av 100" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
-            <h3>openaudit</h3>
-            <p>AI skrev koden. Ingen kollade den. openaudit letar säkerhetshål, läckta nycklar och tillgänglighetsfel. Sen får din AI listan att fixa.</p>
-            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
+            <h3>openaudit<span class="vh">, öppnas i ny flik</span><i aria-hidden="true">↗</i></h3>
+            <p>Granskar koden din AI skrev.</p>
+            <span class="host">openaudit.se</span>
           </div>
         </a>
         <a class="prod rv" href="https://github.com/BitNomadAB/Skills" target="_blank" rel="noopener noreferrer">
-          <div class="chrome"><i></i><i></i><i></i><span class="url">github.com/BitNomadAB/Skills</span><span class="lv">live</span><i class="ext" aria-hidden="true">↗</i></div>
           <div class="thumb"><img src="/assets/bygget/skills.webp" alt="BitNomad Skills på GitHub: Vibe coding is great. But who checks if your idea actually makes sense?" width="1200" height="750" loading="lazy" decoding="async"></div>
           <div class="ptx">
-            <h3>BitNomad Skills</h3>
-            <p>Gratis skills för din kodagent. Arkitektur, affärsmodell och riskanalys med beprövade metoder. Låt AI:n ifrågasätta det du bygger.</p>
-            <span class="pgo">Öppna i ny flik <i aria-hidden="true">↗</i></span>
+            <h3>BitNomad Skills<span class="vh">, öppnas i ny flik</span><i aria-hidden="true">↗</i></h3>
+            <p>Skills som ifrågasätter din idé.</p>
+            <span class="host">github.com/BitNomadAB/Skills</span>
           </div>
         </a>
       </div>
